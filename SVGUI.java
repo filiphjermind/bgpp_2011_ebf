@@ -11,132 +11,111 @@ import javax.swing.*;
  *
  */
 public class SVGUI {
-	private JFrame frame;
-	private Container contentPane;
-	private JPanel leftPanel;
-	private JPanel rightPanel;
 	
 	public SVGUI()
 	{
-		makeFrame();
+		//makeFrame();
 	}
 	
+
+	
 	/**
-	 * Builds the frame.
+	 * Makes the west panel.
+	 * 
+	 * @return JPanel panel - The west panel.
 	 */
-	private void makeFrame()
+	public JPanel makeWestPanel()
 	{
-		frame = new JFrame("Specific Vehicle");
+		JPanel westPanel = new JPanel();
+		westPanel.setLayout(new GridLayout(0, 2));
 		
-		contentPane = frame.getContentPane();
-		contentPane.setLayout(new BorderLayout());
-		
-		// Creates the left panel, and adds it to the left side of the frame.
-		JPanel leftPanel = new JPanel();
-		frame.add(leftPanel, BorderLayout.WEST);
-		
-		// Creates a grid layout, and adds it to the left panel.
-		JPanel leftGrid = new JPanel();
-		leftGrid.setLayout(new GridLayout(0, 2));
-		leftPanel.add(leftGrid);
-		
-		// Creates all the labels, text fields and other
-		// components, and adds them to the grid.
 		JLabel vehicleLabel = new JLabel("Vehicle");
-		leftGrid.add(vehicleLabel);
+		westPanel.add(vehicleLabel);
 		
 		JTextField vehicleTF = new JTextField("TL 539 92");
 		vehicleTF.setEditable(false);
-		leftGrid.add(vehicleTF);
+		westPanel.add(vehicleTF);
 		
 		JLabel modelLabel = new JLabel("Model");
-		leftGrid.add(modelLabel);
+		westPanel.add(modelLabel);
 		
 		JTextField modelTF = new JTextField("Volvo");
 		modelTF.setEditable(false);
-		leftGrid.add(modelTF);
+		westPanel.add(modelTF);
 		
 		JLabel vehicleTypeLabel = new JLabel("Vehicle Type");
-		leftGrid.add(vehicleTypeLabel);
+		westPanel.add(vehicleTypeLabel);
 		
 		JTextField vehicleTypeTF = new JTextField("Stationcar, 4 doors");
 		vehicleTypeTF.setEditable(false);
-		leftGrid.add(vehicleTypeTF);
+		westPanel.add(vehicleTypeTF);
 		
 		JLabel priceLabel = new JLabel("Rate pr. day");
-		leftGrid.add(priceLabel);
+		westPanel.add(priceLabel);
 		
 		JTextField priceTF = new JTextField("600 kr");
 		priceTF.setEditable(false);
-		leftGrid.add(priceTF);
+		westPanel.add(priceTF);
 		
 		JLabel nextCheckLabel = new JLabel("Next annual check");
-		leftGrid.add(nextCheckLabel);
+		westPanel.add(nextCheckLabel);
 		
 		JTextField nextCheckTF = new JTextField("22.01.2012");
 		nextCheckTF.setEditable(false);
-		leftGrid.add(nextCheckTF);
+		westPanel.add(nextCheckTF);
 		
 		JLabel emptyLabel = new JLabel("");
-		leftGrid.add(emptyLabel);
+		westPanel.add(emptyLabel);
 		
 		JLabel emptyLabel2 = new JLabel("");
-		leftGrid.add(emptyLabel2);
+		westPanel.add(emptyLabel2);
 		
 		JSeparator separator = new JSeparator();
-		leftGrid.add(separator);
+		westPanel.add(separator);
 		
 		JSeparator separator2 = new JSeparator();
-		leftGrid.add(separator2);
-		
-		/*JLabel emptyLabel3 = new JLabel("");
-		leftGrid.add(emptyLabel3);
-		
-		JLabel emptyLabel4 = new JLabel("");
-		leftGrid.add(emptyLabel4);*/
+		westPanel.add(separator2);
 		
 		JLabel sendToServiceLabel = new JLabel("Send to service");
-		leftGrid.add(sendToServiceLabel);
+		westPanel.add(sendToServiceLabel);
 		
 		JLabel emptyLabel3 = new JLabel("");
-		leftGrid.add(emptyLabel3);
+		westPanel.add(emptyLabel3);
 		
 		JLabel sDateLabel = new JLabel("Start date");
-		leftGrid.add(sDateLabel);
+		westPanel.add(sDateLabel);
 		
 		JTextField sDateTF = new JTextField("10.01.2012");
 		sDateTF.setEditable(false);
-		leftGrid.add(sDateTF);
+		westPanel.add(sDateTF);
 		
 		JLabel eDateLabel = new JLabel("End date");
-		leftGrid.add(eDateLabel);
+		westPanel.add(eDateLabel);
 		
 		JTextField eDateTF = new JTextField("13.01.2012");
 		eDateTF.setEditable(false);
-		leftGrid.add(eDateTF);
+		westPanel.add(eDateTF);
 		
 		JLabel reasonLabel = new JLabel("Reason");
-		leftGrid.add(reasonLabel);
+		westPanel.add(reasonLabel);
 		
 		JTextField reasonTF = new JTextField("Oil change");
 		reasonTF.setEditable(false);
-		leftGrid.add(reasonTF);
+		westPanel.add(reasonTF);
 		
 		JLabel emptyLabel4 = new JLabel("");
-		leftGrid.add(emptyLabel4);
+		westPanel.add(emptyLabel4);
 		
 		JButton saveButton = new JButton("Save");
-		leftGrid.add(saveButton);
+		westPanel.add(saveButton);
 		
-		// Creates the right panel, and adds it to the center of the frame.
-		JPanel rightPanel = new JPanel();
-		frame.add(rightPanel, BorderLayout.CENTER);
+		JPanel westFLowPanel = new JPanel();
+		westFLowPanel.setLayout(new FlowLayout());
+		westFLowPanel.add(westPanel);
 		
-
-		// Building is done, pack and show the window.
-		frame.pack();
-		frame.setVisible(true);
+		return westFLowPanel;
 	}
+	
 	
 
 }
