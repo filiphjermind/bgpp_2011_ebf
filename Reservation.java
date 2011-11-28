@@ -217,7 +217,7 @@ public class Reservation {
 			
 			// make bottom panel for payment panel
 			JPanel paymentBottomPanel = new JPanel();
-			paymentPanel.setLayout(new FlowLayout());
+			paymentBottomPanel.setLayout(new FlowLayout());
 			paymentPanel.add(paymentBottomPanel);
 			
 			JButton saveButton = new JButton("Save Reservation");
