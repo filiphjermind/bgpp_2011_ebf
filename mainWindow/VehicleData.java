@@ -13,5 +13,14 @@ public class VehicleData {
 		this.vehicleClass = vehicleClass;
 		this.reservations = reservations;
 	}
+	public int getId() {
+		return id;
+	}
+	public String getVehicleClass() {
+		return vehicleClass;
+	}
+	public List<ReservationData> getReservations() {
+		return reservations;
+	}
 
 }
