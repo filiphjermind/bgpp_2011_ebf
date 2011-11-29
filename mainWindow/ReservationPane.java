@@ -1,6 +1,8 @@
 package mainWindow;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -67,6 +69,17 @@ public class ReservationPane extends JPanel {
 		
 		JButton bookButton = new JButton("Book");
 		newReservationBottomPanel.add(bookButton);
+		bookButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				book();
+			}
+		});
+		
+	}
+
+	protected void book() {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -100,8 +113,16 @@ public class ReservationPane extends JPanel {
 		
 		JButton searchButton = new JButton("Search");
 		changeReservationPanel.add(searchButton);
+		searchButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				search();
+			}
+		});
 		
-		// TODO Auto-generated method stub
+	}
+
+	protected void search() {
 		
 	}
 
