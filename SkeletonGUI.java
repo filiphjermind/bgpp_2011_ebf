@@ -1,10 +1,10 @@
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -25,6 +25,7 @@ import javax.swing.JTabbedPane;
  */
 
 public class SkeletonGUI {
+	private JTabbedPane tabbedPane;
 	
 	public SkeletonGUI()
 	{	
@@ -33,6 +34,7 @@ public class SkeletonGUI {
 		AllVehicles allVehicles = new AllVehicles();
 		TodaysReservations todaysReservations = new TodaysReservations();
 		TodaysReturns todaysReturns = new TodaysReturns();
+		Test test = new Test();
 		
 		// Create the frame, and tabbed pane for the skeleton.
 		JFrame frame = new JFrame("Skeleton");
@@ -45,9 +47,8 @@ public class SkeletonGUI {
 		// Create the individual tabs, and add them to the tabbedpane.
 		// Home tab.
 		JPanel homePanel = new JPanel();
-		homePanel.setLayout(new BorderLayout());
-		homePanel.add(svGui.makeWestPanel(), BorderLayout.WEST);
-		homePanel.add(svGui.makeCenterPanel(), BorderLayout.CENTER);
+		homePanel.setLayout(new FlowLayout());
+		homePanel.add(svGui.makeMainPanel());
 		tabbedPane.addTab("Home", homePanel);
 		
 		// Vehicle tab.
@@ -70,6 +71,11 @@ public class SkeletonGUI {
 		todaysReturnsPanel.add(todaysReturns.makeTopPanel(), BorderLayout.NORTH);
 		todaysReturnsPanel.add(todaysReturns.makePanel(), BorderLayout.CENTER);
 		tabbedPane.addTab("Todays returns", todaysReturnsPanel);
+		
+		// Test tab.
+		JPanel testPanel = new JPanel();
+		testPanel.add(test.makeMainPanel());
+		tabbedPane.addTab("TEST", testPanel);
 		
 		// Add the tabbed pane to the frame.
 		frame.add(tabbedPane, BorderLayout.NORTH);
@@ -166,6 +172,15 @@ public class SkeletonGUI {
 	 */
 	private void newReservation()
 	{
+		/*JPanel vehiclesPanel = new JPanel();
+		vehiclesPanel.setLayout(new BorderLayout());
+		vehiclesPanel.add(allVehicles.makePanel(), BorderLayout.NORTH);
+		vehiclesPanel.add(allVehicles.makeMainPanel(), BorderLayout.CENTER);
+		tabbedPane.addTab("Vehicles", vehiclesPanel);*/
+		JPanel reservationPanel = new JPanel();
+		reservationPanel.setLayout(new FlowLayout());
+		tabbedPane.addTab("Reservation", reservationPanel);
+		
 		
 	}
 	

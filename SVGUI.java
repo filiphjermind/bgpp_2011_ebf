@@ -27,13 +27,28 @@ public class SVGUI {
 		
 	}
 	
+	/**
+	 * Makes the panel.
+	 * Takes the panels from the other methods, and puts them together
+	 * into one panel.
+	 * 
+	 * @return JPanel panel - The main panel
+	 */
+	public JPanel makeMainPanel()
+	{
+		JPanel mainPanel = new JPanel();
+		mainPanel.setLayout(new BorderLayout());
+		mainPanel.add(makeWestPanel(), BorderLayout.WEST);
+		mainPanel.add(makeCenterPanel(), BorderLayout.CENTER);
+		return mainPanel;
+	}
 
 	/**
 	 * Makes the west panel.
 	 * 
 	 * @return JPanel westFlowPanel - The west panel.
 	 */
-	public JPanel makeWestPanel()
+	private JPanel makeWestPanel()
 	{
 		JPanel westPanel = new JPanel();
 		westPanel.setLayout(new GridLayout(0, 2));
@@ -137,7 +152,7 @@ public class SVGUI {
 	 * 
 	 * @return JPanel centerFlowPanel - the center panel.
 	 */
-	public JPanel makeCenterPanel()
+	private JPanel makeCenterPanel()
 	{
 		JTable table;
 		
@@ -159,9 +174,6 @@ public class SVGUI {
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		centerPanel.add(scrollPane);
-		
-		//JLabel tempLabel = new JLabel("This is just some sample text.\nThis is where the table is going to be.");
-		//centerPanel.add(tempLabel);
 		
 		JPanel centerFlowPanel = new JPanel();
 		centerFlowPanel.setBorder(new EtchedBorder());
