@@ -1,4 +1,5 @@
-package View;
+package view;
+
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -15,7 +16,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import HomeGui.MainWindow;
+import view.homeGui.MainWindow;
+
+
 
 
 

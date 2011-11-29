@@ -1,4 +1,5 @@
-package Model;
+package model;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -6,8 +7,10 @@ import java.util.List;
 
 import javax.swing.JCheckBox;
 
-import HomeGui.ReservationData;
-import HomeGui.VehicleData;
+import view.homeGui.ReservationData;
+import view.homeGui.VehicleData;
+
+
 
 
 /**

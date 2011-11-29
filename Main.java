@@ -1,4 +1,4 @@
-import View.FrameGUI;
+import view.FrameGUI;
 
 /**
  * Main class of the system.

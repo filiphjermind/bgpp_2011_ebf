@@ -1,4 +1,4 @@
-package HomeGui;
+package view.homeGui;
 
 import java.util.GregorianCalendar;
 
