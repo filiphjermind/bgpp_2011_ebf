@@ -70,6 +70,6 @@ public class MainWindow extends JFrame {
 		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 7), new GregorianCalendar(2011, 10, 10), false));
 		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 11), new GregorianCalendar(2011, 10, 23), false));
 		vehicles.add(new VehicleData(1, "segway", reservations));
-		middlePanel.updateDisplay(vehicles, null);
+		middlePanel.updateTable(vehicles, null);
 	}
 }
