@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class MiddlePanel extends JPanel {
-	private static final int PANEL_WIDTH = 800;
+	private static final int PANEL_WIDTH = 840;
 	private static final int PANEL_HEIGHT = 400;
 	private JLabel currentMonthLabel;
 	private GregorianCalendar viewDate;

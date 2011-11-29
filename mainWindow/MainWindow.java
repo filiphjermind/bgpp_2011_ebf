@@ -51,6 +51,11 @@ public class MainWindow extends JPanel{
 		carClasses.add("car, 4 doors");
 		carClasses.add("segway");
 		MainWindow mainWindow = new MainWindow(carClasses);
+		JFrame frame = new JFrame();
+		frame.add(mainWindow);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
 	}
 
 	public void updateVehiclesPane(ArrayList<JCheckBox> collectedCheckBoxes) {
