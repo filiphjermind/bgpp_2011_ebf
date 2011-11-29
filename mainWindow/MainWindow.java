@@ -17,32 +17,29 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
-public class MainWindow extends JFrame {
+public class MainWindow extends JPanel{
 	private FilterPanel filterPanel;
-	private JPanel contentPane;
 	private MiddlePanel middlePanel;
 
 	public MainWindow(List<String> carClasses) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		contentPane = (JPanel) getContentPane();
 		makeStructure(carClasses);
 		setVisible(true);
-		pack();
 		// TODO following line is only for testing. The method should be called
 		// from model
 		updateVehiclesPane(null);
 	}
 
 	private void makeStructure(List<String> carClasses) {
-		contentPane.setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 		JPanel filterPaneContainer = new JPanel(new FlowLayout());
 		filterPanel = new FilterPanel(carClasses, this);
 		filterPaneContainer.add(filterPanel);
 		filterPanel.setBorder(new TitledBorder("Vehicle Type"));
-		contentPane.add(filterPaneContainer, BorderLayout.WEST);
+		add(filterPaneContainer, BorderLayout.WEST);
 		middlePanel = new MiddlePanel(this);
-		contentPane.add(middlePanel, BorderLayout.CENTER);
-		contentPane.add(new ReservationPane(), BorderLayout.EAST);
+		middlePanel.setBorder(new TitledBorder("Overview"));
+		add(middlePanel, BorderLayout.CENTER);
+		add(new ReservationPane(), BorderLayout.EAST);
 
 	}
 

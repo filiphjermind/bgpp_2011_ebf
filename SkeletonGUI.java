@@ -3,6 +3,8 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -10,6 +12,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+
+import mainWindow.MainWindow;
 
 /**
  * This class contains the skeleton of the GUI.
@@ -46,9 +50,13 @@ public class SkeletonGUI {
 		
 		// Create the individual tabs, and add them to the tabbedpane.
 		// Home tab.
-		JPanel homePanel = new JPanel();
-		homePanel.setLayout(new FlowLayout());
-		homePanel.add(svGui.makeMainPanel());
+		List<String> carClasses = new ArrayList<String>();
+		carClasses.add("van");
+		carClasses.add("sportscar");
+		carClasses.add("car, 2 doors");
+		carClasses.add("car, 4 doors");
+		carClasses.add("segway");
+		JPanel homePanel = new MainWindow(carClasses);
 		tabbedPane.addTab("Home", homePanel);
 		
 		// Vehicle tab.
