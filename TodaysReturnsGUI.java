@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -8,21 +9,25 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 
-public class TodaysReturns {
+public class TodaysReturnsGUI extends JPanel {
 	
-	public TodaysReturns()
+	/**
+	 * Construct new panel for Todays Returns
+	 */
+	public TodaysReturnsGUI()
 	{
-		
+		setLayout(new BorderLayout());
+		add(makeTopPanel(), BorderLayout.NORTH);
+		add(makeMainPanel(), BorderLayout.CENTER);		
 	}
 	
 	/**
-	 * Makes the top panel.
-	 * 
-	 * @return JPanel topPanel - The top panel of todays returns.
+	 * Makes the top panel, with the date
 	 */
 	public JPanel makeTopPanel()
 	{
 		JPanel topPanel = new JPanel();
+		add(topPanel);
 		topPanel.setLayout(new FlowLayout());
 		
 		JLabel dateLabel = new JLabel("Date: ");
@@ -36,18 +41,18 @@ public class TodaysReturns {
 	}
 	
 	/**
-	 * Makes the panel.
-	 * 
-	 * @return JPanel todaysReturnsPanel - The todays returns panel.
+	 * Makes the main overview panel.
 	 */
-	public JPanel makePanel()
+	public JPanel makeMainPanel()
 	{
-		JTable table;
-		
 		JPanel todaysReturnsPanel = new JPanel();
+		add(todaysReturnsPanel);
 		todaysReturnsPanel.setLayout(new FlowLayout());
 		
 		// Creates the sample table.
+		
+		JTable table;
+		
 		String[] columnNames = {"Reservation number", "Name", "Vehicle", "Type", "Status"};
 		
 		Object[][] data = {

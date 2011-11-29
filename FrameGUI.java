@@ -16,7 +16,7 @@ import javax.swing.JTabbedPane;
 import mainWindow.MainWindow;
 
 /**
- * This class contains the skeleton of the GUI.
+ * This class contains the frame of the GUI.
  * 
  * This is the main GUI class. It is the main windows that holds all the
  * other windows, and navigates between them.
@@ -28,20 +28,21 @@ import mainWindow.MainWindow;
  *
  */
 
-public class SkeletonGUI {
+public class FrameGUI {
+	
 	private JTabbedPane tabbedPane;
 	
-	public SkeletonGUI()
+	/**
+	 * 
+	 */
+	public FrameGUI()
 	{	
 		
 		SVGUI svGui = new SVGUI();
-		AllVehicles allVehicles = new AllVehicles();
-		TodaysReservations todaysReservations = new TodaysReservations();
-		TodaysReturns todaysReturns = new TodaysReturns();
 		Test test = new Test();
 		
 		// Create the frame, and tabbed pane for the skeleton.
-		JFrame frame = new JFrame("Skeleton");
+		JFrame frame = new JFrame("EBF BookingSystem");
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setTabPlacement(JTabbedPane.TOP);
 		
@@ -59,25 +60,16 @@ public class SkeletonGUI {
 		JPanel homePanel = new MainWindow(carClasses);
 		tabbedPane.addTab("Home", homePanel);
 		
-		// Vehicle tab.
-		JPanel vehiclesPanel = new JPanel();
-		vehiclesPanel.setLayout(new BorderLayout());
-		vehiclesPanel.add(allVehicles.makePanel(), BorderLayout.NORTH);
-		vehiclesPanel.add(allVehicles.makeMainPanel(), BorderLayout.CENTER);
-		tabbedPane.addTab("Vehicles", vehiclesPanel);
+		// Vehicles tab.
+		JPanel allVehiclesPanel = new AllVehiclesGUI(); 
+		tabbedPane.addTab("Vehicles", allVehiclesPanel);
 		
 		// Todays reservations tab.
-		JPanel todaysReservationsPanel = new JPanel();
-		todaysReservationsPanel.setLayout(new BorderLayout());
-		todaysReservationsPanel.add(todaysReservations.makeTopPanel(), BorderLayout.NORTH);
-		todaysReservationsPanel.add(todaysReservations.makePanel(), BorderLayout.CENTER);
+		JPanel todaysReservationsPanel = new TodaysReservationsGUI();
 		tabbedPane.addTab("Todays reservations", todaysReservationsPanel);
 		
 		// Todays returns tab.
 		JPanel todaysReturnsPanel = new JPanel();
-		todaysReturnsPanel.setLayout(new BorderLayout());
-		todaysReturnsPanel.add(todaysReturns.makeTopPanel(), BorderLayout.NORTH);
-		todaysReturnsPanel.add(todaysReturns.makePanel(), BorderLayout.CENTER);
 		tabbedPane.addTab("Todays returns", todaysReturnsPanel);
 		
 		// Test tab.
