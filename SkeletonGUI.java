@@ -1,10 +1,12 @@
 import java.awt.BorderLayout;
+import mainWindow.*;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -38,7 +40,7 @@ public class SkeletonGUI {
 		
 		// Create the frame, and tabbed pane for the skeleton.
 		JFrame frame = new JFrame("Skeleton");
-		JTabbedPane tabbedPane = new JTabbedPane();
+		/*JTabbedPane*/ tabbedPane = new JTabbedPane();
 		tabbedPane.setTabPlacement(JTabbedPane.TOP);
 		
 		// Adds the menubar to the frame.
@@ -172,16 +174,10 @@ public class SkeletonGUI {
 	 */
 	private void newReservation()
 	{
-		/*JPanel vehiclesPanel = new JPanel();
-		vehiclesPanel.setLayout(new BorderLayout());
-		vehiclesPanel.add(allVehicles.makePanel(), BorderLayout.NORTH);
-		vehiclesPanel.add(allVehicles.makeMainPanel(), BorderLayout.CENTER);
-		tabbedPane.addTab("Vehicles", vehiclesPanel);*/
-		JPanel reservationPanel = new JPanel();
-		reservationPanel.setLayout(new FlowLayout());
+		JPanel reservationPanel = new Reservation();
+		JLabel reservationLabel = new JLabel("Reservation");
+		reservationPanel.add(reservationLabel);
 		tabbedPane.addTab("Reservation", reservationPanel);
-		
-		
 	}
 	
 	/**

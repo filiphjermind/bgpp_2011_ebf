@@ -1,5 +1,7 @@
 package mainWindow;
 
+import FilterPanel;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
