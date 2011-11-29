@@ -32,7 +32,7 @@ public class FilterPanel extends JPanel {
 	}
 
 	private void collectAllSelectedCheckboxes() {
-		ArrayList<JCheckBox> collectedCheckBoxes = new ArrayList<JCheckBox>();
+		List<JCheckBox> collectedCheckBoxes = new ArrayList<JCheckBox>();
 		for (JCheckBox checkBox : checkBoxes) {
 			if (checkBox.isSelected()) {
 				collectedCheckBoxes.add(checkBox);

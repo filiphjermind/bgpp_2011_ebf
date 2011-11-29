@@ -85,7 +85,8 @@ public class MiddlePanel extends JPanel {
 
 	}
 
-	public void updateDisplay(List<VehicleData> vehicles,GregorianCalendar currentMonth) {
+	public void updateTable(List<VehicleData> vehicles,GregorianCalendar currentMonth) {
+		tablePanel.removeAll();
 		int numberOfDays = viewDate.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 		//loop that takes care of displaying the numbers in the month
 		for (int i = 0; i < numberOfDays; i++) {
