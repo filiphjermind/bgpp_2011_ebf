@@ -1,5 +1,3 @@
-package wip;
-
 import javax.swing.JFrame;
 
 public class ReservationFrame {
