@@ -69,7 +69,7 @@ public class FrameGUI {
 		tabbedPane.addTab("Todays reservations", todaysReservationsPanel);
 		
 		// Todays returns tab.
-		JPanel todaysReturnsPanel = new JPanel();
+		JPanel todaysReturnsPanel = new TodaysReturnsGUI();
 		tabbedPane.addTab("Todays returns", todaysReturnsPanel);
 		
 		// Test tab.
