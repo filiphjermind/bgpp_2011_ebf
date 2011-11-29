@@ -1,11 +1,14 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.*;
 
@@ -136,11 +139,29 @@ public class SVGUI {
 	 */
 	public JPanel makeCenterPanel()
 	{
+		JTable table;
+		
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new BorderLayout());
 		
-		JLabel tempLabel = new JLabel("This is just some sample text.\nThis is where the table is going to be.");
-		centerPanel.add(tempLabel);
+		// Creates the sample table.
+		String[] columnNames = {"Start", "End", "Reason"};
+		
+		Object[][] data = {
+			{"25.06.2011", "30.06.2011", "Changing brakes"},
+			{"01.08.2011", "02.08.2011", "Annual check"},
+			{"30.09.2011", "01.10.2011", "Oil change"},
+		};
+		
+		table = new JTable(data, columnNames);
+		table.setPreferredScrollableViewportSize(new Dimension(1000, 100));
+		table.setFillsViewportHeight(true);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		centerPanel.add(scrollPane);
+		
+		//JLabel tempLabel = new JLabel("This is just some sample text.\nThis is where the table is going to be.");
+		//centerPanel.add(tempLabel);
 		
 		JPanel centerFlowPanel = new JPanel();
 		centerFlowPanel.setBorder(new EtchedBorder());

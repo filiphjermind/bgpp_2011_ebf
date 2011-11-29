@@ -1,17 +1,20 @@
-
+/**
+ * Main class of the system.
+ * 
+ * Contains the main method.
+ * All other classes connect to this class.
+ * 
+ * @author Bergar Simonsen, Ellen Engdahl, Filip Hjermind Jensen.
+ * @version 0.1
+ *
+ */
 public class Main {
 
 	/**
 	 * @param args
+	 * @throws Exception
 	 */
-	public static void main(String[] args) {
-		System.out.println("This is in main");
-
+	public static void main(String[] args) throws Exception {
+		SkeletonGUI skeleton = new SkeletonGUI();
 	}
-
-	/**
-	 * hello
-	 */
-	
-	
 }

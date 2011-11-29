@@ -1,11 +1,22 @@
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 /**
  * This class contains the skeleton of the GUI.
  * 
- * It contains a tabbed pane, that controls all the other windows.
+ * This is the main GUI class. It is the main windows that holds all the
+ * other windows, and navigates between them.
+ * The class contains a tabbed pane, that contains the other windows.
  * It also contains the menu bar on the top of the window.
  * 
  * @author Bergar Simonsen - bsim@itu.dk
@@ -19,25 +30,20 @@ public class SkeletonGUI {
 	{	
 		
 		SVGUI svGui = new SVGUI();
+		AllVehicles allVehicles = new AllVehicles();
+		TodaysReservations todaysReservations = new TodaysReservations();
+		TodaysReturns todaysReturns = new TodaysReturns();
 		
 		// Create the frame, and tabbed pane for the skeleton.
 		JFrame frame = new JFrame("Skeleton");
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setTabPlacement(JTabbedPane.TOP);
 		
-		// Set the default frame size to full screen.
-//		Toolkit tk = Toolkit.getDefaultToolkit();
-//		int xSize = ((int) tk.getScreenSize().getWidth());
-//		int ySize = ((int) tk.getScreenSize().getHeight());
-//		frame.setSize(xSize, ySize);
-//		tabbedPane.setSize(xSize, ySize);
-		
 		// Adds the menubar to the frame.
 		makeMenuBar(frame);
 		
 		// Create the individual tabs, and add them to the tabbedpane.
 		// Home tab.
-		JLabel homeLabel = new JLabel("Home");
 		JPanel homePanel = new JPanel();
 		homePanel.setLayout(new BorderLayout());
 		homePanel.add(svGui.makeWestPanel(), BorderLayout.WEST);
@@ -45,21 +51,24 @@ public class SkeletonGUI {
 		tabbedPane.addTab("Home", homePanel);
 		
 		// Vehicle tab.
-		JLabel vehiclesLabel = new JLabel("Vehicles");
 		JPanel vehiclesPanel = new JPanel();
-		vehiclesPanel.add(vehiclesLabel);
+		vehiclesPanel.setLayout(new BorderLayout());
+		vehiclesPanel.add(allVehicles.makePanel(), BorderLayout.NORTH);
+		vehiclesPanel.add(allVehicles.makeMainPanel(), BorderLayout.CENTER);
 		tabbedPane.addTab("Vehicles", vehiclesPanel);
 		
 		// Todays reservations tab.
-		JLabel todaysReservationsLabel = new JLabel("Todays reservations");
 		JPanel todaysReservationsPanel = new JPanel();
-		todaysReservationsPanel.add(todaysReservationsLabel);
+		todaysReservationsPanel.setLayout(new BorderLayout());
+		todaysReservationsPanel.add(todaysReservations.makeTopPanel(), BorderLayout.NORTH);
+		todaysReservationsPanel.add(todaysReservations.makePanel(), BorderLayout.CENTER);
 		tabbedPane.addTab("Todays reservations", todaysReservationsPanel);
 		
 		// Todays returns tab.
-		JLabel todaysReturnsLabel = new JLabel("Todays returns");
 		JPanel todaysReturnsPanel = new JPanel();
-		todaysReturnsPanel.add(todaysReturnsLabel);
+		todaysReturnsPanel.setLayout(new BorderLayout());
+		todaysReturnsPanel.add(todaysReturns.makeTopPanel(), BorderLayout.NORTH);
+		todaysReturnsPanel.add(todaysReturns.makePanel(), BorderLayout.CENTER);
 		tabbedPane.addTab("Todays returns", todaysReturnsPanel);
 		
 		// Add the tabbed pane to the frame.
@@ -88,12 +97,21 @@ public class SkeletonGUI {
 		menubar.add(fileMenu);
 		
 		JMenuItem newReservationItem = new JMenuItem("New reservation");
+			newReservationItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) { newReservation(); }
+			});
 		fileMenu.add(newReservationItem);
 		
 		JMenuItem printItem = new JMenuItem("Print");
+			printItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) { print(); }
+			});
 		fileMenu.add(printItem);
 		
 		JMenuItem quitItem = new JMenuItem("Quit");
+			quitItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) { quit(); }
+			});
 		fileMenu.add(quitItem);
 		
 		// Create the edit menu.
@@ -101,18 +119,33 @@ public class SkeletonGUI {
 		menubar.add(editMenu);
 		
 		JMenuItem undoItem = new JMenuItem("Undo");
+			undoItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) { undo(); }
+			});
 		editMenu.add(undoItem);
 		
 		JMenuItem redoItem = new JMenuItem("Redo");
+			redoItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) { redo(); }
+			});
 		editMenu.add(redoItem);
 		
 		JMenuItem copyItem = new JMenuItem("Copy");
+			copyItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) { copy(); }
+			});
 		editMenu.add(copyItem);
 		
 		JMenuItem cutItem = new JMenuItem("Cut");
+			cutItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) { cut(); }
+			});
 		editMenu.add(cutItem);
 		
 		JMenuItem pasteItem = new JMenuItem("Paste");
+			pasteItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) { paste(); }
+			});
 		editMenu.add(pasteItem);
 		
 		// Create the help menu.
@@ -120,8 +153,92 @@ public class SkeletonGUI {
 		menubar.add(helpMenu);
 		
 		JMenuItem aboutItem = new JMenuItem("About");
+			aboutItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) { about(); }
+			});
 		helpMenu.add(aboutItem);
 		
+	}
+	
+	/**
+	 * The new reservation method.
+	 * Creates a new reservations.
+	 */
+	private void newReservation()
+	{
+		
+	}
+	
+	/**
+	 * Print method.
+	 * Prints out the information on the screen.
+	 */
+	private void print()
+	{
+		
+	}
+	
+	/**
+	 * Undo method.
+	 * Undoes the last action.
+	 */
+	private void undo()
+	{
+		
+	}
+	
+	/**
+	 * Redo method.
+	 * Redoes the last action.
+	 */
+	private void redo()
+	{
+		
+	}
+	
+	/**
+	 * Copy method.
+	 * Copies the marked text.
+	 */
+	private void copy()
+	{
+		
+	}
+	
+	/**
+	 * Cut method.
+	 * Cuts the marked text.
+	 */
+	private void cut()
+	{
+		
+	}
+	
+	/**
+	 * Paste method.
+	 * Pastes information from the clipboard onto the screen.
+	 */
+	private void paste()
+	{
+		
+	}
+	
+	/**
+	 * About method.
+	 * Shows information about the system.
+	 */
+	private void about()
+	{
+		
+	}
+	
+	/**
+	 * The quit method.
+	 * Quits the program.
+	 */
+	private void quit()
+	{
+		System.exit(0);
 	}
 	
 

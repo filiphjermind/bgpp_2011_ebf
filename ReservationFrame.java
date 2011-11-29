@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 //package wip;
 //
 //import javax.swing.JFrame;
@@ -17,7 +17,7 @@
 //	
 //
 //}
-=======
+
 import javax.swing.JFrame;
 
 public class ReservationFrame {
@@ -34,4 +34,4 @@ public class ReservationFrame {
 	
 
 }
->>>>>>> 1537402458955c3f3a96963a4e78c97a77d667b4
+
