@@ -20,7 +20,7 @@ import javax.swing.border.TitledBorder;
 public class MainWindow extends JFrame {
 	private FilterPanel filterPanel;
 	private JPanel contentPane;
-	private VehiclesPane vehiclesPane;
+	private MiddlePanel middlePanel;
 
 	public MainWindow(List<String> carClasses) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,8 +40,8 @@ public class MainWindow extends JFrame {
 		filterPaneContainer.add(filterPanel);
 		filterPanel.setBorder(new TitledBorder("Vehicle Type"));
 		contentPane.add(filterPaneContainer, BorderLayout.WEST);
-		vehiclesPane = new VehiclesPane();
-		contentPane.add(vehiclesPane, BorderLayout.CENTER);
+		middlePanel = new MiddlePanel(this);
+		contentPane.add(middlePanel, BorderLayout.CENTER);
 		contentPane.add(new ReservationPane(), BorderLayout.EAST);
 
 	}
@@ -70,6 +70,6 @@ public class MainWindow extends JFrame {
 		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 7), new GregorianCalendar(2011, 10, 10), false));
 		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 11), new GregorianCalendar(2011, 10, 23), false));
 		vehicles.add(new VehicleData(1, "segway", reservations));
-		vehiclesPane.updateDisplay(vehicles, null);
+		middlePanel.updateDisplay(vehicles, null);
 	}
 }

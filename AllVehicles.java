@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -10,6 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+
 
 
 public class AllVehicles {
@@ -51,6 +57,11 @@ public class AllVehicles {
 		
 		JButton searchButton = new JButton("Search");
 		searchPanel.add(searchButton);
+			searchButton.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					new SVGUI();
+				}
+			});
 		
 		// Display
 		frame.pack();

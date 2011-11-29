@@ -2,34 +2,42 @@
 //package wip;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class Reservation {
+public class Reservation extends JPanel {
 	
-	private JFrame frame;
-	private Container contentPane;
+	Border emptyBorder = new EmptyBorder(5,5,5,5);
 	
+	/**
+	 * Makes a reservation page with 3 panels: reservation, person
+	 * and payment.
+	 */
 	public Reservation()
 	{
-		makeFrame();
-	}
-	
-	private void makeFrame()
-	{
-		frame = new JFrame();
-		contentPane = frame.getContentPane();
+		// set layout for the reservation page
 		FlowLayout overallLayout = new FlowLayout();
 		overallLayout.setAlignment(0);
-		contentPane.setLayout(overallLayout);
+		setLayout(overallLayout);
 		
-		Border emptyBorder = new EmptyBorder(5,5,5,5);
-		
-		// make reservation panel
+		// create 3 panels
+		makeReservationPanel();
+		makePersonPanel();
+		makePaymentPanel();
+	}
+	
+	/**
+	 * Makes a reservation panel and adds it to the reservation page
+	 */
+	private void makeReservationPanel()
+	{
 		JPanel reservationPanel = new JPanel();
 		reservationPanel.setLayout(new BoxLayout(reservationPanel, BoxLayout.Y_AXIS));
 		reservationPanel.setBorder(emptyBorder);
-		contentPane.add(reservationPanel);
+		add(reservationPanel);
 		
 			// make top panel for reservation panel
 			JPanel reservationTopPanel = new JPanel();
@@ -89,16 +97,17 @@ public class Reservation {
 								
 				JCheckBox returnedBox = new JCheckBox("Returned");
 				reservationBottomPanel.add(returnedBox);
+	}
 						
-		//make a vertical separator
-		JSeparator sep1 = new JSeparator();
-		contentPane.add(sep1);
-						
-		// make person panel
+	/**
+	 * Makes a person panel and adds it to the reservation page
+	 */
+	private void makePersonPanel()
+	{
 		JPanel personPanel = new JPanel();
 		personPanel.setLayout(new BoxLayout(personPanel, BoxLayout.Y_AXIS));		
 		personPanel.setBorder(emptyBorder);
-		contentPane.add(personPanel);
+		add(personPanel);
 		
 			// make top panel for person panel
 			JPanel personTopPanel = new JPanel();
@@ -162,16 +171,22 @@ public class Reservation {
 			
 			JButton findButton = new JButton("Find Customer");
 			personBottomPanel.add(findButton);
+			findButton.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					
+				}
+			});
+	}
 		
-		//make a vertical separator
-		JSeparator sep2 = new JSeparator();
-		contentPane.add(sep2);
-		
-		// make payment panel
+	/**
+	 * Makes a payment panel and adds it to the reservation page
+	 */
+	private void makePaymentPanel()
+	{
 		JPanel paymentPanel = new JPanel();
 		paymentPanel.setLayout(new BoxLayout(paymentPanel, BoxLayout.Y_AXIS));
 		paymentPanel.setBorder(emptyBorder);
-		contentPane.add(paymentPanel);
+		add(paymentPanel);
 		
 			// make top panel for payment panel
 			JPanel paymentTopPanel = new JPanel();
@@ -225,13 +240,19 @@ public class Reservation {
 			
 			JButton saveButton = new JButton("Save Reservation");
 			paymentBottomPanel.add(saveButton);
+			saveButton.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					
+				}
+			});
 			
 			JButton deleteButton = new JButton("Delete Reservation");
 			paymentBottomPanel.add(deleteButton);
-		
-		// Display
-		frame.pack();
-		frame.setVisible(true);
+			deleteButton.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e){
+					
+				}
+			});
 	}
 
 }

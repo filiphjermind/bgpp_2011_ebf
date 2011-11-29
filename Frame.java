@@ -1,6 +1,3 @@
-import java.awt.*;
-import javax.swing.*;
-
 public class Frame {
 	
 	
@@ -9,9 +6,10 @@ public class Frame {
 	 */
 	public static void main(String[] args) {
 		
-		//Reservation reservation = new Reservation();
-		AllVehicles vehiclespanel = new AllVehicles();
-		
+		//new Reservation();
+		//new AllVehicles();
+		//new NewReservation();
+		new ChangeReservation();
 	}
 	
 	
