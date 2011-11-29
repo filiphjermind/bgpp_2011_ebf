@@ -1,6 +1,13 @@
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.border.*;
 
 /**
  * This class contains all the graphical information related
@@ -14,15 +21,14 @@ public class SVGUI {
 	
 	public SVGUI()
 	{
-		//makeFrame();
+		
 	}
 	
 
-	
 	/**
 	 * Makes the west panel.
 	 * 
-	 * @return JPanel panel - The west panel.
+	 * @return JPanel westFlowPanel - The west panel.
 	 */
 	public JPanel makeWestPanel()
 	{
@@ -106,14 +112,42 @@ public class SVGUI {
 		JLabel emptyLabel4 = new JLabel("");
 		westPanel.add(emptyLabel4);
 		
+		JLabel emptyLabel5 = new JLabel("");
+		westPanel.add(emptyLabel5);
+		
+		JLabel emptyLabel6 = new JLabel("");
+		westPanel.add(emptyLabel6);
+		
 		JButton saveButton = new JButton("Save");
 		westPanel.add(saveButton);
 		
-		JPanel westFLowPanel = new JPanel();
-		westFLowPanel.setLayout(new FlowLayout());
-		westFLowPanel.add(westPanel);
+		JPanel westFlowPanel = new JPanel();
+		westFlowPanel.setBorder(new EtchedBorder());
+		westFlowPanel.setLayout(new FlowLayout());
+		westFlowPanel.add(westPanel);
 		
-		return westFLowPanel;
+		return westFlowPanel;
+	}
+	
+	/**
+	 * Makes the center panel.
+	 * 
+	 * @return JPanel centerFlowPanel - the center panel.
+	 */
+	public JPanel makeCenterPanel()
+	{
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new BorderLayout());
+		
+		JLabel tempLabel = new JLabel("This is just some sample text.\nThis is where the table is going to be.");
+		centerPanel.add(tempLabel);
+		
+		JPanel centerFlowPanel = new JPanel();
+		centerFlowPanel.setBorder(new EtchedBorder());
+		centerFlowPanel.setLayout(new FlowLayout());
+		centerFlowPanel.add(centerPanel);
+		
+		return centerFlowPanel;
 	}
 	
 	

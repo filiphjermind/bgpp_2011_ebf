@@ -1,4 +1,4 @@
-package wip;
+//package wip;
 
 import java.awt.*;
 import javax.swing.*;
@@ -70,8 +70,8 @@ public class Reservation {
 		        	reservationTextPanel.add(endText);
 		        	
 		        	String[] types = {"Van", "Car, 2 door", "Car, 4 door", "Sportscar", "Stationcar", "Motorcycle", "Segway"};
-		        	JComboBox<String> typeCombo= new JComboBox<String>(types);
-		        	reservationTextPanel.add(typeCombo);
+		        	//JComboBox<String> typeCombo= new JComboBox<String>(types);
+		        	//reservationTextPanel.add(typeCombo);
 		        	
 		        	// combobox
 		        	JTextField vehicleText = new JTextField(10);
@@ -200,8 +200,8 @@ public class Reservation {
 		        paymentTextPanel.add(priceText);
 		        
 		        String[] cards = {"Visa", "MasterCard", "AmEx"};
-		        JComboBox<String> cardTypeCombo = new JComboBox<String>(cards);
-		        paymentTextPanel.add(cardTypeCombo);
+		        //JComboBox<String> cardTypeCombo = new JComboBox<String>(cards);
+		        //paymentTextPanel.add(cardTypeCombo);
 		        
 		        JTextField cardNrText = new JTextField();
 		        paymentTextPanel.add(cardNrText);
