@@ -1,3 +1,5 @@
+import View.FrameGUI;
+
 /**
  * Main class of the system.
  * 
@@ -15,6 +17,6 @@ public class Main {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-		FrameGUI skeleton = new FrameGUI();
+		FrameGUI frame = new FrameGUI();
 	}
 }
