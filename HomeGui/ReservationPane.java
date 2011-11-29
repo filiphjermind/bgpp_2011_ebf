@@ -73,6 +73,7 @@ public class ReservationPane extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				book();
+				new ReservationGUI();
 			}
 		});
 		

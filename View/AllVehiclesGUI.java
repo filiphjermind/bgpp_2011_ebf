@@ -16,8 +16,6 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-
-
 public class AllVehiclesGUI extends JPanel {
 	
 	/**
@@ -34,7 +32,7 @@ public class AllVehiclesGUI extends JPanel {
 	}
 	
 	/**
-	 * Makes a search panel and adds it the the allvehicles page
+	 * Makes a search panel and adds it the the allVehicles page
 	 */
 	
 	private void makeSearchPanel() 
