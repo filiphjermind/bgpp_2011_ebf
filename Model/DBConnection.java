@@ -1,3 +1,5 @@
+package model;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -5,8 +7,11 @@ import java.util.List;
 
 import javax.swing.JCheckBox;
 
-import mainWindow.ReservationData;
-import mainWindow.VehicleData;
+import view.homeGui.ReservationData;
+import view.homeGui.VehicleData;
+
+
+
 
 /**
  * This class handles the connection to the database.

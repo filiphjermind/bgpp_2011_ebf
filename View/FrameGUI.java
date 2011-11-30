@@ -1,3 +1,6 @@
+package view;
+
+
 import java.awt.BorderLayout;
 import mainWindow.*;
 import java.awt.FlowLayout;
@@ -15,10 +18,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import mainWindow.MainWindow;
+import view.homeGui.MainWindow;
+
+
+
+
 
 /**
- * This class contains the skeleton of the GUI.
+ * This class contains the frame of the GUI.
  * 
  * This is the main GUI class. It is the main windows that holds all the
  * other windows, and navigates between them.
@@ -30,21 +37,27 @@ import mainWindow.MainWindow;
  *
  */
 
-public class SkeletonGUI {
+public class FrameGUI {
+	
 	private JTabbedPane tabbedPane;
 	
-	public SkeletonGUI()
+	/**
+	 * Creates the frame for the booking system
+	 */
+	public FrameGUI()
 	{	
 		
 		SVGUI svGui = new SVGUI();
-		AllVehicles allVehicles = new AllVehicles();
-		TodaysReservations todaysReservations = new TodaysReservations();
-		TodaysReturns todaysReturns = new TodaysReturns();
 		Test test = new Test();
 		
 		// Create the frame, and tabbed pane for the skeleton.
+<<<<<<< HEAD:SkeletonGUI.java
 		JFrame frame = new JFrame("Skeleton");
 		/*JTabbedPane*/ tabbedPane = new JTabbedPane();
+=======
+		JFrame frame = new JFrame("EBF BookingSystem");
+		JTabbedPane tabbedPane = new JTabbedPane();
+>>>>>>> 735220f98c8b857542539d60a21d028a9ece5d3b:View/FrameGUI.java
 		tabbedPane.setTabPlacement(JTabbedPane.TOP);
 		
 		// Adds the menubar to the frame.
@@ -61,25 +74,16 @@ public class SkeletonGUI {
 		JPanel homePanel = new MainWindow(carClasses);
 		tabbedPane.addTab("Home", homePanel);
 		
-		// Vehicle tab.
-		JPanel vehiclesPanel = new JPanel();
-		vehiclesPanel.setLayout(new BorderLayout());
-		vehiclesPanel.add(allVehicles.makePanel(), BorderLayout.NORTH);
-		vehiclesPanel.add(allVehicles.makeMainPanel(), BorderLayout.CENTER);
-		tabbedPane.addTab("Vehicles", vehiclesPanel);
+		// Vehicles tab.
+		JPanel allVehiclesPanel = new AllVehiclesGUI(); 
+		tabbedPane.addTab("Vehicles", allVehiclesPanel);
 		
 		// Todays reservations tab.
-		JPanel todaysReservationsPanel = new JPanel();
-		todaysReservationsPanel.setLayout(new BorderLayout());
-		todaysReservationsPanel.add(todaysReservations.makeTopPanel(), BorderLayout.NORTH);
-		todaysReservationsPanel.add(todaysReservations.makePanel(), BorderLayout.CENTER);
+		JPanel todaysReservationsPanel = new TodaysReservationsGUI();
 		tabbedPane.addTab("Todays reservations", todaysReservationsPanel);
 		
 		// Todays returns tab.
-		JPanel todaysReturnsPanel = new JPanel();
-		todaysReturnsPanel.setLayout(new BorderLayout());
-		todaysReturnsPanel.add(todaysReturns.makeTopPanel(), BorderLayout.NORTH);
-		todaysReturnsPanel.add(todaysReturns.makePanel(), BorderLayout.CENTER);
+		JPanel todaysReturnsPanel = new TodaysReturnsGUI();
 		tabbedPane.addTab("Todays returns", todaysReturnsPanel);
 		
 		// Test tab.
@@ -182,9 +186,19 @@ public class SkeletonGUI {
 	 */
 	private void newReservation()
 	{
+<<<<<<< HEAD:SkeletonGUI.java
 		JPanel reservationPanel = new Reservation();
 		JLabel reservationLabel = new JLabel("Reservation");
 		reservationPanel.add(reservationLabel);
+=======
+		/*JPanel vehiclesPanel = new JPanel();
+		vehiclesPanel.setLayout(new BorderLayout());
+		vehiclesPanel.add(allVehicles.makePanel(), BorderLayout.NORTH);
+		vehiclesPanel.add(allVehicles.makeMainPanel(), BorderLayout.CENTER);
+		tabbedPane.addTab("Vehicles", vehiclesPanel);*/
+		
+		JPanel reservationPanel = new ReservationGUI();
+>>>>>>> 735220f98c8b857542539d60a21d028a9ece5d3b:View/FrameGUI.java
 		tabbedPane.addTab("Reservation", reservationPanel);
 	}
 	

@@ -1,6 +1,4 @@
-
-//package wip;
-
+package view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class Reservation extends JPanel {
+public class ReservationGUI extends JPanel {
 	
 	Border emptyBorder = new EmptyBorder(5,5,5,5);
 	
@@ -16,23 +14,26 @@ public class Reservation extends JPanel {
 	 * Makes a reservation page with 3 panels: reservation, person
 	 * and payment.
 	 */
-	public Reservation()
+	
+	public ReservationGUI()
 	{
 		// set layout for the reservation page
 		FlowLayout overallLayout = new FlowLayout();
 		overallLayout.setAlignment(0);
 		setLayout(overallLayout);
+		setBorder(new TitledBorder("Reservation"));
 		
-		// create 3 panels
-		makeReservationPanel();
-		makePersonPanel();
-		makePaymentPanel();
+		// create the 3 panels
+		add(makeReservationPanel());
+		add(makePersonPanel());
+		add(makePaymentPanel());
 	}
 	
 	/**
 	 * Makes a reservation panel and adds it to the reservation page
 	 */
-	private void makeReservationPanel()
+	
+	private JPanel makeReservationPanel()
 	{
 		JPanel reservationPanel = new JPanel();
 		reservationPanel.setLayout(new BoxLayout(reservationPanel, BoxLayout.Y_AXIS));
@@ -79,8 +80,8 @@ public class Reservation extends JPanel {
 		        	reservationTextPanel.add(endText);
 		        	
 		        	String[] types = {"Van", "Car, 2 door", "Car, 4 door", "Sportscar", "Stationcar", "Motorcycle", "Segway"};
-		        	//JComboBox<String> typeCombo= new JComboBox<String>(types);
-		        	//reservationTextPanel.add(typeCombo);
+		        	JComboBox<String> typeCombo= new JComboBox<String>(types);
+		        	reservationTextPanel.add(typeCombo);
 		        	
 		        	// combobox
 		        	JTextField vehicleText = new JTextField(10);
@@ -97,12 +98,15 @@ public class Reservation extends JPanel {
 								
 				JCheckBox returnedBox = new JCheckBox("Returned");
 				reservationBottomPanel.add(returnedBox);
+				
+			return reservationPanel;
 	}
 						
 	/**
 	 * Makes a person panel and adds it to the reservation page
 	 */
-	private void makePersonPanel()
+	
+	private JPanel makePersonPanel()
 	{
 		JPanel personPanel = new JPanel();
 		personPanel.setLayout(new BoxLayout(personPanel, BoxLayout.Y_AXIS));		
@@ -176,12 +180,15 @@ public class Reservation extends JPanel {
 					
 				}
 			});
+			
+			return personPanel;
 	}
 		
 	/**
 	 * Makes a payment panel and adds it to the reservation page
 	 */
-	private void makePaymentPanel()
+	
+	private JPanel makePaymentPanel()
 	{
 		JPanel paymentPanel = new JPanel();
 		paymentPanel.setLayout(new BoxLayout(paymentPanel, BoxLayout.Y_AXIS));
@@ -216,8 +223,8 @@ public class Reservation extends JPanel {
 		        paymentTextPanel.add(priceText);
 		        
 		        String[] cards = {"Visa", "MasterCard", "AmEx"};
-		        //JComboBox<String> cardTypeCombo = new JComboBox<String>(cards);
-		        //paymentTextPanel.add(cardTypeCombo);
+		        JComboBox<String> cardTypeCombo = new JComboBox<String>(cards);
+		        paymentTextPanel.add(cardTypeCombo);
 		        
 		        JTextField cardNrText = new JTextField();
 		        paymentTextPanel.add(cardNrText);
@@ -253,6 +260,8 @@ public class Reservation extends JPanel {
 					
 				}
 			});
+			
+			return paymentPanel;
 	}
 
 }

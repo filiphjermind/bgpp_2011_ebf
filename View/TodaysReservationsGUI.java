@@ -1,24 +1,30 @@
+package view;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.*;
 
 
-public class TodaysReservations {
+public class TodaysReservationsGUI extends JPanel{
 	
-	public TodaysReservations()
+	/**
+	 * Constructs new panel for todays reservations
+	 */
+	public TodaysReservationsGUI()
 	{
-		
+		setLayout(new BorderLayout());
+		add(makeTopPanel(), BorderLayout.NORTH);
+		add(makeMainPanel(), BorderLayout.CENTER);		
 	}
 	
 	/**
 	 * Makes the top panel.
-	 * 
-	 * @return JPanel topPanel - The top panel of todays reservations.
 	 */
 	public JPanel makeTopPanel()
 	{
 		JPanel topPanel = new JPanel();
+		add(topPanel);
 		topPanel.setLayout(new FlowLayout());
 		
 		JLabel dateLabel = new JLabel("Date: ");
@@ -33,17 +39,17 @@ public class TodaysReservations {
 	
 	/**
 	 * Makes the panel.
-	 * 
-	 * @return JPanel todaysReservationsPanel - The todays reservations panel.
 	 */
-	public JPanel makePanel()
+	public JPanel makeMainPanel()
 	{
-		JTable table;
-		
 		JPanel todaysReservationsPanel = new JPanel();
+		add(todaysReservationsPanel);
 		todaysReservationsPanel.setLayout(new FlowLayout());
 		
 		// Creates the sample table.
+		
+		JTable table;
+		
 		String[] columnNames = {"Reservation number", "Name", "Vehicle", "Type", "Status"};
 		
 		Object[][] data = {

@@ -1,4 +1,4 @@
-package mainWindow;
+package view.homeGui;
 import java.util.List;
 
 
