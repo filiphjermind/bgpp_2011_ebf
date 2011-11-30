@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
-import mainWindow.MainWindow;
+import View.homeGui.MainWindow;
 
 @SuppressWarnings("serial")
 public class FilterPanel extends JPanel {

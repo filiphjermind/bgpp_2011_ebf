@@ -1,14 +1,16 @@
-package model;
+package Model;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.JCheckBox;
 
-import view.homeGui.ReservationData;
-import view.homeGui.VehicleData;
+import View.homeGui.ReservationData;
+import View.homeGui.VehicleData;
 
 
 

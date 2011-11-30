@@ -1,4 +1,4 @@
-package view.homeGui;
+package View.homeGui;
 import java.util.List;
 
 
