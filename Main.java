@@ -10,6 +10,7 @@ import view.FrameGUI;
  * @version 0.1
  *
  */
+
 public class Main {
 
 	/**
