@@ -9,8 +9,8 @@ import java.util.List;
 
 import javax.swing.JCheckBox;
 
-import view.homeGui.ReservationData;
-import view.homeGui.VehicleData;
+import view.homeGUI.ReservationData;
+import view.homeGUI.VehicleData;
 
 
 
