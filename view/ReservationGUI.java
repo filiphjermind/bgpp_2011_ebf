@@ -30,19 +30,18 @@ public class ReservationGUI extends JPanel {
 		FlowLayout overallLayout = new FlowLayout();
 		overallLayout.setAlignment(0);
 		setLayout(overallLayout);
-		setBorder(new TitledBorder("Reservation"));
 		
 		// create the 3 panels
-		add(makeReservationPanel());
-		add(makePersonPanel());
-		add(makePaymentPanel());
+		makeReservationPanel();
+		makePersonPanel();
+		makePaymentPanel();
 	}
 	
 	/**
 	 * Makes a reservation panel and adds it to the reservation page
 	 */
 	
-	private JPanel makeReservationPanel()
+	private void makeReservationPanel()
 	{
 		JPanel reservationPanel = new JPanel();
 		reservationPanel.setLayout(new BoxLayout(reservationPanel, BoxLayout.Y_AXIS));
@@ -108,14 +107,13 @@ public class ReservationGUI extends JPanel {
 				JCheckBox returnedBox = new JCheckBox("Returned");
 				reservationBottomPanel.add(returnedBox);
 				
-			return reservationPanel;
 	}
 						
 	/**
 	 * Makes a person panel and adds it to the reservation page
 	 */
 	
-	private JPanel makePersonPanel()
+	private void makePersonPanel()
 	{
 		JPanel personPanel = new JPanel();
 		personPanel.setLayout(new BoxLayout(personPanel, BoxLayout.Y_AXIS));		
@@ -189,15 +187,14 @@ public class ReservationGUI extends JPanel {
 					
 				}
 			});
-			
-			return personPanel;
+		
 	}
 		
 	/**
 	 * Makes a payment panel and adds it to the reservation page
 	 */
 	
-	private JPanel makePaymentPanel()
+	private void makePaymentPanel()
 	{
 		JPanel paymentPanel = new JPanel();
 		paymentPanel.setLayout(new BoxLayout(paymentPanel, BoxLayout.Y_AXIS));
@@ -269,8 +266,7 @@ public class ReservationGUI extends JPanel {
 					
 				}
 			});
-			
-			return paymentPanel;
+	
 	}
 
 }
