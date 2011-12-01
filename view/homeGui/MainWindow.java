@@ -1,4 +1,4 @@
-package View.homeGui;
+package view.homeGui;
 
 //import FilterPanel;
 
