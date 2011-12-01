@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,8 +11,6 @@ import javax.swing.JCheckBox;
 
 import view.homeGui.ReservationData;
 import view.homeGui.VehicleData;
-
-
 
 
 
