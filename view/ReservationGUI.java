@@ -1,10 +1,19 @@
 package view;
-import java.awt.*;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 public class ReservationGUI extends JPanel {
 	
@@ -80,8 +89,8 @@ public class ReservationGUI extends JPanel {
 		        	reservationTextPanel.add(endText);
 		        	
 		        	String[] types = {"Van", "Car, 2 door", "Car, 4 door", "Sportscar", "Stationcar", "Motorcycle", "Segway"};
-		        	JComboBox<String> typeCombo= new JComboBox<String>(types);
-		        	reservationTextPanel.add(typeCombo);
+//		        	JComboBox<String> typeCombo= new JComboBox<String>(types);
+//		        	reservationTextPanel.add(typeCombo);
 		        	
 		        	// combobox
 		        	JTextField vehicleText = new JTextField(10);
@@ -223,8 +232,8 @@ public class ReservationGUI extends JPanel {
 		        paymentTextPanel.add(priceText);
 		        
 		        String[] cards = {"Visa", "MasterCard", "AmEx"};
-		        JComboBox<String> cardTypeCombo = new JComboBox<String>(cards);
-		        paymentTextPanel.add(cardTypeCombo);
+//		        JComboBox<String> cardTypeCombo = new JComboBox<String>(cards);
+//		        paymentTextPanel.add(cardTypeCombo);
 		        
 		        JTextField cardNrText = new JTextField();
 		        paymentTextPanel.add(cardNrText);

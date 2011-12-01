@@ -1,4 +1,4 @@
-package view.homeGui;
+package view.homeGUI;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -63,8 +63,8 @@ public class ReservationPane extends JPanel {
 		newReservationBottomPanel.add(vehicleTypeLabel);
 		
 		String[] types = {"Van", "Car, 2 door", "Car, 4 door", "Sportscar", "Stationcar", "Motorcycle", "Segway"};
-		JComboBox<String> typeCombo = new JComboBox<String>(types);
-		newReservationBottomPanel.add(typeCombo);
+//		JComboBox<String> typeCombo = new JComboBox<String>(types);
+//		newReservationBottomPanel.add(typeCombo);
 		
 		JButton bookButton = new JButton("Book");
 		newReservationBottomPanel.add(bookButton);

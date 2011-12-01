@@ -1,4 +1,4 @@
-package view.homeGui;
+package view.homeGUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
