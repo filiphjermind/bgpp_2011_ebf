@@ -14,6 +14,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import model.ReservationData;
+import model.VehicleData;
+
 @SuppressWarnings("serial")
 public class MiddlePanel extends JPanel {
 	private static final int PANEL_WIDTH = 840;

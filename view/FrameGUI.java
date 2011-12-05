@@ -20,9 +20,6 @@ import view.homeGUI.HomeWindow;
 
 
 
-
-
-
 /**
  * This class contains the frame of the GUI.
  * 

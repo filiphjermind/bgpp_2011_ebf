@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import model.ReservationData;
+
 @SuppressWarnings("serial")
 public class ReservationRectangle extends JButton {
 

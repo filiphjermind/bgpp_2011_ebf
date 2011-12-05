@@ -18,6 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import model.ReservationData;
+import model.VehicleData;
+
 @SuppressWarnings("serial")
 public class HomeWindow extends JPanel{
 	private FilterPanel filterPanel;
