@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import view.homeGui.HomeWindow;
+import view.homeGUI.HomeWindow;
+
 
 
 
@@ -50,10 +50,9 @@ public class FrameGUI {
 		Test test = new Test();
 		
 		// Create the frame, and tabbed pane for the skeleton.
-		//JFrame frame = new JFrame("Skeleton");
-		/*JTabbedPane*/ tabbedPane = new JTabbedPane();
+		tabbedPane = new JTabbedPane();
 		JFrame frame = new JFrame("EBF BookingSystem");
-		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane = new JTabbedPane();
 		tabbedPane.setTabPlacement(JTabbedPane.TOP);
 		
 		// Adds the menubar to the frame.
@@ -81,11 +80,6 @@ public class FrameGUI {
 		// Todays returns tab.
 		JPanel todaysReturnsPanel = new TodaysReturnsGUI();
 		tabbedPane.addTab("Todays returns", todaysReturnsPanel);
-		
-		// Test tab.
-		JPanel testPanel = new JPanel();
-		testPanel.add(test.makeMainPanel());
-		tabbedPane.addTab("TEST", testPanel);
 		
 		// Add the tabbed pane to the frame.
 		frame.add(tabbedPane, BorderLayout.NORTH);
@@ -181,19 +175,8 @@ public class FrameGUI {
 	 * Creates a new reservations.
 	 */
 	private void newReservation()
-	{
-		//JPanel reservationPanel = new Reservation();
-		//JLabel reservationLabel = new JLabel("Reservation");
-		//reservationPanel.add(reservationLabel);
-
-		/*JPanel vehiclesPanel = new JPanel();
-		vehiclesPanel.setLayout(new BorderLayout());
-		vehiclesPanel.add(allVehicles.makePanel(), BorderLayout.NORTH);
-		vehiclesPanel.add(allVehicles.makeMainPanel(), BorderLayout.CENTER);
-		tabbedPane.addTab("Vehicles", vehiclesPanel);*/
-		
+	{		
 		JPanel reservationPanel = new ReservationGUI();
-
 		tabbedPane.addTab("Reservation", reservationPanel);
 	}
 	
