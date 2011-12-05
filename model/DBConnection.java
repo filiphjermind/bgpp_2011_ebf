@@ -12,15 +12,16 @@ import java.sql.*;
 public class DBConnection {
 	
 	// Connection variable.
-	private Connection dbConnection;
+	protected Connection dbConnection;
 	
 	/**
 	 * Creates a DBConnection object
 	 */
 	public DBConnection()
 	{
-		
+		openDB();
 	}
+	
 	
 	/**
 	 * Opens the connection to the database.
