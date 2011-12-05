@@ -1,18 +1,6 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import javax.swing.JCheckBox;
-
-import view.homeGUI.ReservationData;
-import view.homeGUI.VehicleData;
-
-
+import java.sql.*;
 
 /**
  * This class handles the connection to the database.
@@ -24,9 +12,11 @@ import view.homeGUI.VehicleData;
 public class DBConnection
 {
 	// Connection variable.
-	private Connection con;
+	private Connection dbConnection;
 	
-	
+	/**
+	 * 
+	 */
 	public DBConnection()
 	{
 		openDB();
@@ -38,29 +28,33 @@ public class DBConnection
 	private void openDB()
 	{
 		try {
+			// access data-base driver 
 			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:8888/CarRental", "root", "root");
-		} catch (SQLException exn) {
-			System.out.println("Can't initialize the connection to the database: " + exn);
-		} catch (ClassNotFoundException exn) {
-			System.out.println("Can't find database driver: " + exn);
 			
+			// create a connection
+			dbConnection = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk/ebfCarRental", "ebf", "bgpp");
+		} 
+		catch (SQLException exn) {
+			System.out.println("Can't initialize the connection to the database: " + exn);
+		} 
+		catch (ClassNotFoundException exn) {
+			System.out.println("Can't find database driver: " + exn);
 		}
 	}
 	
-	public List<VehicleData> getReservations(List<JCheckBox> sellectedCheckBoxes, GregorianCalendar currentMonth) {
-		List<VehicleData> vehicles = new ArrayList<VehicleData>();
-		ArrayList<ReservationData> reservations = new ArrayList<ReservationData>();
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 1), new GregorianCalendar(2011, 10, 3), false));
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 5), new GregorianCalendar(2011, 10, 7), false));
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 10), new GregorianCalendar(2011, 10, 11), false));
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 20), new GregorianCalendar(2011, 10, 30), false));
-		vehicles.add(new VehicleData(1, "van", reservations));
-		reservations = new ArrayList<ReservationData>();
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 2), new GregorianCalendar(2011, 10, 7), false));
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 7), new GregorianCalendar(2011, 10, 10), false));
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 11), new GregorianCalendar(2011, 10, 23), false));
-		vehicles.add(new VehicleData(1, "segway", reservations));
-		return vehicles;
+	private ResultSet sendQuery(String query) throws SQLException {
+		openDB();
+		Statement dbStatement = dbConnection.createStatement();
+		ResultSet result = null;
+		try {
+			boolean ok = dbStatement.execute(query);
+			if (ok) {
+            result = dbStatement.getResultSet();             
+			} // end of if
+        } // end of try
+		catch (SQLException exn) {
+			System.out.println(" " + exn);
+		} // end of catch
+		return result;
 	}
 }
