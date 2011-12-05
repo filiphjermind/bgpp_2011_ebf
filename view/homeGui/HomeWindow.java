@@ -19,11 +19,11 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
-public class MainWindow extends JPanel{
+public class HomeWindow extends JPanel{
 	private FilterPanel filterPanel;
 	private MiddlePanel middlePanel;
 
-	public MainWindow(List<String> carClasses) {
+	public HomeWindow(List<String> carClasses) {
 		makeStructure(carClasses);
 		setVisible(true);
 		// TODO following line is only for testing. The method should be called
@@ -52,9 +52,9 @@ public class MainWindow extends JPanel{
 		carClasses.add("car, 2 doors");
 		carClasses.add("car, 4 doors");
 		carClasses.add("segway");
-		MainWindow mainWindow = new MainWindow(carClasses);
+		HomeWindow homeWindow = new HomeWindow(carClasses);
 		JFrame frame = new JFrame();
-		frame.add(mainWindow);
+		frame.add(homeWindow);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
@@ -74,6 +74,10 @@ public class MainWindow extends JPanel{
 		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 7), new GregorianCalendar(2011, 10, 10), false));
 		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 11), new GregorianCalendar(2011, 10, 23), false));
 		vehicles.add(new VehicleData(1, "segway", reservations));
+		middlePanel.updateTable(vehicles, null);
+	}
+	
+	public void updateTable(List<VehicleData> vehicles) {
 		middlePanel.updateTable(vehicles, null);
 	}
 }

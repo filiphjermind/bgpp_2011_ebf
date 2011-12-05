@@ -21,10 +21,10 @@ public class MiddlePanel extends JPanel {
 	private JLabel currentMonthLabel;
 	private GregorianCalendar viewDate;
 	private JPanel tablePanel;
-	private final MainWindow mainWindow;
+	private final HomeWindow homeWindow;
 
-	public MiddlePanel(MainWindow mainWindow) {
-		this.mainWindow = mainWindow;
+	public MiddlePanel(HomeWindow homeWindow) {
+		this.homeWindow = homeWindow;
 		viewDate = new GregorianCalendar(2011, 10, 1);
 		tablePanel = new JPanel();
 		tablePanel.setLayout(null);
@@ -81,7 +81,7 @@ public class MiddlePanel extends JPanel {
 		currentMonthLabel.setText(monthAndYear);
 	}
 	private void requestReservations() {
-		mainWindow.updateVehiclesPane(null);
+		homeWindow.updateVehiclesPane(null);
 
 	}
 
@@ -96,6 +96,7 @@ public class MiddlePanel extends JPanel {
 			label.setBounds(i * 25 + 40, 10, 20, 10);
 			tablePanel.add(label);
 		}
+		//loop that takes care of displaying reservation rows
 		for (int i = 0; i < vehicles.size(); i++) {
 			VehicleData vehicleData = vehicles.get(i);
 			JLabel carLabel = new JLabel(vehicleData.getVehicleClass());
@@ -109,6 +110,7 @@ public class MiddlePanel extends JPanel {
 				int width = reservationData.getDuration() * 25 - 2;
 				int y = i * 20 + 40;
 				int height = 4;
+				System.out.println("MiddlePanel.updateTable()");
 				ReservationRectangle reservationRectangle = new ReservationRectangle(new Rectangle(x, y, width, height),reservationData);
 				reservationRectangle.addActionListener(new ActionListener() {
 					

@@ -263,5 +263,13 @@ public class ReservationGUI extends JPanel {
 			
 			return paymentPanel;
 	}
+	public static void main(String[] args) {
+		ReservationGUI reservationGUI = new ReservationGUI();
+		JFrame frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.add(reservationGUI);
+		frame.setVisible(true);
+		frame.pack();
+	}
 
 }

@@ -46,6 +46,7 @@ public class DBConnection
 			System.out.println("Can't initialize the connection to the database: " + exn);
 		} catch (ClassNotFoundException exn) {
 			System.out.println("Can't find database driver: " + exn);
+			
 		}
 	}
 	

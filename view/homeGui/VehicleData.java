@@ -1,6 +1,8 @@
 package view.homeGui;
 import java.util.List;
 
+import com.sun.xml.internal.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
+
 
 
 public class VehicleData {
@@ -21,6 +23,11 @@ public class VehicleData {
 	}
 	public List<ReservationData> getReservations() {
 		return reservations;
+	}
+	
+	@Override
+	public String toString() {
+		return "id: "+id+" vehicleClass: "+ vehicleClass + " reservations: "+ reservations.toString();
 	}
 
 }

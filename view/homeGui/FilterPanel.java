@@ -12,10 +12,10 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class FilterPanel extends JPanel {
 	private ArrayList<JCheckBox> checkBoxes;
-	private final MainWindow mainWindow;
+	private final HomeWindow homeWindow;
 
-	public FilterPanel(List<String> carClasses, MainWindow mainWindow) {
-		this.mainWindow = mainWindow;
+	public FilterPanel(List<String> carClasses, HomeWindow homeWindow) {
+		this.homeWindow = homeWindow;
 		setLayout(new GridLayout(0, 1));
 		checkBoxes = new ArrayList<JCheckBox>();
 		for (String carClass : carClasses) {

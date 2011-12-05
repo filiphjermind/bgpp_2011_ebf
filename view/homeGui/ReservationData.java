@@ -30,4 +30,8 @@ public class ReservationData {
 	public int getDuration() {
 		return end.get(GregorianCalendar.DAY_OF_MONTH) - start.get(GregorianCalendar.DAY_OF_MONTH);
 	}
+	@Override
+	public String toString() {
+		return "start: "+ start.getTimeInMillis() + " end: "+ end.getTimeInMillis() + " beingServiced: " +beingServiced;
+	}
 }

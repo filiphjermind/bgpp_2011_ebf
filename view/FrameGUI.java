@@ -16,7 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import view.homeGui.MainWindow;
+import view.homeGui.HomeWindow;
 
 
 
@@ -67,7 +67,7 @@ public class FrameGUI {
 		carClasses.add("car, 2 doors");
 		carClasses.add("car, 4 doors");
 		carClasses.add("segway");
-		JPanel homePanel = new MainWindow(carClasses);
+		JPanel homePanel = new HomeWindow(carClasses);
 		tabbedPane.addTab("Home", homePanel);
 		
 		// Vehicles tab.
