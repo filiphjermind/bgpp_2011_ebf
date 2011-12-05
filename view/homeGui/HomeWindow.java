@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import model.ReservationData;
-import model.VehicleData;
+import model.VehicleDATA;
 
 @SuppressWarnings("serial")
 public class HomeWindow extends JPanel{
@@ -31,7 +31,7 @@ public class HomeWindow extends JPanel{
 		setVisible(true);
 		// TODO following line is only for testing. The method should be called
 		// from model
-		updateVehiclesPane(null);
+		//updateVehiclesPane(null);
 	}
 
 	private void makeStructure(List<String> carClasses) {
@@ -63,7 +63,7 @@ public class HomeWindow extends JPanel{
 		frame.pack();
 	}
 
-	public void updateVehiclesPane(ArrayList<JCheckBox> collectedCheckBoxes) {
+	/*public void updateVehiclesPane(ArrayList<JCheckBox> collectedCheckBoxes) {
 		// TODO temporary code to simulate data from database
 		List<VehicleData> vehicles = new ArrayList<VehicleData>();
 		ArrayList<ReservationData> reservations = new ArrayList<ReservationData>();
@@ -82,5 +82,5 @@ public class HomeWindow extends JPanel{
 	
 	public void updateTable(List<VehicleData> vehicles) {
 		middlePanel.updateTable(vehicles, null);
-	}
+	}*/
 }

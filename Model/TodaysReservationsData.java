@@ -21,6 +21,9 @@ public class TodaysReservationsData extends DBConnection {
 	 */
 	public ResultSet selectReservations()
 	{
+		
+		// prøv at bruge sendQuery() i DBConnection :)
+		
 		try {
 			// Create the query.
 			PreparedStatement statement = dbConnection.prepareStatement(query);

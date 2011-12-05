@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.ReservationData;
-import model.VehicleData;
+import model.VehicleDATA;
 
 @SuppressWarnings("serial")
 public class MiddlePanel extends JPanel {
@@ -68,13 +68,13 @@ public class MiddlePanel extends JPanel {
 	private void selectNextMonth() {
 		viewDate.add(GregorianCalendar.MONTH,1);
 		updateMonthLabel();
-		requestReservations();
+		//requestReservations();
 	}
 
 	private void selectPreviousMonth() {
 		viewDate.add(GregorianCalendar.MONTH,-1);
 		updateMonthLabel();
-		requestReservations();
+		//requestReservations();
 	}
 	
 	private void updateMonthLabel() {
@@ -83,7 +83,7 @@ public class MiddlePanel extends JPanel {
 		monthAndYear += " " + viewDate.get(GregorianCalendar.YEAR);
 		currentMonthLabel.setText(monthAndYear);
 	}
-	private void requestReservations() {
+	/*private void requestReservations() {
 		homeWindow.updateVehiclesPane(null);
 
 	}
@@ -130,5 +130,5 @@ public class MiddlePanel extends JPanel {
 	}
 	private void onReservationClicked(ReservationData reservationData) {
 		System.out.println("VehiclesPane.onReservationClicked()"+reservationData.getStartDay());
-	}
+	}*/
 }
