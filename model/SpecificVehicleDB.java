@@ -19,7 +19,7 @@ public class SpecificVehicleDB extends DBConnection{
 		while(result.next()) {
 			vehicleData.setId(result.getInt("id"));
 			vehicleData.setLicenceplate(result.getString("licencePlate"));
-			vehicleData.setVehicleType(result.getString("vehicleType "));
+			vehicleData.setVehicleClass(result.getString("vehicleClass"));
 			vehicleData.setAnnualCheck(result.getDate("annualCheck"));
 			vehicleData.setMake(result.getString("make"));
 			vehicleData.setModel(result.getString("model"));

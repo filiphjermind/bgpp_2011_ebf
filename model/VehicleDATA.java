@@ -14,7 +14,7 @@ import model.ReservationData;
 public class VehicleDATA {
 	private int id;
 	private String licenceplate;
-	private String vehicleType;
+	private String vehicleClass;
 	private Date annualCheck;
 	private String make;
 	private String model;
@@ -61,19 +61,19 @@ public class VehicleDATA {
 
 
 	/**
-	 * @return the vehicleType
+	 * @return the vehicleClass
 	 */
-	public String getVehicleType() {
-		return vehicleType;
+	public String getVehicleClass() {
+		return vehicleClass;
 	}
 
 
 
 	/**
-	 * @param vehicleType the vehicleType to set
+	 * @param vehicleType the vehicleClass to set
 	 */
-	public void setVehicleType(String vehicleType) {
-		this.vehicleType = vehicleType;
+	public void setVehicleClass(String vehicleClass) {
+		this.vehicleClass = vehicleClass;
 	}
 
 
