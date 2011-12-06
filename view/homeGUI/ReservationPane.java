@@ -13,10 +13,15 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 public class ReservationPane extends JPanel {
-	public ReservationPane() {
+	private final HomeWindow homeWindow;
+	private JTextField startText;
+	private JTextField endText;
+
+	public ReservationPane(HomeWindow homeWindow) {
+		this.homeWindow = homeWindow;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        	makeNewReservation();
-        	makeChangeReservationPanel();
+		makeNewReservation();
+		makeChangeReservationPanel();
 	}
 
 	private void makeNewReservation() {
@@ -26,61 +31,60 @@ public class ReservationPane extends JPanel {
 		newReservationPanel.setLayout(new BoxLayout(newReservationPanel, BoxLayout.Y_AXIS));
 		newReservationPanel.setBorder(new TitledBorder("New Reservation"));
 		add(newReservationPanel);
-		
+
 		// make top panel of newReservationPanel
 		JPanel newReservationTopPanel = new JPanel();
-		newReservationTopPanel.setLayout(new GridLayout(1,2));
+		newReservationTopPanel.setLayout(new GridLayout(1, 2));
 		newReservationPanel.add(newReservationTopPanel);
-		
+
 		// make a label panel for newReservationPanel
 		JPanel newReservationLabelPanel = new JPanel();
-		newReservationLabelPanel.setLayout(new GridLayout(0,1));
+		newReservationLabelPanel.setLayout(new GridLayout(0, 1));
 		newReservationTopPanel.add(newReservationLabelPanel);
-		
+
 		JLabel startLabel = new JLabel("Start date");
 		newReservationLabelPanel.add(startLabel);
-		
+
 		JLabel endLabel = new JLabel("End date");
 		newReservationLabelPanel.add(endLabel);
-		
+
 		// make a textField panel for newReservationPanel
 		JPanel newReservationTextPanel = new JPanel();
-		newReservationTextPanel.setLayout(new GridLayout(0,1));
+		newReservationTextPanel.setLayout(new GridLayout(0, 1));
 		newReservationTopPanel.add(newReservationTextPanel);
-		
-		JTextField startText = new JTextField();
+
+		startText = new JTextField();
 		newReservationTextPanel.add(startText);
-		JTextField endText = new JTextField();
+		endText = new JTextField();
 		newReservationTextPanel.add(endText);
-		
+
 		// make bottom panel of newReservationPanel
 		JPanel newReservationBottomPanel = new JPanel();
 		BoxLayout myBox = new BoxLayout(newReservationBottomPanel, BoxLayout.Y_AXIS);
 		newReservationBottomPanel.setLayout(myBox);
 		newReservationPanel.add(newReservationBottomPanel);
-		
+
 		JLabel vehicleTypeLabel = new JLabel("Vehicle type");
 		newReservationBottomPanel.add(vehicleTypeLabel);
-		
-		String[] types = {"Van", "Car, 2 door", "Car, 4 door", "Sportscar", "Stationcar", "Motorcycle", "Segway"};
-//		JComboBox<String> typeCombo = new JComboBox<String>(types);
-//		newReservationBottomPanel.add(typeCombo);
-		
+
+		String[] types = { "Van", "Car, 2 door", "Car, 4 door", "Sportscar", "Stationcar", "Motorcycle", "Segway" };
+		// JComboBox<String> typeCombo = new JComboBox<String>(types);
+		// newReservationBottomPanel.add(typeCombo);
+
 		JButton bookButton = new JButton("Book");
 		newReservationBottomPanel.add(bookButton);
 		bookButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				book();
-				//new ReservationGUI();
 			}
 		});
-		
+
 	}
 
 	protected void book() {
-		// TODO Auto-generated method stub
-		
+		homeWindow.openNewReservationTab(startText.getText(),endText.getText());
+
 	}
 
 	private void makeChangeReservationPanel() {
@@ -89,28 +93,28 @@ public class ReservationPane extends JPanel {
 		changeReservationPanel.setLayout(new BoxLayout(changeReservationPanel, BoxLayout.Y_AXIS));
 		changeReservationPanel.setBorder(new TitledBorder("Change Reservation"));
 		add(changeReservationPanel);
-		
+
 		JLabel resnrLabel = new JLabel("Reservation nr.");
 		changeReservationPanel.add(resnrLabel);
-		
+
 		JTextField resnrText = new JTextField();
 		changeReservationPanel.add(resnrText);
-		
+
 		JLabel orLabel = new JLabel("or");
 		changeReservationPanel.add(orLabel);
-		
+
 		JLabel nameLabel = new JLabel("Name");
 		changeReservationPanel.add(nameLabel);
-		
+
 		JTextField nameText = new JTextField();
 		changeReservationPanel.add(nameText);
-		
+
 		JLabel startLabel = new JLabel("Start date");
 		changeReservationPanel.add(startLabel);
-		
+
 		JTextField startText = new JTextField();
 		changeReservationPanel.add(startText);
-		
+
 		JButton searchButton = new JButton("Search");
 		changeReservationPanel.add(searchButton);
 		searchButton.addActionListener(new ActionListener() {
@@ -119,11 +123,11 @@ public class ReservationPane extends JPanel {
 				search();
 			}
 		});
-		
+
 	}
 
 	protected void search() {
-		
+
 	}
 
 }

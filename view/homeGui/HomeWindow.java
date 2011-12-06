@@ -18,12 +18,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import view.FrameGUI;
+
 @SuppressWarnings("serial")
 public class HomeWindow extends JPanel{
 	private FilterPanel filterPanel;
 	private MiddlePanel middlePanel;
+	private final FrameGUI frameGUI;
 
-	public HomeWindow(List<String> carClasses) {
+	public HomeWindow(List<String> carClasses, FrameGUI frameGUI) {
+		this.frameGUI = frameGUI;
 		makeStructure(carClasses);
 		setVisible(true);
 		// TODO following line is only for testing. The method should be called
@@ -41,7 +45,7 @@ public class HomeWindow extends JPanel{
 		middlePanel = new MiddlePanel(this);
 		middlePanel.setBorder(new TitledBorder("Overview"));
 		add(middlePanel, BorderLayout.CENTER);
-		add(new ReservationPane(), BorderLayout.EAST);
+		add(new ReservationPane(this), BorderLayout.EAST);
 
 	}
 
@@ -52,7 +56,7 @@ public class HomeWindow extends JPanel{
 		carClasses.add("car, 2 doors");
 		carClasses.add("car, 4 doors");
 		carClasses.add("segway");
-		HomeWindow homeWindow = new HomeWindow(carClasses);
+		HomeWindow homeWindow = new HomeWindow(carClasses,new FrameGUI());
 		JFrame frame = new JFrame();
 		frame.add(homeWindow);
 		frame.setVisible(true);
@@ -79,5 +83,10 @@ public class HomeWindow extends JPanel{
 	
 	public void updateTable(List<VehicleData> vehicles) {
 		middlePanel.updateTable(vehicles, null);
+	}
+
+	public void openNewReservationTab(String start, String end) {
+		frameGUI.openNewReservationTab(start,end);
+//		frameGUI.makeNewTab(title, panel)
 	}
 }

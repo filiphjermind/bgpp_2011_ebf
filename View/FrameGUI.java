@@ -66,7 +66,7 @@ public class FrameGUI {
 		carClasses.add("car, 2 doors");
 		carClasses.add("car, 4 doors");
 		carClasses.add("segway");
-		JPanel homePanel = new HomeWindow(carClasses);
+		JPanel homePanel = new HomeWindow(carClasses,this);
 		tabbedPane.addTab("Home", homePanel);
 		
 		// Vehicles tab.
@@ -170,14 +170,22 @@ public class FrameGUI {
 		
 	}
 	
+	public void openNewReservationTab(String start, String end) {
+		ReservationGUI reservationGUI = new ReservationGUI(start,end);
+		makeNewTab("Reservation",reservationGUI);
+	}
+	public void makeNewTab(String title, JPanel panel) {
+		tabbedPane.addTab(title, panel);
+		tabbedPane.setSelectedComponent(panel);
+	}
+	
 	/**
 	 * The new reservation method.
 	 * Creates a new reservations.
 	 */
 	private void newReservation()
 	{		
-		JPanel reservationPanel = new ReservationGUI();
-		tabbedPane.addTab("Reservation", reservationPanel);
+		makeNewTab("Reservation", new ReservationGUI());
 	}
 	
 	/**
@@ -238,6 +246,8 @@ public class FrameGUI {
 	 * About method.
 	 * Shows information about the system.
 	 */
+	
+	
 	private void about()
 	{
 		
@@ -251,6 +261,7 @@ public class FrameGUI {
 	{
 		System.exit(0);
 	}
+
 	
 
 }

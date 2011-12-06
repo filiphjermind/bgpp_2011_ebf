@@ -27,6 +27,13 @@ public class ReservationGUI extends JPanel {
 	
 	public ReservationGUI()
 	{
+		init();
+	}
+	
+	public ReservationGUI(String start, String end) {
+		init();
+	}
+	private void init() {
 		// set layout for the reservation page
 		FlowLayout overallLayout = new FlowLayout();
 		overallLayout.setAlignment(0);
@@ -36,8 +43,9 @@ public class ReservationGUI extends JPanel {
 		makeReservationPanel();
 		makePersonPanel();
 		makePaymentPanel();
+
 	}
-	
+
 	/**
 	 * Makes a reservation panel and adds it to the reservation page
 	 */
