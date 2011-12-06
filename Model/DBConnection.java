@@ -1,19 +1,5 @@
 package model;
 
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import javax.swing.JCheckBox;
-
-import view.homeGUI.ReservationData;
-import view.homeGUI.VehicleData;
-
-
 import java.sql.*;
 
 /**
@@ -23,18 +9,19 @@ import java.sql.*;
  * @version 28.11.2011
  *
  */
-public class DBConnection
-{
+public class DBConnection {
+	
 	// Connection variable.
-	private Connection dbConnection;
+	protected Connection dbConnection;
 	
 	/**
-	 * 
+	 * Creates a DBConnection object
 	 */
 	public DBConnection()
 	{
 		openDB();
 	}
+	
 	
 	/**
 	 * Opens the connection to the database.
@@ -56,11 +43,16 @@ public class DBConnection
 		}
 	}
 	
-	private ResultSet sendQuery(String query) throws SQLException {
-		openDB();
-		Statement dbStatement = dbConnection.createStatement();
+	/**
+	 * Sends a query to the database and returns a resultset
+	 * @param query
+	 * @return the resultSet
+	 * @throws SQLException
+	 */
+	protected ResultSet sendQuery(String query) {
 		ResultSet result = null;
 		try {
+			Statement dbStatement = dbConnection.createStatement();
 			boolean ok = dbStatement.execute(query);
 			if (ok) {
             result = dbStatement.getResultSet();             
@@ -71,4 +63,5 @@ public class DBConnection
 		} // end of catch
 		return result;
 	}
+
 }
