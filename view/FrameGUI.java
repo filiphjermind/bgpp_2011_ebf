@@ -40,7 +40,7 @@ public class FrameGUI {
 	/**
 	 * Creates the frame for the booking system
 	 */
-	public FrameGUI()
+	public FrameGUI() throws Exception
 	{	
 		
 		SVGUI svGui = new SVGUI();

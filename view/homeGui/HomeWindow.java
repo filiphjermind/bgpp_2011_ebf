@@ -4,22 +4,17 @@ package view.homeGUI;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import model.ReservationData;
-import model.VehicleData;
+import model.VehicleDATA;
 
 @SuppressWarnings("serial")
 public class HomeWindow extends JPanel{
@@ -71,12 +66,12 @@ public class HomeWindow extends JPanel{
 		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 5), new GregorianCalendar(2011, 10, 7), false));
 		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 10), new GregorianCalendar(2011, 10, 11), false));
 		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 20), new GregorianCalendar(2011, 10, 30), false));
-		vehicles.add(new VehicleData(1, "van", reservations));
+		//vehicles.add(new VehicleDATA(1, "van", reservations));
 		reservations = new ArrayList<ReservationData>();
 		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 2), new GregorianCalendar(2011, 10, 7), false));
 		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 7), new GregorianCalendar(2011, 10, 10), false));
 		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 11), new GregorianCalendar(2011, 10, 23), false));
-		vehicles.add(new VehicleData(1, "segway", reservations));
+		//vehicles.add(new VehicleDATA(1, "segway", reservations));
 		middlePanel.updateTable(vehicles, null);
 	}
 	
