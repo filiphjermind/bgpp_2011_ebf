@@ -3,6 +3,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -43,36 +45,36 @@ public class SVGUI extends JPanel {
 		JLabel vehicleLabel = new JLabel("Vehicle");
 		westPanel.add(vehicleLabel);
 		
-		JTextField vehicleTF = new JTextField("TL 539 92");
-		vehicleTF.setEditable(false);
+		final JTextField vehicleTF = new JTextField("TL 539 92");
+		vehicleTF.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		System.out.println(" " + vehicleTF.getText());
+        	}
+        });
 		westPanel.add(vehicleTF);
 		
 		JLabel modelLabel = new JLabel("Model");
 		westPanel.add(modelLabel);
 		
 		JTextField modelTF = new JTextField("Volvo");
-		modelTF.setEditable(false);
 		westPanel.add(modelTF);
 		
 		JLabel vehicleTypeLabel = new JLabel("Vehicle Type");
 		westPanel.add(vehicleTypeLabel);
 		
 		JTextField vehicleTypeTF = new JTextField("Stationcar, 4 doors");
-		vehicleTypeTF.setEditable(false);
 		westPanel.add(vehicleTypeTF);
 		
 		JLabel priceLabel = new JLabel("Rate pr. day");
 		westPanel.add(priceLabel);
 		
 		JTextField priceTF = new JTextField("600 kr");
-		priceTF.setEditable(false);
 		westPanel.add(priceTF);
 		
 		JLabel nextCheckLabel = new JLabel("Next annual check");
 		westPanel.add(nextCheckLabel);
 		
 		JTextField nextCheckTF = new JTextField("22.01.2012");
-		nextCheckTF.setEditable(false);
 		westPanel.add(nextCheckTF);
 		
 		JLabel emptyLabel = new JLabel("");
@@ -97,21 +99,18 @@ public class SVGUI extends JPanel {
 		westPanel.add(sDateLabel);
 		
 		JTextField sDateTF = new JTextField("10.01.2012");
-		sDateTF.setEditable(false);
 		westPanel.add(sDateTF);
 		
 		JLabel eDateLabel = new JLabel("End date");
 		westPanel.add(eDateLabel);
 		
 		JTextField eDateTF = new JTextField("13.01.2012");
-		eDateTF.setEditable(false);
 		westPanel.add(eDateTF);
 		
 		JLabel reasonLabel = new JLabel("Reason");
 		westPanel.add(reasonLabel);
 		
 		JTextField reasonTF = new JTextField("Oil change");
-		reasonTF.setEditable(false);
 		westPanel.add(reasonTF);
 		
 		JLabel emptyLabel4 = new JLabel("");
