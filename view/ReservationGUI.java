@@ -3,6 +3,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,6 +17,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import controller.VehicleClassControl;
+
 public class ReservationGUI extends JPanel {
 	
 	Border emptyBorder = new EmptyBorder(5,5,5,5);
@@ -23,34 +26,37 @@ public class ReservationGUI extends JPanel {
 	/**
 	 * Makes a reservation page with 3 panels: reservation, person
 	 * and payment.
+	 * @throws SQLException 
 	 */
 	
-	public ReservationGUI()
+	public ReservationGUI() throws SQLException
 	{
 		init();
 	}
 	
-	public ReservationGUI(String start, String end) {
+	public ReservationGUI(String start, String end, String carClass) throws SQLException {
 		init();
 	}
-	private void init() {
-		// set layout for the reservation page
-		FlowLayout overallLayout = new FlowLayout();
-		overallLayout.setAlignment(0);
-		setLayout(overallLayout);
 		
-		// create the 3 panels
-		makeReservationPanel();
-		makePersonPanel();
-		makePaymentPanel();
-
+	private void init() throws SQLException {
+			// set layout for the reservation page
+			FlowLayout overallLayout = new FlowLayout();
+			overallLayout.setAlignment(0);
+			setLayout(overallLayout);
+			
+			// create the 3 panels
+			makeReservationPanel();
+			makePersonPanel();
+			makePaymentPanel();
 	}
 
+	
 	/**
 	 * Makes a reservation panel and adds it to the reservation page
+	 * @throws SQLException 
 	 */
 	
-	private void makeReservationPanel()
+	private void makeReservationPanel() throws SQLException
 	{
 		JPanel reservationPanel = new JPanel();
 		reservationPanel.setLayout(new BoxLayout(reservationPanel, BoxLayout.Y_AXIS));
@@ -76,8 +82,8 @@ public class ReservationGUI extends JPanel {
 					JLabel endLabel = new JLabel("End date");
 					reservationLabelPanel.add(endLabel);
 		        
-					JLabel typeLabel = new JLabel("Vehicle type");
-					reservationLabelPanel.add(typeLabel);
+					JLabel classLabel = new JLabel("Vehicle class");
+					reservationLabelPanel.add(classLabel);
 		        
 					JLabel vehicleLabel = new JLabel("Vehicle");
 					reservationLabelPanel.add(vehicleLabel);
@@ -96,9 +102,9 @@ public class ReservationGUI extends JPanel {
 		        	JTextField endText = new JTextField(10);
 		        	reservationTextPanel.add(endText);
 		        	
-		        	String[] types = {"Van", "Car, 2 door", "Car, 4 door", "Sportscar", "Stationcar", "Motorcycle", "Segway"};
-//		        	JComboBox<String> typeCombo= new JComboBox<String>(types);
-//		        	reservationTextPanel.add(typeCombo);
+		        	Object[] classes = VehicleClassControl.getArray();
+		        	JComboBox classCombo= new JComboBox(classes);
+		        	reservationTextPanel.add(classCombo);
 		        	
 		        	// combobox
 		        	JTextField vehicleText = new JTextField(10);
@@ -237,9 +243,9 @@ public class ReservationGUI extends JPanel {
 				JTextField priceText = new JTextField();
 		        paymentTextPanel.add(priceText);
 		        
-		        String[] cards = {"Visa", "MasterCard", "AmEx"};
-//		        JComboBox<String> cardTypeCombo = new JComboBox<String>(cards);
-//		        paymentTextPanel.add(cardTypeCombo);
+		        Object[] cards = {"Visa", "MasterCard", "AmEx"};
+		        JComboBox cardTypeCombo = new JComboBox(cards);
+		        paymentTextPanel.add(cardTypeCombo);
 		        
 		        JTextField cardNrText = new JTextField();
 		        paymentTextPanel.add(cardNrText);
