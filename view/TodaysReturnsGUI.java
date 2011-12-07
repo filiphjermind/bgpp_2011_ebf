@@ -1,5 +1,4 @@
 package view;
-import model.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -10,13 +9,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import model.TodaysReservationsData;
-import model.TodaysReturnsData;
+import controller.GetCurrentDateTime;
+import controller.TodaysReturnsController;
 
 
 public class TodaysReturnsGUI extends JPanel {
+	GetCurrentDateTime currentDate = new GetCurrentDateTime();
 	
 	/**
 	 * Construct new panel for Todays Returns
@@ -40,7 +41,7 @@ public class TodaysReturnsGUI extends JPanel {
 		JLabel dateLabel = new JLabel("Date: ");
 		topPanel.add(dateLabel);
 		
-		JTextField dateTF = new JTextField("29.11.2011");
+		JTextField dateTF = new JTextField(currentDate.getDate());
 		dateTF.setEditable(false);
 		topPanel.add(dateTF);
 		
@@ -55,6 +56,7 @@ public class TodaysReturnsGUI extends JPanel {
 		JPanel todaysReturnsPanel = new JPanel();
 		add(todaysReturnsPanel);
 		todaysReturnsPanel.setLayout(new FlowLayout());
+		todaysReturnsPanel.setBorder(new TitledBorder("Todays Returns"));
 		
 		// Initialize the table.
 		DefaultTableModel model = new DefaultTableModel();
@@ -67,9 +69,9 @@ public class TodaysReturnsGUI extends JPanel {
 				
 		JTable table = new JTable(model);
 		
-		// Create a TodaysReturnsData object in order to assign the ResultSet to a variable.
-		TodaysReturnsData reservationData = new TodaysReturnsData();
-		ResultSet result = reservationData.selectReservations();
+		// Create a TodaysReturnsController object in order to assign the ResultSet to a variable.
+		TodaysReturnsController todaysReturnsData = new TodaysReturnsController();
+		ResultSet result = todaysReturnsData.getTodaysReturns();
 		
 		// Loops through the ResultSet.
 		// As long as the result set has a next value, add the value to a row in the table.
@@ -84,29 +86,11 @@ public class TodaysReturnsGUI extends JPanel {
 		}
 					
 				
-		table.setPreferredScrollableViewportSize(new Dimension(1000, 100));
+		table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 		table.setFillsViewportHeight(true);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		todaysReturnsPanel.add(scrollPane);
-		/*
-		// Creates the sample table.
-		
-		JTable table;
-		
-		String[] columnNames = {"Reservation number", "Name", "Vehicle", "Type", "Status"};
-		
-		Object[][] data = {
-				{"45321", "Little, Holly", "TL 578 25", "Car, 2 door", "Returned"},
-				{"47925", "Hansen, Line", "FE 325 43", "Sportscar", "Not returned"},
-		};
-		
-		table = new JTable(data, columnNames);
-		table.setPreferredScrollableViewportSize(new Dimension(1000, 100));
-		table.setFillsViewportHeight(true);
-		
-		JScrollPane scrollPane = new JScrollPane(table);
-		todaysReturnsPanel.add(scrollPane);*/
 		
 		return todaysReturnsPanel;
 	}

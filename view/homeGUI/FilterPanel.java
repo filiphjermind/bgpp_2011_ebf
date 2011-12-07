@@ -3,22 +3,29 @@ package view.homeGUI;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
+import controller.VehicleClassControl;
+
 @SuppressWarnings("serial")
 public class FilterPanel extends JPanel {
 	private ArrayList<JCheckBox> checkBoxes;
 	private final HomeWindow homeWindow;
 
-	public FilterPanel(List<String> carClasses, HomeWindow homeWindow) {
+	public FilterPanel(HomeWindow homeWindow) throws SQLException {
 		this.homeWindow = homeWindow;
 		setLayout(new GridLayout(0, 1));
+		
 		checkBoxes = new ArrayList<JCheckBox>();
-		for (String carClass : carClasses) {
+		VehicleClassControl vcc = new VehicleClassControl();
+		ArrayList<String> carClasses = vcc.getArrayList();
+		
+				for (String carClass : carClasses) {
 			JCheckBox checkBox = new JCheckBox(carClass);
 			add(checkBox);
 			checkBoxes.add(checkBox);

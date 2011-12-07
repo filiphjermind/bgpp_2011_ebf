@@ -4,6 +4,7 @@ package view.homeGUI;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -23,19 +24,19 @@ public class HomeWindow extends JPanel{
 	private MiddlePanel middlePanel;
 	private final FrameGUI frameGUI;
 
-	public HomeWindow(List<String> carClasses, FrameGUI frameGUI) {
+	public HomeWindow(List<String> carClasses, FrameGUI frameGUI) throws SQLException {
 		this.frameGUI = frameGUI;
-		makeStructure(carClasses);
+		makeStructure();
 		setVisible(true);
 		// TODO following line is only for testing. The method should be called
 		// from model
 		//updateVehiclesPane(null);
 	}
 
-	private void makeStructure(List<String> carClasses) {
+	private void makeStructure() throws SQLException {
 		setLayout(new BorderLayout());
 		JPanel filterPaneContainer = new JPanel(new FlowLayout());
-		filterPanel = new FilterPanel(carClasses, this);
+		filterPanel = new FilterPanel(this);
 		filterPaneContainer.add(filterPanel);
 		filterPanel.setBorder(new TitledBorder("Vehicle Type"));
 		add(filterPaneContainer, BorderLayout.WEST);

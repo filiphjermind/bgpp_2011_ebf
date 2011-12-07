@@ -7,7 +7,9 @@ import java.sql.SQLException;
 public class TodaysReservationsData extends DBConnection {
 	
 	// Query: Selects all from reservations.
-	private String query = "SELECT * FROM Reservation";
+	private String query = "SELECT Reservation.id, Person.firstName, Person.lastName, Reservation.vehicle, " +
+							"VehicleClass.description, Reservation.pickedUp, Reservation.returned FROM Person, " +
+							"Reservation, VehicleClass";
 	
 	public TodaysReservationsData() throws Exception
 	{
