@@ -17,7 +17,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import controller.VehicleClassControl;
+import controller.VehicleClassController;
 
 public class ReservationGUI extends JPanel {
 	
@@ -102,7 +102,7 @@ public class ReservationGUI extends JPanel {
 		        	JTextField endText = new JTextField(10);
 		        	reservationTextPanel.add(endText);
 		        	
-		        	Object[] classes = VehicleClassControl.getArray();
+		        	Object[] classes = VehicleClassController.getArray();
 		        	JComboBox classCombo= new JComboBox(classes);
 		        	reservationTextPanel.add(classCombo);
 		        	
@@ -165,7 +165,12 @@ public class ReservationGUI extends JPanel {
 		        personTextPanel.setLayout(new GridLayout(0,1));
 		        personTopPanel.add(personTextPanel);
 		        
-		        JTextField firstNameText = new JTextField("Holly");
+		        final JTextField firstNameText = new JTextField();
+		        firstNameText.addActionListener(new ActionListener() {
+		        	public void actionPerformed(ActionEvent e) {
+		        		System.out.println(" " + firstNameText.getText());
+		        	}
+		        });
 		        personTextPanel.add(firstNameText);
 		        
 		        JTextField lastNameText = new JTextField();
@@ -270,7 +275,7 @@ public class ReservationGUI extends JPanel {
 			paymentBottomPanel.add(saveButton);
 			saveButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
-					
+					System.out.println("Save");
 				}
 			});
 			
@@ -278,18 +283,8 @@ public class ReservationGUI extends JPanel {
 			paymentBottomPanel.add(deleteButton);
 			deleteButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
-					
+					System.out.println("deleted");
 				}
 			});
-	
 	}
-	/*public static void main(String[] args) {
-		ReservationGUI reservationGUI = new ReservationGUI();
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(reservationGUI);
-		frame.setVisible(true);
-		frame.pack();
-	}*/
-
 }

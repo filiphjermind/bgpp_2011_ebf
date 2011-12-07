@@ -115,6 +115,12 @@ public class FrameGUI {
 			});
 		fileMenu.add(newReservationItem);
 		
+		JMenuItem exampleVehicle = new JMenuItem("Example Vehicle");
+		exampleVehicle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { exampleVehicle(); }
+			});
+		fileMenu.add(exampleVehicle);
+		
 		JMenuItem printItem = new JMenuItem("Print");
 			printItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) { print(); }
@@ -191,7 +197,12 @@ public class FrameGUI {
 	{		
 		makeNewTab("Reservation", new ReservationGUI());
 	}
-	
+		
+	// temporary
+	private void exampleVehicle()
+	{
+		makeNewTab("Vehicle", new SVGUI());
+	}
 	/**
 	 * Print method.
 	 * Prints out the information on the screen.

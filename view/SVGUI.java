@@ -21,29 +21,15 @@ import javax.swing.border.*;
  * @version 25.11.2011
  *
  */
-public class SVGUI {
+public class SVGUI extends JPanel {
 	
 	public SVGUI()
 	{
-		
+		setLayout(new BorderLayout());
+		add(makeWestPanel(), BorderLayout.WEST);
+		add(makeCenterPanel(), BorderLayout.CENTER);
 	}
 	
-	/**
-	 * Makes the panel.
-	 * Takes the panels from the other methods, and puts them together
-	 * into one panel.
-	 * 
-	 * @return JPanel panel - The main panel
-	 */
-	public JPanel makeMainPanel()
-	{
-		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new BorderLayout());
-		mainPanel.add(makeWestPanel(), BorderLayout.WEST);
-		mainPanel.add(makeCenterPanel(), BorderLayout.CENTER);
-		return mainPanel;
-	}
-
 	/**
 	 * Makes the west panel.
 	 * 
