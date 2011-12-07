@@ -50,7 +50,6 @@ public class MiddlePanel extends JPanel {
 				selectPreviousMonth();
 			}
 		});
-		//TODO make the label show month in words, not in numbers
 		currentMonthLabel = new JLabel("");
 		updateMonthLabel();
 		monthPicker.add(currentMonthLabel);
@@ -83,12 +82,12 @@ public class MiddlePanel extends JPanel {
 		monthAndYear += " " + viewDate.get(GregorianCalendar.YEAR);
 		currentMonthLabel.setText(monthAndYear);
 	}
-	/*private void requestReservations() {
-		homeWindow.updateVehiclesPane(null);
+//	private void requestReservations() {
+//		homeWindow.updateVehiclesPane(null);
+//
+//	}
 
-	}
-
-	public void updateTable(List<VehicleData> vehicles,GregorianCalendar currentMonth) {
+	public void updateTable(List<VehicleDATA> vehicles,GregorianCalendar currentMonth) {
 		tablePanel.removeAll();
 		int numberOfDays = viewDate.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 		//loop that takes care of displaying the numbers in the month
@@ -101,7 +100,7 @@ public class MiddlePanel extends JPanel {
 		}
 		//loop that takes care of displaying reservation rows
 		for (int i = 0; i < vehicles.size(); i++) {
-			VehicleData vehicleData = vehicles.get(i);
+			VehicleDATA vehicleData = vehicles.get(i);
 			JLabel carLabel = new JLabel(vehicleData.getVehicleClass());
 			carLabel.setVerticalAlignment(JLabel.CENTER);
 			carLabel.setBounds(0, i * 20 + 34, 40, 15);
@@ -130,5 +129,5 @@ public class MiddlePanel extends JPanel {
 	}
 	private void onReservationClicked(ReservationData reservationData) {
 		System.out.println("VehiclesPane.onReservationClicked()"+reservationData.getStartDay());
-	}*/
+	}
 }

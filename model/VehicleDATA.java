@@ -20,10 +20,15 @@ public class VehicleDATA {
 	private String model;
 	private  List<ReservationData> reservations;
 
-	public VehicleDATA() {
+	public VehicleDATA(String vehicleClass, List<ReservationData> reservations) {
+		this.vehicleClass = vehicleClass;
+		this.reservations = reservations;
 		
 	}
 	
+	public VehicleDATA() {
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -146,6 +151,11 @@ public class VehicleDATA {
 	 */
 	public void setReservations(List<ReservationData> reservations) {
 		this.reservations = reservations;
+	}
+	
+	@Override
+	public String toString() {
+		return getVehicleClass();
 	}
 
 }

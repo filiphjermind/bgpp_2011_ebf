@@ -85,7 +85,7 @@ public class FrameGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
-		frame.resize(Toolkit.getDefaultToolkit().getScreenSize());
+//		frame.resize(Toolkit.getDefaultToolkit().getScreenSize());
 	}
 	
 	/**

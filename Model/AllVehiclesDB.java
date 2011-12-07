@@ -5,7 +5,7 @@ import java.sql.*;
 public class AllVehiclesDB extends DBConnection {
 	
 	public AllVehiclesDB() {
-		
+		System.out.println("AllVehiclesDB.AllVehiclesDB()");
 	}
 
 	public ResultSet getAllVehicles() throws SQLException {

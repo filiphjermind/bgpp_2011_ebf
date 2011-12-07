@@ -83,7 +83,7 @@ public class ReservationPane extends JPanel {
 	}
 
 	protected void book() {
-		homeWindow.openNewReservationTab(startText.getText(),endText.getText());
+//		homeWindow.openNewReservationTab(startText.getText(),endText.getText());
 
 	}
 
