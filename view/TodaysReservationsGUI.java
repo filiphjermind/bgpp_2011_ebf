@@ -9,15 +9,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import model.TodaysReservationsData;
+import controller.GetCurrentDateTime;
+import controller.TodaysReservationsController;
 
 
 public class TodaysReservationsGUI extends JPanel{
+	GetCurrentDateTime currentDate = new GetCurrentDateTime();
 	
-	// Create a new TodaysReservationData object.
-	//TodaysReservationsData reservationData = new TodaysReservationsData();
 	/**
 	 * Constructs new panel for todays reservations
 	 */
@@ -40,7 +41,7 @@ public class TodaysReservationsGUI extends JPanel{
 		JLabel dateLabel = new JLabel("Date: ");
 		topPanel.add(dateLabel);
 		
-		JTextField dateTF = new JTextField("29.11.2011");
+		JTextField dateTF = new JTextField(currentDate.getDate());
 		dateTF.setEditable(false);
 		topPanel.add(dateTF);
 		
@@ -55,6 +56,7 @@ public class TodaysReservationsGUI extends JPanel{
 		JPanel todaysReservationsPanel = new JPanel();
 		add(todaysReservationsPanel);
 		todaysReservationsPanel.setLayout(new FlowLayout());
+		todaysReservationsPanel.setBorder(new TitledBorder("Todays reservations"));
 		
 		// Initialize the table.
 		DefaultTableModel model = new DefaultTableModel();
@@ -67,9 +69,9 @@ public class TodaysReservationsGUI extends JPanel{
 				
 		JTable table = new JTable(model);
 		
-		// Create a TodaysReservationsData object in order to assign the ResultSet to a variable.
-		TodaysReservationsData reservationData = new TodaysReservationsData();
-		ResultSet result = reservationData.selectReservations();
+		// Create a TodaysReservationsController object in order to assign the ResultSet to a variable.
+		TodaysReservationsController todaysReservationsData = new TodaysReservationsController();
+		ResultSet result = todaysReservationsData.getTodaysReservations();
 		
 		// Loops through the ResultSet.
 		// As long as the result set has a next value, add the value to a row in the table.
@@ -84,7 +86,7 @@ public class TodaysReservationsGUI extends JPanel{
 		}
 			
 		
-		table.setPreferredScrollableViewportSize(new Dimension(1000, 100));
+		table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 		table.setFillsViewportHeight(true);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
