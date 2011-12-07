@@ -105,7 +105,7 @@ public class MiddlePanel extends JPanel {
 			carLabel.setVerticalAlignment(JLabel.CENTER);
 			carLabel.setBounds(0, i * 20 + 34, 40, 15);
 			tablePanel.add(carLabel);
-			List<ReservationData> reservations = vehicleData.getReservations();
+			/*List<ReservationData> reservations = vehicleData.getReservations();
 			for (int j = 0; j < reservations.size(); j++) {
 				ReservationData reservationData = reservations.get(j);
 				int x = 50 + reservationData.getStartDay() * 25;
@@ -123,7 +123,7 @@ public class MiddlePanel extends JPanel {
 					}
 				});
 				tablePanel.add(reservationRectangle);
-			}
+			}*/
 		}
 		tablePanel.repaint();
 	}
