@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -25,6 +26,7 @@ public class MiddlePanel extends JPanel {
 	private GregorianCalendar viewDate;
 	private JPanel tablePanel;
 	private final HomeWindow homeWindow;
+	private List<String> vehicleClasses;
 
 	public MiddlePanel(HomeWindow homeWindow) {
 		this.homeWindow = homeWindow;
@@ -67,13 +69,13 @@ public class MiddlePanel extends JPanel {
 	private void selectNextMonth() {
 		viewDate.add(GregorianCalendar.MONTH,1);
 		updateMonthLabel();
-		//requestReservations();
+		requestReservations();
 	}
 
 	private void selectPreviousMonth() {
 		viewDate.add(GregorianCalendar.MONTH,-1);
 		updateMonthLabel();
-		//requestReservations();
+		requestReservations();
 	}
 	
 	private void updateMonthLabel() {
@@ -82,10 +84,10 @@ public class MiddlePanel extends JPanel {
 		monthAndYear += " " + viewDate.get(GregorianCalendar.YEAR);
 		currentMonthLabel.setText(monthAndYear);
 	}
-//	private void requestReservations() {
-//		homeWindow.updateVehiclesPane(null);
-//
-//	}
+	private void requestReservations() {
+		homeWindow.updateVehiclesPanel(vehicleClasses,viewDate);
+
+	}
 
 	public void updateTable(List<VehicleDATA> vehicles,GregorianCalendar currentMonth) {
 		tablePanel.removeAll();
@@ -129,5 +131,11 @@ public class MiddlePanel extends JPanel {
 	}
 	private void onReservationClicked(ReservationData reservationData) {
 		System.out.println("VehiclesPane.onReservationClicked()"+reservationData.getStartDay());
+	}
+
+	public void onCheckBoxesUpdated(List<String> vehicleClasses) {
+		this.vehicleClasses = vehicleClasses;
+		requestReservations();
+		
 	}
 }

@@ -4,6 +4,7 @@ package view.homeGUI;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -23,19 +24,19 @@ public class HomeWindow extends JPanel{
 	private MiddlePanel middlePanel;
 	private final FrameGUI frameGUI;
 
-	public HomeWindow(List<String> carClasses, FrameGUI frameGUI) {
+	public HomeWindow(List<String> carClasses, FrameGUI frameGUI) throws SQLException {
 		this.frameGUI = frameGUI;
-		makeStructure(carClasses);
+		makeStructure();
 		setVisible(true);
 		// TODO following line is only for testing. The method should be called
 		// from model
 		//updateVehiclesPane(null);
 	}
 
-	private void makeStructure(List<String> carClasses) {
+	private void makeStructure() throws SQLException {
 		setLayout(new BorderLayout());
 		JPanel filterPaneContainer = new JPanel(new FlowLayout());
-		filterPanel = new FilterPanel(carClasses, this);
+		filterPanel = new FilterPanel(this);
 		filterPaneContainer.add(filterPanel);
 		filterPanel.setBorder(new TitledBorder("Vehicle Type"));
 		add(filterPaneContainer, BorderLayout.WEST);
@@ -61,23 +62,14 @@ public class HomeWindow extends JPanel{
 		frame.pack();
 	}
 
-	/*public void updateVehiclesPane(ArrayList<JCheckBox> collectedCheckBoxes) {
-		// TODO temporary code to simulate data from database
-		List<VehicleData> vehicles = new ArrayList<VehicleData>();
-		ArrayList<ReservationData> reservations = new ArrayList<ReservationData>();
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 1), new GregorianCalendar(2011, 10, 3), false));
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 5), new GregorianCalendar(2011, 10, 7), false));
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 10), new GregorianCalendar(2011, 10, 11), false));
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 20), new GregorianCalendar(2011, 10, 30), false));
-		//vehicles.add(new VehicleDATA(1, "van", reservations));
-		reservations = new ArrayList<ReservationData>();
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 2), new GregorianCalendar(2011, 10, 7), false));
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 7), new GregorianCalendar(2011, 10, 10), false));
-		reservations.add(new ReservationData(new GregorianCalendar(2011, 10, 11), new GregorianCalendar(2011, 10, 23), false));
-		//vehicles.add(new VehicleDATA(1, "segway", reservations));
-		middlePanel.updateTable(vehicles, null);
+	public void onCheckBoxesUpdated(List<String> collectedVehicleClasses) {
+		middlePanel.onCheckBoxesUpdated(collectedVehicleClasses);
 	}
-	
+
+	public void updateVehiclesPanel(List<String> vehicleClasses, GregorianCalendar currentMonth) {
+		
+	}
+	/*
 	public void updateTable(List<VehicleData> vehicles) {
 		middlePanel.updateTable(vehicles, null);
 	}

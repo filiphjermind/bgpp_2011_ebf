@@ -3,6 +3,7 @@ package view.homeGUI;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -12,19 +13,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import controller.VehicleClassControl;
+
 public class ReservationPane extends JPanel {
 	private final HomeWindow homeWindow;
 	private JTextField startText;
 	private JTextField endText;
 
-	public ReservationPane(HomeWindow homeWindow) {
+	public ReservationPane(HomeWindow homeWindow) throws SQLException {
 		this.homeWindow = homeWindow;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		makeNewReservation();
 		makeChangeReservationPanel();
 	}
 
-	private void makeNewReservation() {
+	private void makeNewReservation() throws SQLException {
 		// TODO Auto-generated method stub
 		// make newReservationPanel
 		JPanel newReservationPanel = new JPanel();
@@ -67,9 +70,9 @@ public class ReservationPane extends JPanel {
 		JLabel vehicleTypeLabel = new JLabel("Vehicle type");
 		newReservationBottomPanel.add(vehicleTypeLabel);
 
-		String[] types = { "Van", "Car, 2 door", "Car, 4 door", "Sportscar", "Stationcar", "Motorcycle", "Segway" };
-		// JComboBox<String> typeCombo = new JComboBox<String>(types);
-		// newReservationBottomPanel.add(typeCombo);
+		Object[] types = VehicleClassControl.getArray();
+		JComboBox typeCombo = new JComboBox(types);
+		newReservationBottomPanel.add(typeCombo);
 
 		JButton bookButton = new JButton("Book");
 		newReservationBottomPanel.add(bookButton);

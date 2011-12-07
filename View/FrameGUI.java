@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,7 +106,12 @@ public class FrameGUI {
 		
 		JMenuItem newReservationItem = new JMenuItem("New reservation");
 			newReservationItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) { newReservation(); }
+				public void actionPerformed(ActionEvent e) { try {
+					newReservation();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} }
 			});
 		fileMenu.add(newReservationItem);
 		
@@ -167,8 +173,8 @@ public class FrameGUI {
 		
 	}
 	
-	public void openNewReservationTab(String start, String end) {
-		ReservationGUI reservationGUI = new ReservationGUI(start,end);
+	public void openNewReservationTab(String start, String end, String carClass) throws SQLException {
+		ReservationGUI reservationGUI = new ReservationGUI(start,end, carClass);
 		makeNewTab("Reservation",reservationGUI);
 	}
 	public void makeNewTab(String title, JPanel panel) {
@@ -179,8 +185,9 @@ public class FrameGUI {
 	/**
 	 * The new reservation method.
 	 * Creates a new reservations.
+	 * @throws SQLException 
 	 */
-	private void newReservation()
+	private void newReservation() throws SQLException
 	{		
 		makeNewTab("Reservation", new ReservationGUI());
 	}
