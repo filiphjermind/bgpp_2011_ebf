@@ -2,14 +2,18 @@ package model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import controller.GetCurrentDateTime;
 
 public class TodaysReservationsData extends DBConnection {
 	
+	GetCurrentDateTime date = new GetCurrentDateTime();
+	String currentDate = date.getDate();
+	
 	// Query: Selects all from reservations.
 	private String query = "SELECT Reservation.id, Person.firstName, Person.lastName, Reservation.vehicle, " +
-							"VehicleClass.description, Reservation.pickedUp, Reservation.returned FROM Person, " +
-							"Reservation, VehicleClass";
+							"VehicleClass.description, Reservation.pickedUp, Reservation.returned, Reservation.startDate " +
+							"FROM Person, Reservation, VehicleClass WHERE Reservation.startDate = '" + currentDate + "'";
 	
 	public TodaysReservationsData() throws Exception
 	{
