@@ -201,7 +201,7 @@ public class FrameGUI {
 	// temporary
 	private void exampleVehicle()
 	{
-		makeNewTab("Vehicle", new SVGUI());
+		makeNewTab("Vehicle DK 39 452", new SVGUI("DK 39 452"));
 	}
 	/**
 	 * Print method.

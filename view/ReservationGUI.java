@@ -102,7 +102,8 @@ public class ReservationGUI extends JPanel {
 		        	JTextField endText = new JTextField(10);
 		        	reservationTextPanel.add(endText);
 		        	
-		        	Object[] classes = VehicleClassController.getArray();
+		        	VehicleClassController vcc = new VehicleClassController();
+		        	Object[] classes = vcc.getArray();
 		        	JComboBox classCombo= new JComboBox(classes);
 		        	reservationTextPanel.add(classCombo);
 		        	
