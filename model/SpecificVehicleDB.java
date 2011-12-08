@@ -10,7 +10,7 @@ public class SpecificVehicleDB extends DBConnection{
 		vehicleData = null;
 	}
 
-	public void getVehicleData(String licenceplate) throws SQLException {
+	private void askDataBase(String licenceplate) throws SQLException {
 		// get a resultset
 		ResultSet result = sendQuery("SELECT * FROM Vehicle WHERE licencePlate = licenceplate");
 		
@@ -25,5 +25,10 @@ public class SpecificVehicleDB extends DBConnection{
 			vehicleData.setModel(result.getString("model"));
 			// history of services table, array, map
 		}
+	}
+	
+	public VehicleDATA getVehicleData(String licenceplate) {
+		askDataBase(String licenceplate);
+		return vehicleData;
 	}
 }
