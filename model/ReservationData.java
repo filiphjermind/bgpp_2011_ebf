@@ -60,6 +60,7 @@ public class ReservationData {
 	 */
 	public int getDuration() {
 		return end.get(GregorianCalendar.DAY_OF_MONTH) - start.get(GregorianCalendar.DAY_OF_MONTH);
+		
 	}
 	
 	
@@ -132,6 +133,6 @@ public class ReservationData {
 	
 	@Override
 	public String toString() {
-		return "start: "+ start.getTimeInMillis() + " end: "+ end.getTimeInMillis() + " beingServiced: " +beingServiced;
+		return "start: "+ (start.getTimeInMillis()/(60*60*24)) + " end: "+ (end.getTimeInMillis()/(60*60*24)) + " beingServiced: " +beingServiced;
 	}
 }

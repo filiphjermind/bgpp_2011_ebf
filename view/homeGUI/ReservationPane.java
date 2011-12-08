@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import controller.VehicleClassControl;
+import controller.VehicleClassController;
 
 public class ReservationPane extends JPanel {
 	private final HomeWindow homeWindow;
@@ -70,7 +70,7 @@ public class ReservationPane extends JPanel {
 		JLabel vehicleTypeLabel = new JLabel("Vehicle type");
 		newReservationBottomPanel.add(vehicleTypeLabel);
 
-		Object[] types = VehicleClassControl.getArray();
+		Object[] types = VehicleClassController.getArray();
 		JComboBox typeCombo = new JComboBox(types);
 		newReservationBottomPanel.add(typeCombo);
 

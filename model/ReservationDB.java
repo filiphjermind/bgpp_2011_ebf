@@ -20,11 +20,9 @@ public class ReservationDB extends DBConnection {
 			vehicleClasses.add("Sportscar");
 			vehicleClasses.add("Car 4-door");
 			List<VehicleDATA> vehicles = getReservations(vehicleClasses, calendar);
-			System.out.println("ReservationDB.ReservationDB()" + vehicles.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		DBConnection.close();
 	}
 
 	/*
@@ -40,6 +38,7 @@ public class ReservationDB extends DBConnection {
 	 * reservations
 	 */
 	public List<VehicleDATA> getReservations(List<String> vehicleClasses, GregorianCalendar currentMonth) throws SQLException {
+		if(vehicleClasses.size()==0)return null;
 		// converting date format from GregorianCalendar to sql
 		String startMonth = "'" + currentMonth.get(GregorianCalendar.YEAR) + "-" + (currentMonth.get(GregorianCalendar.MONTH) + 1) + "-1'";
 		String endMonth = "'" + currentMonth.get(GregorianCalendar.YEAR) + "-" + (currentMonth.get(GregorianCalendar.MONTH) + 1) + "-" + currentMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH)
@@ -59,6 +58,8 @@ public class ReservationDB extends DBConnection {
 		ResultSet resultSet = sendQuery("SELECT description, startDate, endDate FROM Reservation, Vehicle, VehicleClass "
 				+ "WHERE Reservation.vehicle = Vehicle.id AND Vehicle.id = VehicleClass.id AND Reservation.endDate >= " + startMonth + " AND" + " Reservation.startDate <= " + endMonth + " AND "
 				+ vehicleClassConditions);
+		//checks if the resultSet is empty
+		if(!resultSet.isBeforeFirst()) return null;
 		List<VehicleDATA> vehicles = new ArrayList<VehicleDATA>();
 		String description = "";
 		List<ReservationData> reservationDatas = null;
@@ -75,7 +76,7 @@ public class ReservationDB extends DBConnection {
 			Date endDate = resultSet.getDate("endDate", new GregorianCalendar());
 			GregorianCalendar calendarEnd = new GregorianCalendar();
 			calendarEnd.setTime(endDate);
-			ReservationData reservationData = new ReservationData(calendarEnd, calendarStart, false);
+			ReservationData reservationData = new ReservationData(calendarStart,calendarEnd, false);
 			reservationDatas.add(reservationData);
 		}
 		return vehicles;

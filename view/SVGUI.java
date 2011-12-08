@@ -25,7 +25,7 @@ import controller.SpecificVehicleController;
  */
 public class SVGUI extends JPanel {
 	
-	public SVGUI(String licencePlate)
+	public SVGUI(/*String licencePlate*/)
 	{
 		setLayout(new BorderLayout());
 		add(makeWestPanel(), BorderLayout.WEST);

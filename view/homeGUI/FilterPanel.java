@@ -10,7 +10,7 @@ import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
-import controller.VehicleClassControl;
+import controller.VehicleClassController;
 
 @SuppressWarnings("serial")
 public class FilterPanel extends JPanel {
@@ -22,7 +22,7 @@ public class FilterPanel extends JPanel {
 		setLayout(new GridLayout(0, 1));
 		
 		checkBoxes = new ArrayList<JCheckBox>();
-		VehicleClassControl vcc = new VehicleClassControl();
+		VehicleClassController vcc = new VehicleClassController();
 		ArrayList<String> carClasses = vcc.getArrayList();
 		
 				for (String carClass : carClasses) {

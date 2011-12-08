@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import controller.ReservationController;
+
 import view.FrameGUI;
 import model.ReservationData;
 import model.VehicleDATA;
@@ -23,11 +25,13 @@ public class HomeWindow extends JPanel{
 	private FilterPanel filterPanel;
 	private MiddlePanel middlePanel;
 	private final FrameGUI frameGUI;
+	private ReservationController reservationController;
 
 	public HomeWindow(List<String> carClasses, FrameGUI frameGUI) throws SQLException {
 		this.frameGUI = frameGUI;
 		makeStructure();
 		setVisible(true);
+		reservationController = new ReservationController();
 		// TODO following line is only for testing. The method should be called
 		// from model
 		//updateVehiclesPane(null);
@@ -66,8 +70,8 @@ public class HomeWindow extends JPanel{
 		middlePanel.onCheckBoxesUpdated(collectedVehicleClasses);
 	}
 
-	public void updateVehiclesPanel(List<String> vehicleClasses, GregorianCalendar currentMonth) {
-		
+	public List<VehicleDATA> getReservations(List<String> vehicleClasses, GregorianCalendar currentMonth) throws SQLException {
+		return reservationController.getReservations(vehicleClasses,currentMonth);
 	}
 	/*
 	public void updateTable(List<VehicleData> vehicles) {
