@@ -82,8 +82,5 @@ public class ReservationDB extends DBConnection {
 		return vehicles;
 	}
 
-	public static void main(String[] args) {
-		new ReservationDB();
-	}
-
+	
 }
