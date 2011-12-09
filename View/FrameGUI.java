@@ -250,7 +250,7 @@ public class FrameGUI {
 
 	}
 
-	public void openNewReservationTab(String start, String end, String carClass) throws SQLException {
+	public void openNewReservationTab(String start, String end, String carClass) {
 		ReservationGUI reservationGUI = new ReservationGUI(start, end, carClass);
 		makeNewTab("Reservation", reservationGUI);
 	}

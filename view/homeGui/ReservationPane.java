@@ -19,6 +19,7 @@ public class ReservationPane extends JPanel {
 	private final HomeWindow homeWindow;
 	private JTextField startText;
 	private JTextField endText;
+	private JComboBox typeCombo;
 
 	public ReservationPane(HomeWindow homeWindow) throws SQLException {
 		this.homeWindow = homeWindow;
@@ -71,7 +72,7 @@ public class ReservationPane extends JPanel {
 		newReservationBottomPanel.add(vehicleTypeLabel);
 
 		Object[] types = VehicleClassController.getArray();
-		JComboBox typeCombo = new JComboBox(types);
+		typeCombo = new JComboBox(types);
 		newReservationBottomPanel.add(typeCombo);
 
 		JButton bookButton = new JButton("Book");
@@ -86,7 +87,7 @@ public class ReservationPane extends JPanel {
 	}
 
 	protected void book() {
-//		homeWindow.openNewReservationTab(startText.getText(),endText.getText());
+		homeWindow.onBookTabClicked(startText.getText(),endText.getText(),typeCombo.getSelectedItem());
 
 	}
 

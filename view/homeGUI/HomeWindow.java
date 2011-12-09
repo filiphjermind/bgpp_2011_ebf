@@ -29,9 +29,9 @@ public class HomeWindow extends JPanel{
 
 	public HomeWindow(List<String> carClasses, FrameGUI frameGUI) throws SQLException {
 		this.frameGUI = frameGUI;
+		reservationController = new ReservationController();
 		makeStructure();
 		setVisible(true);
-		reservationController = new ReservationController();
 		// TODO following line is only for testing. The method should be called
 		// from model
 		//updateVehiclesPane(null);
@@ -40,11 +40,11 @@ public class HomeWindow extends JPanel{
 	private void makeStructure() throws SQLException {
 		setLayout(new BorderLayout());
 		JPanel filterPaneContainer = new JPanel(new FlowLayout());
+		middlePanel = new MiddlePanel(this);
 		filterPanel = new FilterPanel(this);
 		filterPaneContainer.add(filterPanel);
 		filterPanel.setBorder(new TitledBorder("Vehicle Type"));
 		add(filterPaneContainer, BorderLayout.WEST);
-		middlePanel = new MiddlePanel(this);
 		middlePanel.setBorder(new TitledBorder("Overview"));
 		add(middlePanel, BorderLayout.CENTER);
 		add(new ReservationPane(this), BorderLayout.EAST);
@@ -83,4 +83,9 @@ public class HomeWindow extends JPanel{
 //		frameGUI.makeNewTab(title, panel)
 	}
 	}*/
+
+	public void onBookTabClicked(String start, String end, Object selectedItem) {
+		frameGUI.openNewReservationTab(start,end, (String) selectedItem);
+		
+	}
 }

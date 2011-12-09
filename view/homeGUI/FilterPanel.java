@@ -20,12 +20,12 @@ public class FilterPanel extends JPanel {
 	public FilterPanel(HomeWindow homeWindow) throws SQLException {
 		this.homeWindow = homeWindow;
 		setLayout(new GridLayout(0, 1));
-		
+
 		checkBoxes = new ArrayList<JCheckBox>();
 		VehicleClassController vcc = new VehicleClassController();
 		ArrayList<String> carClasses = vcc.getArrayList();
-		
-				for (String carClass : carClasses) {
+
+		for (String carClass : carClasses) {
 			JCheckBox checkBox = new JCheckBox(carClass);
 			add(checkBox);
 			checkBoxes.add(checkBox);
@@ -36,6 +36,7 @@ public class FilterPanel extends JPanel {
 				}
 			});
 		}
+		collectAllSelectedCheckboxes();
 	}
 
 	private void collectAllSelectedCheckboxes() {
