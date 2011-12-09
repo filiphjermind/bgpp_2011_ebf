@@ -12,8 +12,7 @@ import model.ReservationData;
  *
  */
 public class VehicleDATA {
-	private int id;
-	private String licenceplate;
+	private String licenseplate;
 	private String vehicleClass;
 	private Date annualCheck;
 	private String make;
@@ -29,38 +28,21 @@ public class VehicleDATA {
 	public VehicleDATA() {
 	}
 
+
 	/**
-	 * @return the id
+	 * @return the licenseplate
 	 */
-	public int getId() {
-		return id;
+	public String getLicenseplate() {
+		return licenseplate;
 	}
 
 
 
 	/**
-	 * @param id the id to set
+	 * @param licenceplate the licenseplate to set
 	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-
-	/**
-	 * @return the licenceplate
-	 */
-	public String getLicenceplate() {
-		return licenceplate;
-	}
-
-
-
-	/**
-	 * @param licenceplate the licenceplate to set
-	 */
-	public void setLicenceplate(String licenceplate) {
-		this.licenceplate = licenceplate;
+	public void setLicenseplate(String licenseplate) {
+		this.licenseplate = licenseplate;
 	}
 
 
