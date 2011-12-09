@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import data.ReservationDATA;
+
 public class ReservationDB extends DBConnection {
 
 	/**
@@ -26,7 +28,7 @@ public class ReservationDB extends DBConnection {
 	}
 
 	/*
-	 * This method fetch reservation data from the database based on
+	 * This method fetches reservation data from the database based on
 	 * vehicleClasses and a specific month
 	 * 
 	 * @parameter vehicleClasses the vehicleClasses which should be fetched from
@@ -81,6 +83,30 @@ public class ReservationDB extends DBConnection {
 		}
 		return vehicles;
 	}
-
 	
+	/*
+	public ReservationData getOneReservation(int reservationNr) {
+		// get the details of the reservation
+		ResultSet result = sendQuery("SELECT * Reservation WHERE ID = reservationNr");
+				
+		//retrieve it from the resultset and store it in a ReservationDATA object
+		ReservationData reservationData = new ReservationData();
+		try {
+			while(result.next()) {
+				reservationData.setID(result.getInt("ID"));
+				//reservationData.setPerson(result.getString("person")); // need all the info
+				reservationData.setStartDate(result.getDate("startDate"));
+				reservationData.setEndDate(result.getDate("endDate"));
+				//reservationData.setVehicle(result.getString("vehicle")); // only need the license plate
+				//reservationData.setPickedUp(result.getInt("pickedUp")); // if 0 true, if 1 false or whatever
+				//reservationData.setReturned(result.getInt("returned")); // if 0 true, if 1 false or whatever
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// how to store Person and Vehicle information?
+		return reservationData;
+	}*/
 }
