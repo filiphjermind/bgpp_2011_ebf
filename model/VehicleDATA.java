@@ -12,12 +12,20 @@ import model.ReservationData;
  *
  */
 public class VehicleDATA {
-	private int id;
-	private String licenceplate;
+	private String licenseplate;
 	private String vehicleClass;
 	private Date annualCheck;
 	private String make;
 	private String model;
+	private String price;
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
 	private  List<ReservationData> reservations;
 
 	public VehicleDATA(String vehicleClass, List<ReservationData> reservations) {
@@ -26,41 +34,25 @@ public class VehicleDATA {
 		
 	}
 	
-	public VehicleDATA() {
+	public VehicleDATA() 
+	{
+		
 	}
 
 	/**
-	 * @return the id
+	 * @return the licenseplate
 	 */
-	public int getId() {
-		return id;
-	}
-
-
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
+	public String getLicenseplate() {
+		return licenseplate;
 	}
 
 
 
 	/**
-	 * @return the licenceplate
+	 * @param licenseplate the licenseplate to set
 	 */
-	public String getLicenceplate() {
-		return licenceplate;
-	}
-
-
-
-	/**
-	 * @param licenceplate the licenceplate to set
-	 */
-	public void setLicenceplate(String licenceplate) {
-		this.licenceplate = licenceplate;
+	public void setLicenseplate(String licenseplate) {
+		this.licenseplate = licenseplate;
 	}
 
 

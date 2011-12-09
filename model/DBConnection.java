@@ -33,7 +33,7 @@ public class DBConnection {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// create a connection
-			dbConnection = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk/ebfCarRental", "ebf", "bgpp");
+			dbConnection = DriverManager.getConnection("jdbc:mysql://mysql.itu.dk/DB_TO", "ebf2", "bgpp2");
 		} catch (SQLException exn) {
 			System.out.println("Can't initialize the connection to the database: " + exn);
 		} catch (ClassNotFoundException exn) {

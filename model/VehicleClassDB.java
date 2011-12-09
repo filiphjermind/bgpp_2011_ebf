@@ -19,12 +19,12 @@ public class VehicleClassDB extends DBConnection {
 	 */
 	public Object[] getVehicleClassListAsArray() throws SQLException {
 		// get a resultset
-		ResultSet result = sendQuery("SELECT description FROM VehicleClass");
+		ResultSet result = sendQuery("SELECT vehicleClass FROM VehicleClass");
 		
 		// turn it into an ArrayList
 		ArrayList<String> arrList = new ArrayList<String>();
         while(result.next()) {
-            arrList.add(result.getString("description"));
+            arrList.add(result.getString("vehicleClass"));
         }
         
         // turn the arraylist into an array
@@ -41,12 +41,12 @@ public class VehicleClassDB extends DBConnection {
 	 */
 	public ArrayList<String> getVehicleClassListAsArrayList() throws SQLException {
 		// get a resultset
-		ResultSet result = sendQuery("SELECT description FROM VehicleClass");
+		ResultSet result = sendQuery("SELECT vehicleClass FROM VehicleClass");
 		
 		// turn it into an ArrayList
 		ArrayList<String> arrList = new ArrayList<String>();
         while(result.next()) {
-            arrList.add(result.getString("description"));
+            arrList.add(result.getString("vehicleClass"));
         }
         	
         // return the arrayList

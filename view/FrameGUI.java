@@ -2,9 +2,10 @@ package view;
 
 
 import java.awt.BorderLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 
 import view.homeGUI.HomeWindow;
 
@@ -36,6 +38,7 @@ import view.homeGUI.HomeWindow;
 
 public class FrameGUI {
 	
+	//AllVehiclesGUI allVehiclesGUI = new AllVehiclesGUI();
 	private JTabbedPane tabbedPane;
 	
 	/**
@@ -44,7 +47,8 @@ public class FrameGUI {
 	public FrameGUI() throws Exception
 	{	
 		
-		SVGUI svGui = new SVGUI();
+		AllVehiclesGUI allVehiclesGUI = new AllVehiclesGUI(this);
+		SVGUI svGui = new SVGUI("Something");
 		Test test = new Test();
 		
 		// Create the frame, and tabbed pane for the skeleton.
@@ -68,9 +72,9 @@ public class FrameGUI {
 		tabbedPane.addTab("Home", homePanel);
 		
 		// Vehicles tab.
-		JPanel allVehiclesPanel = new AllVehiclesGUI(); 
+		JPanel allVehiclesPanel = new AllVehiclesGUI(this); 
 		tabbedPane.addTab("Vehicles", allVehiclesPanel);
-		
+
 		// Todays reservations tab.
 		JPanel todaysReservationsPanel = new TodaysReservationsGUI();
 		tabbedPane.addTab("Todays reservations", todaysReservationsPanel);
@@ -188,6 +192,13 @@ public class FrameGUI {
 		tabbedPane.setSelectedComponent(panel);
 	}
 	
+	
+	public void makeNewSVGUI(String licensePlate)
+	{
+		String tabTitle = licensePlate;
+		makeNewTab(tabTitle, new SVGUI(tabTitle));
+	}
+	
 	/**
 	 * The new reservation method.
 	 * Creates a new reservations.
@@ -276,7 +287,6 @@ public class FrameGUI {
 	{
 		System.exit(0);
 	}
-
 	
 
 }

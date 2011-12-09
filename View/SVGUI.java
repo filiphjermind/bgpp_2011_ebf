@@ -11,7 +11,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.*;
+import javax.swing.border.TitledBorder;
+
+import model.SpecificVehicleDB;
+import model.VehicleDATA;
 
 /**
  * This class contains all the graphical information related
@@ -21,29 +24,15 @@ import javax.swing.border.*;
  * @version 25.11.2011
  *
  */
-public class SVGUI {
+public class SVGUI extends JPanel {
 	
-	public SVGUI()
+	public SVGUI(String licencePlate)
 	{
-		
+		setLayout(new BorderLayout());
+		add(makeWestPanel(), BorderLayout.WEST);
+		add(makeCenterPanel(), BorderLayout.CENTER);
 	}
 	
-	/**
-	 * Makes the panel.
-	 * Takes the panels from the other methods, and puts them together
-	 * into one panel.
-	 * 
-	 * @return JPanel panel - The main panel
-	 */
-	public JPanel makeMainPanel()
-	{
-		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new BorderLayout());
-		mainPanel.add(makeWestPanel(), BorderLayout.WEST);
-		mainPanel.add(makeCenterPanel(), BorderLayout.CENTER);
-		return mainPanel;
-	}
-
 	/**
 	 * Makes the west panel.
 	 * 
@@ -51,20 +40,24 @@ public class SVGUI {
 	 */
 	private JPanel makeWestPanel()
 	{
+		VehicleDATA vd = new VehicleDATA();
+		
 		JPanel westPanel = new JPanel();
 		westPanel.setLayout(new GridLayout(0, 2));
 		
 		JLabel vehicleLabel = new JLabel("Vehicle");
 		westPanel.add(vehicleLabel);
 		
-		JTextField vehicleTF = new JTextField("TL 539 92");
+		//SpecificVehicleController svc = new SpecificVehicleController();
+		
+		JTextField vehicleTF = new JTextField(vd.getLicenseplate());
 		vehicleTF.setEditable(false);
 		westPanel.add(vehicleTF);
 		
 		JLabel modelLabel = new JLabel("Model");
 		westPanel.add(modelLabel);
 		
-		JTextField modelTF = new JTextField("Volvo");
+		JTextField modelTF = new JTextField("VOLVO");
 		modelTF.setEditable(false);
 		westPanel.add(modelTF);
 		
@@ -141,7 +134,7 @@ public class SVGUI {
 		westPanel.add(saveButton);
 		
 		JPanel westFlowPanel = new JPanel();
-		westFlowPanel.setBorder(new EtchedBorder());
+		westFlowPanel.setBorder(new TitledBorder("Vehicle information"));
 		westFlowPanel.setLayout(new FlowLayout());
 		westFlowPanel.add(westPanel);
 		
@@ -170,14 +163,14 @@ public class SVGUI {
 		};
 		
 		table = new JTable(data, columnNames);
-		table.setPreferredScrollableViewportSize(new Dimension(1000, 100));
+		table.setPreferredScrollableViewportSize(new Dimension(800, 400));
 		table.setFillsViewportHeight(true);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		centerPanel.add(scrollPane);
 		
 		JPanel centerFlowPanel = new JPanel();
-		centerFlowPanel.setBorder(new EtchedBorder());
+		centerFlowPanel.setBorder(new TitledBorder("Service information"));
 		centerFlowPanel.setLayout(new FlowLayout());
 		centerFlowPanel.add(centerPanel);
 		

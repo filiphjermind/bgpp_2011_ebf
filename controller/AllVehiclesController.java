@@ -3,9 +3,11 @@ package controller;
 import java.sql.ResultSet;
 
 import model.AllVehiclesDB;
+import view.FrameGUI;
 
 public class AllVehiclesController {
 	AllVehiclesDB allVehicles = new AllVehiclesDB();
+
 	
 	/**
 	 * Get all vehicles from AllVehiclesDB.
