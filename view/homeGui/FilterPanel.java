@@ -39,13 +39,13 @@ public class FilterPanel extends JPanel {
 	}
 
 	private void collectAllSelectedCheckboxes() {
-		List<JCheckBox> collectedCheckBoxes = new ArrayList<JCheckBox>();
+		List<String> collectedVehicleClasses = new ArrayList<String>();
 		for (JCheckBox checkBox : checkBoxes) {
 			if (checkBox.isSelected()) {
-				collectedCheckBoxes.add(checkBox);
+				collectedVehicleClasses.add(checkBox.getText());
 			}
 		}
-		//TODO send forespørgsel til database med information om de valgte checkboxes (collectedCheckBoxes)
+		homeWindow.onCheckBoxesUpdated(collectedVehicleClasses);
 	}
 
 }

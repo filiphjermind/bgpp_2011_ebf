@@ -39,4 +39,8 @@ public class ReservationRectangle extends JButton {
 	public ReservationData getReservationData() {
 		return reservationData;
 	}
+	@Override
+	public String toString() {
+		return rectangle.toString();
+	}
 }
