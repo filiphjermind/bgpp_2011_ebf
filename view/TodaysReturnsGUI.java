@@ -2,6 +2,8 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 
 import javax.swing.JLabel;
@@ -59,15 +61,28 @@ public class TodaysReturnsGUI extends JPanel {
 		todaysReturnsPanel.setBorder(new TitledBorder("Todays Returns"));
 		
 		// Initialize the table.
-		DefaultTableModel model = new DefaultTableModel();
+		DefaultTableModel model = new DefaultTableModel() {
+			// Makes the table non-editable.
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		model.addColumn("Reservation number");
 		model.addColumn("First name");
 		model.addColumn("Last name");
 		model.addColumn("Vehicle");
 		model.addColumn("Type");
-		model.addColumn("Status");
-				
-		JTable table = new JTable(model);
+		model.addColumn("Picked up");
+		model.addColumn("Returned");
+		
+		// Make the table final in order to access it from the inner class.
+		final JTable table = new JTable(model);
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int row = table.getSelectedRow();
+				int col = table.getSelectedColumn();	
+			}
+		});
 		
 		// Create a TodaysReturnsController object in order to assign the ResultSet to a variable.
 		TodaysReturnsController todaysReturnsData = new TodaysReturnsController();
@@ -79,7 +94,8 @@ public class TodaysReturnsGUI extends JPanel {
 		while(result.next()) {
 			Object[] rowData = {result.getString(1), result.getString(2),
 								result.getString(3), result.getString(4),
-								result.getString(5), result.getString(6)
+								result.getString(5), result.getString(6),
+								result.getString(7)
 			};
 			model.insertRow(tableIndex, rowData);
 			tableIndex++;

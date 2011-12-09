@@ -11,7 +11,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.*;
+import javax.swing.border.TitledBorder;
+
+import model.SpecificVehicleDB;
+import model.VehicleDATA;
 
 import controller.SpecificVehicleController;
 
@@ -25,7 +28,7 @@ import controller.SpecificVehicleController;
  */
 public class SVGUI extends JPanel {
 	
-	public SVGUI(/*String licencePlate*/)
+	public SVGUI(String licencePlate)
 	{
 		setLayout(new BorderLayout());
 		add(makeWestPanel(), BorderLayout.WEST);
@@ -39,23 +42,24 @@ public class SVGUI extends JPanel {
 	 */
 	private JPanel makeWestPanel()
 	{
+		VehicleDATA vd = new VehicleDATA();
+		
 		JPanel westPanel = new JPanel();
 		westPanel.setLayout(new GridLayout(0, 2));
 		
 		JLabel vehicleLabel = new JLabel("Vehicle");
 		westPanel.add(vehicleLabel);
 		
-		SpecificVehicleController svc = new SpecificVehicleController();
+		//SpecificVehicleController svc = new SpecificVehicleController();
 		
-		JTextField vehicleTF = new JTextField("");
-		
+		JTextField vehicleTF = new JTextField(vd.getLicenseplate());
 		vehicleTF.setEditable(false);
 		westPanel.add(vehicleTF);
 		
 		JLabel modelLabel = new JLabel("Model");
 		westPanel.add(modelLabel);
 		
-		JTextField modelTF = new JTextField("Volvo");
+		JTextField modelTF = new JTextField("VOLVO");
 		modelTF.setEditable(false);
 		westPanel.add(modelTF);
 		
@@ -132,7 +136,7 @@ public class SVGUI extends JPanel {
 		westPanel.add(saveButton);
 		
 		JPanel westFlowPanel = new JPanel();
-		westFlowPanel.setBorder(new EtchedBorder());
+		westFlowPanel.setBorder(new TitledBorder("Vehicle information"));
 		westFlowPanel.setLayout(new FlowLayout());
 		westFlowPanel.add(westPanel);
 		
@@ -161,14 +165,14 @@ public class SVGUI extends JPanel {
 		};
 		
 		table = new JTable(data, columnNames);
-		table.setPreferredScrollableViewportSize(new Dimension(1000, 100));
+		table.setPreferredScrollableViewportSize(new Dimension(800, 400));
 		table.setFillsViewportHeight(true);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		centerPanel.add(scrollPane);
 		
 		JPanel centerFlowPanel = new JPanel();
-		centerFlowPanel.setBorder(new EtchedBorder());
+		centerFlowPanel.setBorder(new TitledBorder("Service information"));
 		centerFlowPanel.setLayout(new FlowLayout());
 		centerFlowPanel.add(centerPanel);
 		

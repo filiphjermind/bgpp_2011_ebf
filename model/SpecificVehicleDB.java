@@ -1,15 +1,15 @@
 package model;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class SpecificVehicleDB extends DBConnection{
-	
-
+public class SpecificVehicleDB extends DBConnection {
+	 
 	public SpecificVehicleDB() {
 		
 	}
 
-	private VehicleDATA getVehicle(String licenseplate) {
+	public VehicleDATA getVehicle(String licenseplate) {
 		// get information on the vehicle
 		ResultSet result = sendQuery("SELECT * FROM Vehicle WHERE licensePlate = licenseplate");
 		
@@ -25,10 +25,10 @@ public class SpecificVehicleDB extends DBConnection{
 				// history of services table, array, map
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return vehicleData;
 	}
 	
+
 }

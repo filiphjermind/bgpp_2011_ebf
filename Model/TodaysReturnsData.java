@@ -12,9 +12,16 @@ public class TodaysReturnsData extends DBConnection
 	String currentDate = date.getDate();
 	
 	// Query: Selects all from the Reservation table.
-	private String query = "SELECT Reservation.id, Person.firstName, Person.lastName, Reservation.vehicle, " +
-							"VehicleClass.description, Reservation.pickedUp, Reservation.returned, Reservation.endDate " +
-							"FROM Person, Reservation, VehicleClass WHERE Reservation.endDate = '" + currentDate + "'";
+	/*private String query = "SELECT Reservation.id, Person.firstName, Person.lastName, Reservation.vehicle, " +
+							"VehicleClass.vehicleClass, Reservation.pickedUp, Reservation.returned, Reservation.endDate " +
+							"FROM Person, Reservation, VehicleClass WHERE Reservation.endDate = '" + currentDate + "'";*/
+	
+	private String query = "SELECT Reservation.ID, Person.firstName, Person.lastName, Reservation.vehicle, " +
+							"Vehicle.vehicleClass, Reservation.pickedUp, Reservation.Returned, " +
+							"Reservation.person, Person.ID, Vehicle.licensePlate, Reservation.endDate " +
+							"FROM Reservation, Person, Vehicle " +
+							"WHERE Reservation.person = Person.ID AND Reservation.vehicle = Vehicle.licensePlate " +
+							"AND Reservation.endDate = '" + currentDate + "'";
 	
 	public TodaysReturnsData() throws Exception
 	{

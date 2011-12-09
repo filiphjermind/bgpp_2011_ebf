@@ -17,6 +17,15 @@ public class VehicleDATA {
 	private Date annualCheck;
 	private String make;
 	private String model;
+	private String price;
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
 	private  List<ReservationData> reservations;
 
 	public VehicleDATA(String vehicleClass, List<ReservationData> reservations) {
@@ -27,7 +36,6 @@ public class VehicleDATA {
 	
 	public VehicleDATA() {
 	}
-
 
 	/**
 	 * @return the licenseplate
