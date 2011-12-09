@@ -3,13 +3,8 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-<<<<<<< HEAD
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-=======
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
->>>>>>> 119805b6134759d723cc58e67869a6af0f73b7d9
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +15,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 
 import model.DBConnection;
-
 import view.homeGUI.HomeWindow;
 
 /**
@@ -40,28 +33,25 @@ import view.homeGUI.HomeWindow;
  */
 
 public class FrameGUI {
-<<<<<<< HEAD
 	
 	//AllVehiclesGUI allVehiclesGUI = new AllVehiclesGUI();
-=======
-
->>>>>>> 119805b6134759d723cc58e67869a6af0f73b7d9
 	private JTabbedPane tabbedPane;
 
 	/**
 	 * Creates the frame for the booking system
 	 */
-<<<<<<< HEAD
-	public FrameGUI() throws Exception
+
+	/*public FrameGUI() throws Exception
 	{	
 		
 		AllVehiclesGUI allVehiclesGUI = new AllVehiclesGUI(this);
 		SVGUI svGui = new SVGUI("Something");
-=======
+	}*/
+
 	public FrameGUI() throws Exception {
 
 		SVGUI svGui = new SVGUI();
->>>>>>> 119805b6134759d723cc58e67869a6af0f73b7d9
+
 		Test test = new Test();
 
 		// Create the frame, and tabbed pane for the skeleton.
@@ -87,11 +77,8 @@ public class FrameGUI {
 		tabbedPane.addTab("Home", homePanel);
 
 		// Vehicles tab.
-<<<<<<< HEAD
+
 		JPanel allVehiclesPanel = new AllVehiclesGUI(this); 
-=======
-		JPanel allVehiclesPanel = new AllVehiclesGUI();
->>>>>>> 119805b6134759d723cc58e67869a6af0f73b7d9
 		tabbedPane.addTab("Vehicles", allVehiclesPanel);
 
 		// Todays reservations tab.
@@ -189,15 +176,7 @@ public class FrameGUI {
 			}
 		});
 		fileMenu.add(newReservationItem);
-<<<<<<< HEAD
 		
-		JMenuItem exampleVehicle = new JMenuItem("Example Vehicle");
-		exampleVehicle.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { exampleVehicle(); }
-			});
-		fileMenu.add(exampleVehicle);
-		
-=======
 
 		JMenuItem exampleVehicle = new JMenuItem("Example Vehicle");
 		exampleVehicle.addActionListener(new ActionListener() {
@@ -207,7 +186,6 @@ public class FrameGUI {
 		});
 		fileMenu.add(exampleVehicle);
 
->>>>>>> 119805b6134759d723cc58e67869a6af0f73b7d9
 		JMenuItem printItem = new JMenuItem("Print");
 		printItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -291,7 +269,7 @@ public class FrameGUI {
 		tabbedPane.addTab(title, panel);
 		tabbedPane.setSelectedComponent(panel);
 	}
-<<<<<<< HEAD
+
 	
 	
 	public void makeNewSVGUI(String licensePlate)
@@ -300,9 +278,6 @@ public class FrameGUI {
 		makeNewTab(tabTitle, new SVGUI(tabTitle));
 	}
 	
-=======
-
->>>>>>> 119805b6134759d723cc58e67869a6af0f73b7d9
 	/**
 	 * The new reservation method. Creates a new reservations.
 	 * 
@@ -311,21 +286,15 @@ public class FrameGUI {
 	private void newReservation() throws SQLException {
 		makeNewTab("Reservation", new ReservationGUI());
 	}
-<<<<<<< HEAD
+
 		
 	// temporary
 	private void exampleVehicle()
 	{
 		makeNewTab("Vehicle DK 39 452", new SVGUI("DK 39 452"));
 	}
-=======
 
-	// temporary
-	private void exampleVehicle() {
-		// makeNewTab("Vehicle DK 39 452", new SVGUI("DK 39 452"));
-	}
 
->>>>>>> 119805b6134759d723cc58e67869a6af0f73b7d9
 	/**
 	 * Print method. Prints out the information on the screen.
 	 */
@@ -383,9 +352,4 @@ public class FrameGUI {
 		closeDBConnection();
 		System.exit(0);
 	}
-<<<<<<< HEAD
-	
-=======
->>>>>>> 119805b6134759d723cc58e67869a6af0f73b7d9
-
 }

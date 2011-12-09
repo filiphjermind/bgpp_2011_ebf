@@ -28,11 +28,11 @@ import controller.SpecificVehicleController;
  */
 public class SVGUI extends JPanel {
 	
-<<<<<<< HEAD
 	public SVGUI(String licencePlate)
-=======
+	{
+		
+	}
 	public SVGUI(/*String licencePlate*/)
->>>>>>> 119805b6134759d723cc58e67869a6af0f73b7d9
 	{
 		setLayout(new BorderLayout());
 		add(makeWestPanel(), BorderLayout.WEST);
@@ -54,16 +54,12 @@ public class SVGUI extends JPanel {
 		JLabel vehicleLabel = new JLabel("Vehicle");
 		westPanel.add(vehicleLabel);
 		
-<<<<<<< HEAD
 		//SpecificVehicleController svc = new SpecificVehicleController();
 		
-		JTextField vehicleTF = new JTextField(vd.getLicenseplate());
-=======
+
 		SpecificVehicleController svc = new SpecificVehicleController();
 		
 		JTextField vehicleTF = new JTextField("");
-		
->>>>>>> 119805b6134759d723cc58e67869a6af0f73b7d9
 		vehicleTF.setEditable(false);
 		westPanel.add(vehicleTF);
 		
