@@ -2,10 +2,10 @@ package controller;
 
 import java.sql.ResultSet;
 
-import model.TodaysReturnsData;
+import model.TodaysReturnsDB;
 
 public class TodaysReturnsController {
-	TodaysReturnsData todaysReturns = new TodaysReturnsData();
+	TodaysReturnsDB todaysReturns = new TodaysReturnsDB();
 	
 	public TodaysReturnsController() throws Exception
 	{

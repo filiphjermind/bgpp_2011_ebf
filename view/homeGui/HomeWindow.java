@@ -51,7 +51,7 @@ public class HomeWindow extends JPanel{
 
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		List<String> carClasses = new ArrayList<String>();
 		carClasses.add("van");
 		carClasses.add("sportscar");
@@ -64,7 +64,7 @@ public class HomeWindow extends JPanel{
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
-	}
+	}*/
 
 	public void onCheckBoxesUpdated(List<String> collectedVehicleClasses) {
 		middlePanel.onCheckBoxesUpdated(collectedVehicleClasses);

@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 
 import controller.GetCurrentDateTime;
 
-public class TodaysReservationsData extends DBConnection {
+public class TodaysReservationsDB extends DBConnection {
 	
 	GetCurrentDateTime date = new GetCurrentDateTime();
 	String currentDate = date.getDate();
@@ -22,7 +22,7 @@ public class TodaysReservationsData extends DBConnection {
 							"WHERE Reservation.person = Person.ID AND Reservation.vehicle = Vehicle.licensePlate " +
 							"AND Reservation.startDate = '" + currentDate + "'";
 	
-	public TodaysReservationsData() throws Exception
+	public TodaysReservationsDB() throws Exception
 	{
 		
 	}
@@ -34,21 +34,10 @@ public class TodaysReservationsData extends DBConnection {
 	 */
 	public ResultSet selectReservations()
 	{
-		
-		// prøv at bruge sendQuery() i DBConnection :)
-		
-		try {
-			// Create the query.
-			PreparedStatement statement = dbConnection.prepareStatement(query);
-		
-			// Execute the query.
-			ResultSet result = statement.executeQuery();
-			
-			return result;
-		} catch(Exception e) {
-			System.out.println("TodaysReservationData " + e);
-		}
-		
-		return null;
+		// get a resultset
+		ResultSet result = sendQuery(query);
+				
+		// return the resultset
+		return result;
 	}
 }
