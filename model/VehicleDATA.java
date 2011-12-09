@@ -14,10 +14,47 @@ import model.ReservationData;
 public class VehicleDATA {
 	private String licenseplate;
 	private String vehicleClass;
-	private Date annualCheck;
+	private String annualCheck;
 	private String make;
 	private String model;
 	private String price;
+	private String serviceVehicle;
+	private String serviceStartDate;
+	private String serviceEndDate;
+	private String serviceReason;
+	
+	public String getServiceVehicle() {
+		return serviceVehicle;
+	}
+
+	public void setServiceVehicle(String serviceVehicle) {
+		this.serviceVehicle = serviceVehicle;
+	}
+
+	public String getServiceStartDate() {
+		return serviceStartDate;
+	}
+
+	public void setServiceStartDate(String serviceStartDate) {
+		this.serviceStartDate = serviceStartDate;
+	}
+
+	public String getServiceEndDate() {
+		return serviceEndDate;
+	}
+
+	public void setServiceEndDate(String serviceEndDate) {
+		this.serviceEndDate = serviceEndDate;
+	}
+
+	public String getServiceReason() {
+		return serviceReason;
+	}
+
+	public void setServiceReason(String serviceReason) {
+		this.serviceReason = serviceReason;
+	}
+
 	public String getPrice() {
 		return price;
 	}
@@ -76,7 +113,7 @@ public class VehicleDATA {
 	/**
 	 * @return the annualCheck
 	 */
-	public Date getAnnualCheck() {
+	public String getAnnualCheck() {
 		return annualCheck;
 	}
 
@@ -85,7 +122,7 @@ public class VehicleDATA {
 	/**
 	 * @param annualCheck the annualCheck to set
 	 */
-	public void setAnnualCheck(Date annualCheck) {
+	public void setAnnualCheck(String annualCheck) {
 		this.annualCheck = annualCheck;
 	}
 

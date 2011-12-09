@@ -3,20 +3,25 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import model.SpecificVehicleDB;
 import model.VehicleDATA;
-
-import controller.SpecificVehicleController;
 
 /**
  * This class contains all the graphical information related
@@ -27,15 +32,20 @@ import controller.SpecificVehicleController;
  *
  */
 public class SVGUI extends JPanel {
+	private String licensePlate;
+	private JPanel westFlowPanel;
+	private JPanel centerPanel;
+	private JPanel centerFlowPanel;
 	
-	public SVGUI(String licencePlate)
-<<<<<<< HEAD
+	public SVGUI(String licensePlate) throws Exception
 	{
-		
+		this.licensePlate = licensePlate;
+		setLayout(new BorderLayout());
+		add(makeWestPanel(), BorderLayout.WEST);
+		add(makeCenterPanel(), BorderLayout.CENTER);
 	}
-	public SVGUI(/*String licencePlate*/)
-=======
->>>>>>> b44a7efa473321658567f7f370b82ac5d3deb8a9
+	
+	public SVGUI(/*String licencePlate*/) throws Exception
 	{
 		setLayout(new BorderLayout());
 		add(makeWestPanel(), BorderLayout.WEST);
@@ -49,7 +59,7 @@ public class SVGUI extends JPanel {
 	 */
 	private JPanel makeWestPanel()
 	{
-		VehicleDATA vd = new VehicleDATA();
+		final VehicleDATA vd = new SpecificVehicleDB().getVehicle(licensePlate);
 		
 		JPanel westPanel = new JPanel();
 		westPanel.setLayout(new GridLayout(0, 2));
@@ -59,42 +69,35 @@ public class SVGUI extends JPanel {
 		
 		//SpecificVehicleController svc = new SpecificVehicleController();
 		
-<<<<<<< HEAD
-
-		SpecificVehicleController svc = new SpecificVehicleController();
-		
-		JTextField vehicleTF = new JTextField("");
-=======
 		JTextField vehicleTF = new JTextField(vd.getLicenseplate());
->>>>>>> b44a7efa473321658567f7f370b82ac5d3deb8a9
 		vehicleTF.setEditable(false);
 		westPanel.add(vehicleTF);
 		
-		JLabel modelLabel = new JLabel("Model");
-		westPanel.add(modelLabel);
+		JLabel makeLabel = new JLabel("Make");
+		westPanel.add(makeLabel);
 		
-		JTextField modelTF = new JTextField("VOLVO");
-		modelTF.setEditable(false);
-		westPanel.add(modelTF);
+		JTextField makeTF = new JTextField(vd.getMake());
+		makeTF.setEditable(false);
+		westPanel.add(makeTF);
 		
 		JLabel vehicleTypeLabel = new JLabel("Vehicle Type");
 		westPanel.add(vehicleTypeLabel);
 		
-		JTextField vehicleTypeTF = new JTextField("Stationcar, 4 doors");
+		JTextField vehicleTypeTF = new JTextField(vd.getVehicleClass());
 		vehicleTypeTF.setEditable(false);
 		westPanel.add(vehicleTypeTF);
 		
 		JLabel priceLabel = new JLabel("Rate pr. day");
 		westPanel.add(priceLabel);
 		
-		JTextField priceTF = new JTextField("600 kr");
+		JTextField priceTF = new JTextField(vd.getPrice());
 		priceTF.setEditable(false);
 		westPanel.add(priceTF);
 		
 		JLabel nextCheckLabel = new JLabel("Next annual check");
 		westPanel.add(nextCheckLabel);
 		
-		JTextField nextCheckTF = new JTextField("22.01.2012");
+		JTextField nextCheckTF = new JTextField(vd.getAnnualCheck());
 		nextCheckTF.setEditable(false);
 		westPanel.add(nextCheckTF);
 		
@@ -119,22 +122,19 @@ public class SVGUI extends JPanel {
 		JLabel sDateLabel = new JLabel("Start date");
 		westPanel.add(sDateLabel);
 		
-		JTextField sDateTF = new JTextField("10.01.2012");
-		sDateTF.setEditable(false);
+		final JTextField sDateTF = new JTextField("start date");
 		westPanel.add(sDateTF);
 		
 		JLabel eDateLabel = new JLabel("End date");
 		westPanel.add(eDateLabel);
 		
-		JTextField eDateTF = new JTextField("13.01.2012");
-		eDateTF.setEditable(false);
+		final JTextField eDateTF = new JTextField("end date");
 		westPanel.add(eDateTF);
 		
 		JLabel reasonLabel = new JLabel("Reason");
 		westPanel.add(reasonLabel);
 		
-		JTextField reasonTF = new JTextField("Oil change");
-		reasonTF.setEditable(false);
+		final JTextField reasonTF = new JTextField("reason");
 		westPanel.add(reasonTF);
 		
 		JLabel emptyLabel4 = new JLabel("");
@@ -147,9 +147,30 @@ public class SVGUI extends JPanel {
 		westPanel.add(emptyLabel6);
 		
 		JButton saveButton = new JButton("Save");
+		saveButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String startDate = sDateTF.getText();
+				String endDate = eDateTF.getText();
+				String reason = reasonTF.getText();
+				
+				SpecificVehicleDB svd = new SpecificVehicleDB();
+				
+				svd.addService(vd.getLicenseplate(), startDate, endDate, reason);
+				
+				saveSuccesfull();
+				
+				/*VehicleDATA vData = new VehicleDATA();
+				
+				vData.setServiceStartDate(startDate);
+				vData.setServiceEndDate(endDate);
+				vData.setServiceReason(reason);*/
+			}
+		});
 		westPanel.add(saveButton);
 		
-		JPanel westFlowPanel = new JPanel();
+		westFlowPanel = new JPanel();
 		westFlowPanel.setBorder(new TitledBorder("Vehicle information"));
 		westFlowPanel.setLayout(new FlowLayout());
 		westFlowPanel.add(westPanel);
@@ -162,30 +183,55 @@ public class SVGUI extends JPanel {
 	 * 
 	 * @return JPanel centerFlowPanel - the center panel.
 	 */
-	private JPanel makeCenterPanel()
+	private JPanel makeCenterPanel() throws Exception
 	{
-		JTable table;
-		
-		JPanel centerPanel = new JPanel();
+		centerPanel = new JPanel();
 		centerPanel.setLayout(new BorderLayout());
-		
-		// Creates the sample table.
-		String[] columnNames = {"Start", "End", "Reason"};
-		
-		Object[][] data = {
-			{"25.06.2011", "30.06.2011", "Changing brakes"},
-			{"01.08.2011", "02.08.2011", "Annual check"},
-			{"30.09.2011", "01.10.2011", "Oil change"},
+
+		// Initialize the table.
+		DefaultTableModel model = new DefaultTableModel() {
+			// Makes the table non-editable.
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
 		};
-		
-		table = new JTable(data, columnNames);
+		model.addColumn("Vehicle");
+		model.addColumn("Start date");
+		model.addColumn("End date");
+		model.addColumn("Reason");
+				
+		// Make the table final in order to access it from the inner class.
+		final JTable table = new JTable(model);
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int row = table.getSelectedRow();
+				int col = table.getSelectedColumn();
+			}
+		});
+				
+		// Create a SpecificVehicleDB object in order to assign the ResultSet to a variable.
+		SpecificVehicleDB svd = new SpecificVehicleDB();
+		ResultSet result = svd.vehicleService(licensePlate);
+				
+		// Loops through the ResultSet.
+		// As long as the result set has a next value, add the value to a row in the table.
+		int tableIndex = 0;
+		while(result.next()) {
+			Object[] rowData = {result.getString("vehicle"), result.getString("startDate"),
+								result.getString("endDate"), result.getString("reason")
+			};
+			model.insertRow(tableIndex, rowData);
+			tableIndex++;
+		}
+					
+				
 		table.setPreferredScrollableViewportSize(new Dimension(800, 400));
 		table.setFillsViewportHeight(true);
-		
+				
 		JScrollPane scrollPane = new JScrollPane(table);
 		centerPanel.add(scrollPane);
 		
-		JPanel centerFlowPanel = new JPanel();
+		centerFlowPanel = new JPanel();
 		centerFlowPanel.setBorder(new TitledBorder("Service information"));
 		centerFlowPanel.setLayout(new FlowLayout());
 		centerFlowPanel.add(centerPanel);
@@ -193,6 +239,16 @@ public class SVGUI extends JPanel {
 		return centerFlowPanel;
 	}
 	
-	
+	private void saveSuccesfull()
+    {
+        JOptionPane.showMessageDialog(centerPanel, 
+                    "Service for vehicle: \n" + licensePlate + "\nwas successfully saved.",
+                    "Save succesfull.", 
+                    JOptionPane.INFORMATION_MESSAGE);
+        
+        centerPanel.repaint();
+        centerFlowPanel.repaint();
+        
+    }
 
 }

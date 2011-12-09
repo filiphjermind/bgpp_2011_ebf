@@ -68,7 +68,7 @@ public class AllVehiclesGUI extends JPanel {
 		searchPanel.add(searchButton);
 			searchButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
-					new SVGUI("sadfsdf");
+					//new SVGUI("sadfsdf");
 				}
 			});
 	}
@@ -107,12 +107,18 @@ public class AllVehiclesGUI extends JPanel {
 				
 				String title = getData(table, row, 0).toString();
 				
-				frameGUI.makeNewTab(title, new SVGUI(title));
+				//frameGUI.makeNewTab(title, new SVGUI(title));
+				try {
+					frameGUI.makeNewSVGUI(title);
+				} catch (Exception exn0) {
+					
+				}
 				SpecificVehicleDB svd = new SpecificVehicleDB();
 				try {
 					svd.getVehicle(title);
+					svd.vehicleService(title);
 				} catch(Exception exn) {
-					
+					System.out.println("error" + exn);
 				}
 			}
 		});
