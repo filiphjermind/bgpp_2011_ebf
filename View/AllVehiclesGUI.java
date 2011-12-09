@@ -110,7 +110,7 @@ public class AllVehiclesGUI extends JPanel {
 				frameGUI.makeNewTab(title, new SVGUI(title));
 				SpecificVehicleDB svd = new SpecificVehicleDB();
 				try {
-					svd.askDataBase(title);
+					svd.getVehicle(title);
 				} catch(Exception exn) {
 					
 				}

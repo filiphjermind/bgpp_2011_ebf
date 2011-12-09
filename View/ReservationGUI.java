@@ -22,6 +22,13 @@ import controller.VehicleClassController;
 public class ReservationGUI extends JPanel {
 	
 	Border emptyBorder = new EmptyBorder(5,5,5,5);
+	private String start;
+	private String end;
+	private String carClass;
+	private JTextField resnrText;
+	private JTextField startText;
+	private JTextField endText;
+	private JComboBox classCombo;
 	
 	/**
 	 * Makes a reservation page with 3 panels: reservation, person
@@ -29,16 +36,19 @@ public class ReservationGUI extends JPanel {
 	 * @throws SQLException 
 	 */
 	
-	public ReservationGUI() throws SQLException
+	public ReservationGUI()
 	{
 		init();
 	}
 	
-	public ReservationGUI(String start, String end, String carClass) throws SQLException {
+	public ReservationGUI(String start, String end, String carClass) {
+		this.start = start;
+		this.end = end;
+		this.carClass = carClass;
 		init();
 	}
 		
-	private void init() throws SQLException {
+	private void init() {
 			// set layout for the reservation page
 			FlowLayout overallLayout = new FlowLayout();
 			overallLayout.setAlignment(0);
@@ -56,7 +66,7 @@ public class ReservationGUI extends JPanel {
 	 * @throws SQLException 
 	 */
 	
-	private void makeReservationPanel() throws SQLException
+	private void makeReservationPanel()
 	{
 		JPanel reservationPanel = new JPanel();
 		reservationPanel.setLayout(new BoxLayout(reservationPanel, BoxLayout.Y_AXIS));
@@ -93,19 +103,29 @@ public class ReservationGUI extends JPanel {
 		        reservationTextPanel.setLayout(new GridLayout(0,1));
 		        reservationTopPanel.add(reservationTextPanel);
 		        
-		        	JTextField resnrText = new JTextField(10);
+		        	resnrText = new JTextField(10);
 		        	reservationTextPanel.add(resnrText);
 		        
-		        	JTextField startText = new JTextField(10);
+		        	startText = new JTextField(10);
 		        	reservationTextPanel.add(startText);
+		        	if(start!=null){
+		        		startText.setText(start);
+		        	}
 		        
-		        	JTextField endText = new JTextField(10);
+		        	endText = new JTextField(10);
 		        	reservationTextPanel.add(endText);
+		        	if(end!=null)endText.setText(end);
 		        	
 		        	VehicleClassController vcc = new VehicleClassController();
-		        	Object[] classes = vcc.getArray();
-		        	JComboBox classCombo= new JComboBox(classes);
-		        	reservationTextPanel.add(classCombo);
+		        	try {
+		        		Object[] classes = vcc.getArray();
+		        		classCombo= new JComboBox(classes);
+		        		if(carClass != null) classCombo.setSelectedItem(carClass);
+		        		reservationTextPanel.add(classCombo);
+						
+					} catch (Exception e) {
+						// TODO: if there is an error in db connection then show it in the gui
+					}
 		        	
 		        	// combobox
 		        	JTextField vehicleText = new JTextField(10);

@@ -34,9 +34,7 @@ public class VehicleDATA {
 		
 	}
 	
-	public VehicleDATA() 
-	{
-		
+	public VehicleDATA() {
 	}
 
 	/**
@@ -49,7 +47,7 @@ public class VehicleDATA {
 
 
 	/**
-	 * @param licenseplate the licenseplate to set
+	 * @param licenceplate the licenseplate to set
 	 */
 	public void setLicenseplate(String licenseplate) {
 		this.licenseplate = licenseplate;

@@ -47,7 +47,7 @@ public class ReservationDB extends DBConnection {
 		// vehicles should be fetched
 		String vehicleClassConditions = "(";
 		for (int i = 0; i < vehicleClasses.size(); i++) {
-			vehicleClassConditions += "VehicleClass.description = '" + vehicleClasses.get(i) + "'";
+			vehicleClassConditions += "VehicleClass.vehicleClass = '" + vehicleClasses.get(i) + "'";
 			if (i != vehicleClasses.size() - 1) {
 				vehicleClassConditions += " OR ";
 			} else {
@@ -55,8 +55,8 @@ public class ReservationDB extends DBConnection {
 
 			}
 		}
-		ResultSet resultSet = sendQuery("SELECT description, startDate, endDate FROM Reservation, Vehicle, VehicleClass "
-				+ "WHERE Reservation.vehicle = Vehicle.id AND Vehicle.id = VehicleClass.id AND Reservation.endDate >= " + startMonth + " AND" + " Reservation.startDate <= " + endMonth + " AND "
+		ResultSet resultSet = sendQuery("SELECT VehicleClass.vehicleClass, startDate, endDate FROM Reservation, Vehicle, VehicleClass "
+				+ "WHERE Reservation.vehicle = Vehicle.licensePlate AND Vehicle.vehicleClass = VehicleClass.vehicleClass AND Reservation.endDate >= " + startMonth + " AND" + " Reservation.startDate <= " + endMonth + " AND "
 				+ vehicleClassConditions);
 		//checks if the resultSet is empty
 		if(!resultSet.isBeforeFirst()) return null;
@@ -64,8 +64,8 @@ public class ReservationDB extends DBConnection {
 		String description = "";
 		List<ReservationData> reservationDatas = null;
 		while (resultSet.next()) {
-			if (!description.equals(resultSet.getString("description"))) {
-				description = resultSet.getString("description");
+			if (!description.equals(resultSet.getString("vehicleClass"))) {
+				description = resultSet.getString("vehicleClass");
 				reservationDatas = new ArrayList<ReservationData>();
 				VehicleDATA vehicleData = new VehicleDATA(description, reservationDatas);
 				vehicles.add(vehicleData);
