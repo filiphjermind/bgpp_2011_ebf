@@ -37,6 +37,10 @@ public class SVGUI extends JPanel {
 	private JPanel centerPanel;
 	private JPanel centerFlowPanel;
 	
+	private final String noStartDate = "Please fill out the Start date.";
+	private final String noendDate = "Please fill out the end date.";
+	private final String noReason = "Please specify a reason.";
+	
 	public SVGUI(String licensePlate) throws Exception
 	{
 		this.licensePlate = licensePlate;
@@ -122,19 +126,19 @@ public class SVGUI extends JPanel {
 		JLabel sDateLabel = new JLabel("Start date");
 		westPanel.add(sDateLabel);
 		
-		final JTextField sDateTF = new JTextField("start date");
+		final JTextField sDateTF = new JTextField("");
 		westPanel.add(sDateTF);
 		
 		JLabel eDateLabel = new JLabel("End date");
 		westPanel.add(eDateLabel);
 		
-		final JTextField eDateTF = new JTextField("end date");
+		final JTextField eDateTF = new JTextField("");
 		westPanel.add(eDateTF);
 		
 		JLabel reasonLabel = new JLabel("Reason");
 		westPanel.add(reasonLabel);
 		
-		final JTextField reasonTF = new JTextField("reason");
+		final JTextField reasonTF = new JTextField("");
 		westPanel.add(reasonTF);
 		
 		JLabel emptyLabel4 = new JLabel("");
@@ -150,22 +154,31 @@ public class SVGUI extends JPanel {
 		saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				// Get the text from the text fields.
 				String startDate = sDateTF.getText();
 				String endDate = eDateTF.getText();
 				String reason = reasonTF.getText();
 				
-				SpecificVehicleDB svd = new SpecificVehicleDB();
+				// Check to make sure the text fields aren't empty.
+				if(startDate.isEmpty()) {
+					saveError(noStartDate);
+				} else if (endDate.isEmpty()) {
+					saveError(noendDate);
+				} else if (reason.isEmpty()) {
+					saveError(noReason);
+				} else {
+					// Send data from text field to SpecificVehicleDB, to send to database.
+					SpecificVehicleDB svd = new SpecificVehicleDB();
+					svd.addService(vd.getLicenseplate(), startDate, endDate, reason);
 				
-				svd.addService(vd.getLicenseplate(), startDate, endDate, reason);
-				
-				saveSuccesfull();
-				
-				/*VehicleDATA vData = new VehicleDATA();
-				
-				vData.setServiceStartDate(startDate);
-				vData.setServiceEndDate(endDate);
-				vData.setServiceReason(reason);*/
+					// Pop-up window to say that the service reservation was made correctly.
+					saveSuccesful();
+					
+					// Set the text fields back to empty.
+					sDateTF.setText("");
+					eDateTF.setText("");
+					reasonTF.setText("");
+				}
 			}
 		});
 		westPanel.add(saveButton);
@@ -239,16 +252,26 @@ public class SVGUI extends JPanel {
 		return centerFlowPanel;
 	}
 	
-	private void saveSuccesfull()
+	/**
+	 * Pop-up window to say that the save was successful.
+	 */
+	private void saveSuccesful()
     {
         JOptionPane.showMessageDialog(centerPanel, 
-                    "Service for vehicle: \n" + licensePlate + "\nwas successfully saved.",
+                    "Service reservation for vehicle: " + licensePlate + "\nwas saved succesfully.",
                     "Save succesfull.", 
                     JOptionPane.INFORMATION_MESSAGE);
-        
-        centerPanel.repaint();
-        centerFlowPanel.repaint();
-        
     }
-
+	
+	/**
+	 * Pop-up window to say there was an error when saving the reservation.
+	 * @param status
+	 */
+	private void saveError(String status)
+    {
+        JOptionPane.showMessageDialog(centerPanel, 
+                    "Service reservation for vehicle: " + licensePlate + "\nCould not be saved.\n" + status,
+                    "Error", 
+                    JOptionPane.INFORMATION_MESSAGE);
+    }
 }

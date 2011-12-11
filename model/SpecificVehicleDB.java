@@ -82,11 +82,23 @@ public class SpecificVehicleDB extends DBConnection {
 		serviceEndDate = endDate;
 		serviceReason = reason;
 		
-		// Query to be executed.
-		String query = "INSERT INTO Service (vehicle, startDate, endDate, reason) " +
-						"VALUES ('" + serviceLicensePlate + "', '" + serviceStartDate + "', '" + serviceEndDate + "', '" + serviceReason + "')";	
-		// Execute the query
-		ResultSet result = sendQuery(query);
+		// Check to make sure the user has entered data into the fields.
+		if(licensePlate.isEmpty()) {
+			System.out.println("No license plate.");
+		} else if(startDate.isEmpty()) {
+			System.out.println("No start date");
+		} else if(endDate.isEmpty()) {
+			System.out.println("No end date");
+		} else if(reason.isEmpty()) {
+			System.out.println("No reason");
+		} else {
+		
+			// Query to be executed.
+			String query = "INSERT INTO Service (vehicle, startDate, endDate, reason) " +
+							"VALUES ('" + serviceLicensePlate + "', '" + serviceStartDate + "', '" + serviceEndDate + "', '" + serviceReason + "')";	
+			// Execute the query
+			ResultSet result = sendQuery(query);
+		}
 	}
 	
 	
