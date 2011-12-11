@@ -73,7 +73,7 @@ public class HomeWindow extends JPanel{
 	public List<VehicleDATA> getReservations(List<String> vehicleClasses, GregorianCalendar currentMonth) throws SQLException {
 		return reservationController.getReservations(vehicleClasses,currentMonth);
 	}
-	/*
+/*
 	public void updateTable(List<VehicleData> vehicles) {
 		middlePanel.updateTable(vehicles, null);
 	}
@@ -82,10 +82,14 @@ public class HomeWindow extends JPanel{
 		frameGUI.openNewReservationTab(start,end);
 //		frameGUI.makeNewTab(title, panel)
 	}
-	}*/
-
+	}
+*/
 	public void onBookTabClicked(String start, String end, Object selectedItem) {
 		frameGUI.openNewReservationTab(start,end, (String) selectedItem);
 		
+	}
+	
+	public void onSearchTabClicked(String resnr) {
+		frameGUI.changeReservationTab(resnr);
 	}
 }

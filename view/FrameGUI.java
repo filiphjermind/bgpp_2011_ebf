@@ -68,7 +68,7 @@ public class FrameGUI {
 		makeMenuBar(frame);
 		addCloseListener(frame);
 
-		// Create the individual tabs, and add them to the tabbedpane.
+		// Create the individual tabs, and add them to the tabbed pane.
 		// Home tab.
 		List<String> carClasses = new ArrayList<String>();
 		carClasses.add("van");
@@ -271,6 +271,13 @@ public class FrameGUI {
 		makeNewTab("Reservation", reservationGUI);
 	}
 
+	public void changeReservationTab(String resnr) {
+		//convert resnr from String to int
+		int resNumber = Integer.parseInt(resnr);		
+		ReservationGUI reservationGUI = new ReservationGUI(resNumber);
+		makeNewTab("Reservation", reservationGUI);
+	}
+	
 	public void makeNewTab(String title, JPanel panel) {
 		tabbedPane.addTab(title, panel);
 		tabbedPane.setSelectedComponent(panel);
