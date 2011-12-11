@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import model.ReservationDB;
+import model.ReservationData;
 import model.VehicleDATA;
 
 public class ReservationController {
@@ -14,16 +15,19 @@ public class ReservationController {
 	public ReservationController() {
 		reservationDB = new ReservationDB();
 	}
-	// get reservation from database
-	public void getReservaionFromDB(int reservationNr) {
-		
+	// get reservation from database with resnr as parameter
+	public ReservationData getReservationFromDB(int reservationNr) {
+		ReservationData reservationData = reservationDB.getOneReservation(reservationNr);
+		return reservationData;
 	}
 	
-	// get reservationinfo from GUI
-	public void getInfFromGUI() {
-		
-	}
-
+	// get reservation from database with name and startdate as parameters
+	/*public ReservationData getReservationFromDB(String name, String startdate) {
+		ReservationData reservationData = reservationDB.getOneReservation(name, startdate);
+		return reservationData;
+	}*/
+	
+	//get reservations for a month from the database
 	public List<VehicleDATA> getReservations(List<String> vehicleClasses, GregorianCalendar currentMonth) throws SQLException {
 		return reservationDB.getReservations(vehicleClasses, currentMonth);
 	}

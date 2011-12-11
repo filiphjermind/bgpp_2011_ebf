@@ -4,7 +4,7 @@ public class PersonDATA {
 	private int id;
 	private String firstName;
 	private String lastName;
-	private int phone;
+	private String phone;
 	private String email;
 	private String address;
 	private String driversLicence;
@@ -60,14 +60,14 @@ public class PersonDATA {
 	/**
 	 * @return the phone
 	 */
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
 	/**
 	 * @param phone the phone to set
 	 */
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 

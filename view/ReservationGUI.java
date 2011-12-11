@@ -9,27 +9,61 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 
+import model.ReservationData;
+
+import controller.AllVehiclesController;
+import controller.ReservationController;
 import controller.VehicleClassController;
 
 public class ReservationGUI extends JPanel {
 	
 	Border emptyBorder = new EmptyBorder(5,5,5,5);
+	
+	private ReservationController resControl;
+	private ReservationData res;
+	
+	// input
+	private int resnr;
 	private String start;
 	private String end;
 	private String carClass;
+	private String car;
+	private boolean pickedUp;
+	private boolean returned;
+	private String firstName;
+	private String lastName;
+	private String drivingLicence;
+	private String telephone;
+	private String email;
+	private String address;
+	private int price;
+	private String cardType;
+	private String cardNr;
+	
+	// input fields
 	private JTextField resnrText;
 	private JTextField startText;
 	private JTextField endText;
-	private JComboBox classCombo;
+	private JCheckBox pickedUpBox;
+	private JCheckBox returnedBox;
+	private JTextField firstNameText;
+	private JTextField lastNameText;
+	private JTextField drivingLicenceText;
+	private JTextField telephoneText;
+	private JTextField emailText;
+	private JTextField addressText;
+	private JTextField priceText;
+	private JTextField cardNrText;
 	
+	
+	
+		
 	/**
 	 * Makes a reservation page with 3 panels: reservation, person
 	 * and payment.
@@ -46,6 +80,44 @@ public class ReservationGUI extends JPanel {
 		this.end = end;
 		this.carClass = carClass;
 		init();
+	}
+	
+	public ReservationGUI(int resNumber) {
+		resControl = new ReservationController();
+				
+		if(resNumber > 0) {
+			//call db to request reservation with resnr as parameter
+			ReservationData rData= resControl.getReservationFromDB(resNumber);
+			
+			// initialise all the fields
+			this.resnr = rData.getId();
+			this.start = "" + rData.getStartDateGreg();
+			this.end = "" + rData.getEndDate();
+			this.carClass = rData.getVehicleClass();
+			this.car = rData.getVehicle();
+			this.pickedUp = rData.isPickedUp();
+			this.returned = rData.isReturned();
+			this.firstName = rData.getFirstName();
+			this.lastName = rData.getLastName();
+			this.drivingLicence = rData.getDriversLicence();
+			this.telephone = rData.getPhone();
+			this.email = rData.getEmail();
+			this.address = rData.getAdress();
+			this.price = rData.getTotalPrice();
+			this.cardType = rData.getCreditCardType();
+			this.cardNr = rData.getCreditCardNr();
+			
+			// initialise the gui
+			init();
+		}
+		/*else if(name != null && startdate != null) {
+			//call db to request reservation with name and startdate as parameters
+			resControl.getReservationFromDB(name, startdate);
+		}
+		else {
+			// error message "You need to fill in either Reservation number or Name and Start date"
+		}*/
+		
 	}
 		
 	private void init() {
@@ -105,21 +177,20 @@ public class ReservationGUI extends JPanel {
 		        
 		        	resnrText = new JTextField(10);
 		        	reservationTextPanel.add(resnrText);
-		        
+		        	if(resnr >= 0) resnrText.setText("" + resnr);
+		        	
 		        	startText = new JTextField(10);
 		        	reservationTextPanel.add(startText);
-		        	if(start!=null){
-		        		startText.setText(start);
-		        	}
-		        
+		        	if(start!=null) startText.setText(start);
+		        			        
 		        	endText = new JTextField(10);
 		        	reservationTextPanel.add(endText);
-		        	if(end!=null)endText.setText(end);
+		        	if(end!=null) endText.setText(end);
 		        	
 		        	VehicleClassController vcc = new VehicleClassController();
 		        	try {
 		        		Object[] classes = vcc.getArray();
-		        		classCombo= new JComboBox(classes);
+		        		JComboBox classCombo = new JComboBox(classes);
 		        		if(carClass != null) classCombo.setSelectedItem(carClass);
 		        		reservationTextPanel.add(classCombo);
 						
@@ -127,22 +198,29 @@ public class ReservationGUI extends JPanel {
 						// TODO: if there is an error in db connection then show it in the gui
 					}
 		        	
-		        	// combobox
-		        	JTextField vehicleText = new JTextField(10);
-		        	reservationTextPanel.add(vehicleText);
-		        
+		        	AllVehiclesController avc = new AllVehiclesController();
+		        	try {
+		        		Object[] vehicles = avc.getVehicles(carClass);
+		        		JComboBox vehiclesCombo	= new JComboBox(vehicles);
+		        		if(car != null) vehiclesCombo.setSelectedItem(car);
+		        		reservationTextPanel.add(vehiclesCombo);
+		        		
+		        	} catch (Exception e) {
+						// TODO: if there is an error in db connection then show it in the gui
+					}
 		        			
 			// make bottom panel for reservation panel	
 			JPanel reservationBottomPanel = new JPanel();
 			reservationBottomPanel.setLayout(new GridLayout(0,1));
 			reservationPanel.add(reservationBottomPanel);
 				
-				JCheckBox pickedUpBox = new JCheckBox("Picked up");
+				pickedUpBox = new JCheckBox("Picked up");
 				reservationBottomPanel.add(pickedUpBox);
+				//if(pickedUp != false) pickedUpBox.setPressedIcon(pressedIcon);
 								
-				JCheckBox returnedBox = new JCheckBox("Returned");
+				returnedBox = new JCheckBox("Returned");
 				reservationBottomPanel.add(returnedBox);
-				
+				//if(returned != false) returnedBox.setPressedIcon(pressedIcon);
 	}
 						
 	/**
@@ -186,25 +264,25 @@ public class ReservationGUI extends JPanel {
 		        personTextPanel.setLayout(new GridLayout(0,1));
 		        personTopPanel.add(personTextPanel);
 		        
-		        final JTextField firstNameText = new JTextField();
-		        firstNameText.addActionListener(new ActionListener() {
-		        	public void actionPerformed(ActionEvent e) {
-		        		System.out.println(" " + firstNameText.getText());
-		        	}
-		        });
+		        firstNameText = new JTextField();
 		        personTextPanel.add(firstNameText);
+		        if(firstName != null) firstNameText.setText(firstName);
 		        
-		        JTextField lastNameText = new JTextField();
+		        lastNameText = new JTextField();
 		        personTextPanel.add(lastNameText);
+		        if(lastName != null) lastNameText.setText(lastName);
 		        
-		        JTextField drivingLicenceText = new JTextField();
+		        drivingLicenceText = new JTextField();
 		        personTextPanel.add(drivingLicenceText);
+		        if(drivingLicence != null) drivingLicenceText.setText(drivingLicence);
 		        
-		        JTextField telephoneText = new JTextField();
+		        telephoneText = new JTextField();
 		        personTextPanel.add(telephoneText);
+		        if(telephone != null) telephoneText.setText(telephone);
 		        
-		        JTextField emailText = new JTextField();
-		        personTextPanel.add(emailText);		
+		        emailText = new JTextField();
+		        personTextPanel.add(emailText);	
+		        if(email != null) emailText.setText(email);
 		
 			// make middle panel for person panel
 		    JPanel personMiddlePanel = new JPanel();
@@ -213,8 +291,10 @@ public class ReservationGUI extends JPanel {
 			
 			JLabel addressLabel = new JLabel("Address");
 			personMiddlePanel.add(addressLabel);
-			JTextField addressText = new JTextField();
+			
+			addressText = new JTextField();
 			personMiddlePanel.add(addressText);
+			if(address != null) addressText.setText(address);
 			
 			// make bottom panel for person panel
 			JPanel personBottomPanel = new JPanel();
@@ -266,15 +346,18 @@ public class ReservationGUI extends JPanel {
 				paymentTextPanel.setLayout(new GridLayout(0,1));
 				paymentTopPanel.add(paymentTextPanel);
 				
-				JTextField priceText = new JTextField();
+				priceText = new JTextField();
 		        paymentTextPanel.add(priceText);
+		        if(price >= 0) priceText.setText("" + price);
 		        
 		        Object[] cards = {"Visa", "MasterCard", "AmEx"};
 		        JComboBox cardTypeCombo = new JComboBox(cards);
+		        if(cardType != null) cardTypeCombo.setSelectedItem(cardType);
 		        paymentTextPanel.add(cardTypeCombo);
-		        
-		        JTextField cardNrText = new JTextField();
+		        		        
+		        cardNrText = new JTextField();
 		        paymentTextPanel.add(cardNrText);
+		        if(cardNr != null) cardNrText.setText(cardNr);
 		
 			// make middle panel for payment panel
 			JPanel paymentMiddlePanel = new JPanel();
@@ -297,6 +380,7 @@ public class ReservationGUI extends JPanel {
 			saveButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					System.out.println("Save");
+					// pass ReservationData res to ReservationController to pass to ReservationDB to insert into DataBase
 				}
 			});
 			
@@ -305,6 +389,7 @@ public class ReservationGUI extends JPanel {
 			deleteButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					System.out.println("deleted");
+					// pass resnr to ReservationController to pass to ReservationDB to delete post in DataBase
 				}
 			});
 	}

@@ -120,7 +120,7 @@ public class MiddlePanel extends JPanel {
 			List<ReservationData> reservations = vehicleData.getReservations();
 			for (int j = 0; j < reservations.size(); j++) {
 				ReservationData reservationData = reservations.get(j);
-				int x = VEHICLE_LABEL_SPACE + reservationData.getStartDay() * 25;
+				int x = VEHICLE_LABEL_SPACE + reservationData.getStartDayInt() * 25;
 				int width = reservationData.getDuration() * 25 - 2;
 				int y = i * 20 + 40;
 				int height = 4;
@@ -139,7 +139,7 @@ public class MiddlePanel extends JPanel {
 		tablePanel.repaint();
 	}
 	private void onReservationClicked(ReservationData reservationData) {
-		System.out.println("VehiclesPane.onReservationClicked()"+reservationData.getStartDay());
+		System.out.println("VehiclesPane.onReservationClicked()"+reservationData.getStartDayInt());
 	}
 
 	public void onCheckBoxesUpdated(List<String> vehicleClasses) {
