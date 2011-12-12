@@ -120,8 +120,20 @@ public class MiddlePanel extends JPanel {
 			List<ReservationData> reservations = vehicleData.getReservations();
 			for (int j = 0; j < reservations.size(); j++) {
 				ReservationData reservationData = reservations.get(j);
-				int x = VEHICLE_LABEL_SPACE + reservationData.getStartDayInt() * 25;
-				int width = reservationData.getDuration() * 25 - 2;
+				int x = 0;
+				if(isBeforeCurrentMonth(reservationData.getStartDateGreg())){
+					x = 0 + VEHICLE_LABEL_SPACE;
+				}else{
+					x = reservationData.getStartDayInt() * 25 + VEHICLE_LABEL_SPACE;
+				}
+				int width = 0;
+				if(isAfterCurrentMonth(reservationData.getEndDate())){
+					width = (viewDate.getActualMaximum(GregorianCalendar.DAY_OF_MONTH)-1) * 25+ VEHICLE_LABEL_SPACE -x;
+				}else{
+					width = reservationData.getEndDay()* 25 + VEHICLE_LABEL_SPACE - x;
+				}
+				//to make room between two adjacent reservations
+				width -=2;
 				int y = i * 20 + 40;
 				int height = 4;
 				ReservationRectangle reservationRectangle = new ReservationRectangle(new Rectangle(x, y, width, height),reservationData);
@@ -138,8 +150,20 @@ public class MiddlePanel extends JPanel {
 		}
 		tablePanel.repaint();
 	}
+	private boolean isAfterCurrentMonth(GregorianCalendar end) {
+		GregorianCalendar lastDayInMonth = (GregorianCalendar) viewDate.clone();
+		lastDayInMonth.add(GregorianCalendar.MONTH, 1);
+		lastDayInMonth.add(GregorianCalendar.DAY_OF_MONTH,-1);
+		return lastDayInMonth.before(end);
+		
+	}
+
+	private boolean isBeforeCurrentMonth(GregorianCalendar startDate) {
+		return viewDate.after(startDate);
+	}
+
 	private void onReservationClicked(ReservationData reservationData) {
-		System.out.println("VehiclesPane.onReservationClicked()"+reservationData.getStartDayInt());
+		System.out.println("VehiclesPane.onReservationClicked()"+reservationData.getID());
 	}
 
 	public void onCheckBoxesUpdated(List<String> vehicleClasses) {

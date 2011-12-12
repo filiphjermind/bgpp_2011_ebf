@@ -7,6 +7,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+import model.ReservationData;
+
+>>>>>>> e3839771a834b8922a868bacc8f8b3d3907dcb10
 public class ReservationDB extends DBConnection {
 
 	/**
@@ -55,7 +60,7 @@ public class ReservationDB extends DBConnection {
 
 			}
 		}
-		ResultSet resultSet = sendQuery("SELECT VehicleClass.vehicleClass, startDate, endDate FROM Reservation, Vehicle, VehicleClass "
+		ResultSet resultSet = sendQuery("SELECT VehicleClass.vehicleClass, startDate, Reservation.id, endDate FROM Reservation, Vehicle, VehicleClass "
 				+ "WHERE Reservation.vehicle = Vehicle.licensePlate AND Vehicle.vehicleClass = VehicleClass.vehicleClass AND Reservation.endDate >= " + startMonth + " AND" + " Reservation.startDate <= " + endMonth + " AND "
 				+ vehicleClassConditions);
 		//checks if the resultSet is empty
@@ -76,7 +81,8 @@ public class ReservationDB extends DBConnection {
 			Date endDate = resultSet.getDate("endDate", new GregorianCalendar());
 			GregorianCalendar calendarEnd = new GregorianCalendar();
 			calendarEnd.setTime(endDate);
-			ReservationData reservationData = new ReservationData(calendarStart,calendarEnd, false);
+			int reservationID = resultSet.getInt("id");
+			ReservationData reservationData = new ReservationData(calendarStart,calendarEnd, false,reservationID);
 			reservationDatas.add(reservationData);
 		}
 		return vehicles;
