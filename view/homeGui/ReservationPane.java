@@ -94,7 +94,7 @@ public class ReservationPane extends JPanel {
 	}
 
 	protected void book() {
-		homeWindow.onBookTabClicked(startText.getText(),endText.getText(),typeCombo.getSelectedItem());
+//		homeWindow.onBookTabClicked(startText.getText(),endText.getText(),typeCombo.getSelectedItem());
 
 	}
 

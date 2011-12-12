@@ -63,6 +63,25 @@ public class DBConnection {
 		return result;
 	}
 	
+	/**
+	 * Sends a query to the database to insert data
+	 * @param query
+	 * @throws SQLException
+	 */
+	public void sendData(String query) {
+		ResultSet result = null;
+		try {
+			Statement dbStatement = dbConnection.createStatement();
+			boolean ok = dbStatement.execute(query);
+			if (ok) {
+            System.out.println("your data has been stored");            
+			} // end of if
+        } // end of try
+		catch (SQLException exn) {
+			System.out.println(" " + exn);
+		} // end of catch
+	}
+	
 	public static void close() {
 		try {
 			dbConnection.close();

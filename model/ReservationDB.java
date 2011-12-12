@@ -3,6 +3,7 @@ package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -98,7 +99,7 @@ public class ReservationDB extends DBConnection {
 		//retrieve it from the resultset and store it in a ReservationData object
 		try {
 			while(reservationResult.next()) {
-				reservationData.setId(reservationResult.getInt("ID"));
+				reservationData.setReservationID(reservationResult.getInt("ID"));
 				reservationData.setPersonID(reservationResult.getInt("person"));
 				// convert to gregorianCalender
 				Date sdate = reservationResult.getDate("startDate");
@@ -111,7 +112,7 @@ public class ReservationDB extends DBConnection {
 				gCal2.setTime(edate);				
 				reservationData.setStartDateGreg(gCal2);				
 				reservationData.setVehicle(reservationResult.getString("vehicle")); 
-				reservationData.setPickedUP(reservationResult.getInt("pickedUp")); 
+				reservationData.setPickedUp(reservationResult.getInt("pickedUp")); 
 				reservationData.setReturned(reservationResult.getInt("returned")); 
 			}
 		} catch (SQLException e) {
@@ -222,5 +223,68 @@ public class ReservationDB extends DBConnection {
 		// how to store Person and Vehicle information?
 		return reservationData;
 	}*/
-	
+public int saveReservation(ReservationData newReservation) {
+		
+		// extract data for the Person Table
+		String firstName = newReservation.getFirstName();
+		String lastName = newReservation.getLastName();
+		String phone = newReservation.getPhone();
+		String email = newReservation.getEmail();
+		String adress = newReservation.getAdress();
+		String driversLicence = newReservation.getDriversLicence();
+		String creditCardType = newReservation.getCreditCardType();
+		String creditCardNr = newReservation.getCreditCardNr();
+		
+			
+		// send firstName, LastName, phone, email, adress, driversLicence, creditCardType, and creditCardNr to PersonTable, get ID returned
+		sendData("INSERT INTO Person(firstName, LastName, phone, email, adress, driversLicence, creditCardType, creditCardNr) VALUES ('" + firstName + "', '" + lastName + "','" + phone + "','" + email + "', '" + adress + "', '" + driversLicence + "', '" + creditCardType + "', '" + creditCardNr + "')");
+		ResultSet result1 = sendQuery("SELECT ID FROM Person WHERE driversLicence = '" + driversLicence + "'");
+		
+		int personId = -1;
+		try {
+			while(result1.next()) {
+					personId = result1.getInt("ID");
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// extract and convert data for the Reservation Table
+		int person;
+		if(personId > 0) person = personId;
+		else person = -1;
+		
+		// convert GregorianCalendar to sql.Date
+		Calendar sDate = newReservation.getStartDateGreg();
+		java.sql.Date startDate = new java.sql.Date(sDate.getTimeInMillis());
+		Calendar eDate = newReservation.getEndDateGreg();
+		java.sql.Date endDate = new java.sql.Date(eDate.getTimeInMillis());
+		
+		String vehicle = newReservation.getVehicle();
+		
+		// convert boolean to int
+		int pickedUp;
+		if(newReservation.isPickedUp() == true) pickedUp = 1;
+		else pickedUp = 0;
+		int returned;
+		if(newReservation.isReturned() == true) returned = 1;
+		else returned = 0;
+		
+		// send person, startDate, endDate, vehicle, pickedUp, and returned to Reservation Table, get reservationNr returned
+		sendData("INSERT INTO Reservation(person, startDate, endDate, vehicle, pickedUp) VALUES('" + personId + "', '" + startDate + "', '" + endDate + "', '" + vehicle + "', '" + pickedUp + "', '" + returned + "')");
+		ResultSet result2 = sendQuery("SELECT ID FROM Reservation WHERE person = '" + personId + "' AND startDate = '" + startDate + "'");
+		int resId = -1;
+		try {
+			resId = result2.getInt("ID");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resId;
+	}
+
+	public void deleteReservation(int resnr) {
+		sendData("DELETE FROM Reservation WHERE ID ='" + resnr + "'");	
+	}
 }

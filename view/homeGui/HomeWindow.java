@@ -83,11 +83,11 @@ public class HomeWindow extends JPanel{
 //		frameGUI.makeNewTab(title, panel)
 	}
 	}
-*/
+*//*
 	public void onBookTabClicked(String start, String end, Object selectedItem) {
 		frameGUI.openNewReservationTab(start,end, (String) selectedItem);
 		
-	}
+	}*/
 	
 	public void onSearchTabClicked(String resnr) {
 		frameGUI.changeReservationTab(resnr);

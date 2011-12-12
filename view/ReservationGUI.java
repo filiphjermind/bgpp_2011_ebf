@@ -81,12 +81,12 @@ public class ReservationGUI extends JPanel {
 		init();
 	}
 	
-	/*public ReservationGUI(String start, String end, String carClass) {
+	public ReservationGUI(Date start, Date end, String carClass) {
 		this.start = start;
 		this.end = end;
 		this.carClass = carClass;
 		init();
-	}*/
+	}
 	
 	public ReservationGUI(int resNumber) {
 		resControl = new ReservationController();
@@ -96,15 +96,16 @@ public class ReservationGUI extends JPanel {
 			ReservationData rData = resControl.getReservationFromDB(resNumber);
 
 			// initialise all the fields
-			this.resnr = rData.getId();
+			this.resnr = rData.getReservationID();
+			
 			// convert GregorianCalendar to Date
-			Date startDate = new Date(rData.getStartDateGreg()
-					.getTimeInMillis());
+			Date startDate = new Date(rData.getStartDateGreg().getTimeInMillis());
 			this.start = startDate;
+			
 			// convert GregorianCalendar to Date
-			Date endDate = new Date(rData.getEndDate().getTimeInMillis());
+			Date endDate = new Date(rData.getEndDateGreg().getTimeInMillis());
 			this.end = endDate;
-			;
+			
 			this.carClass = rData.getVehicleClass();
 			this.car = rData.getVehicle();
 			this.pickedUp = rData.isPickedUp();
@@ -418,7 +419,6 @@ public class ReservationGUI extends JPanel {
 		paymentBottomPanel.add(saveButton);
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Save");
 				// pass ReservationData res to ReservationController to pass to
 				// ReservationDB to insert into DataBase
 				save();
@@ -429,9 +429,9 @@ public class ReservationGUI extends JPanel {
 		paymentBottomPanel.add(deleteButton);
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("deleted");
 				// pass resnr to ReservationController to pass to ReservationDB
 				// to delete post in DataBase
+				delete();
 			}
 		});
 	}
@@ -448,10 +448,10 @@ public class ReservationGUI extends JPanel {
 		newReservation.setStartDateGreg(startDate);
 
 		// convert end date from Date to GregorianCalendar
-		// Date eDate = end;
+		Date eDate = end;
 		GregorianCalendar endDate = new GregorianCalendar();
-		// endDate.setTimeInMillis(eDate.getTime());
-		newReservation.setEndDate(endDate);
+		endDate.setTimeInMillis(eDate.getTime());
+		newReservation.setEndDateGreg(endDate);
 
 		newReservation.setPickedUp(pickedUp);
 		newReservation.setReturned(returned);
@@ -466,4 +466,7 @@ public class ReservationGUI extends JPanel {
 		resControl.saveReservation(newReservation);
 	}
 	
+	private void delete() {
+		resControl.deleteReservation(resnr);
+	}
 }

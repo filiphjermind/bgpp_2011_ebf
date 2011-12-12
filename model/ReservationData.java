@@ -3,17 +3,15 @@ package model;
 import java.util.GregorianCalendar;
 
 public class ReservationData {
-	private int id;
+	private int reservationID;
 	private int personID;
 	private GregorianCalendar start;
 	private GregorianCalendar end;
 	private String vehicle;
 	private boolean pickedUp;
 	private boolean returned;
-	private PersonDATA person;
 		
 	private int duration;
-	private int reservationID;
 	private boolean beingServiced;
 	
 	private String vehicleClass;
@@ -34,7 +32,7 @@ public class ReservationData {
 		this.start = start;
 		this.end = end;
 		this.beingServiced = beingServiced;
-		this.reservationID = reservationID;
+		this.setReservationID(reservationID);
 		calculateDuration();
 	}
 
@@ -48,17 +46,17 @@ public class ReservationData {
 	}
 	
 	/**
-	 * @return the id
+	 * @return the reservationID
 	 */
-	public int getId() {
-		return id;
+	public int getReservationID() {
+		return reservationID;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param reservationID the reservationID to set
 	 */
-	public void setId(int id) {
-		this.id = id;
+	public void setReservationID(int reservationID) {
+		this.reservationID = reservationID;
 	}
 
 	/**
@@ -82,7 +80,7 @@ public class ReservationData {
 		return start.get(GregorianCalendar.DAY_OF_MONTH)-1;
 	}
 
-	public int getEndDay() {
+	public int getEndDayInt() {
 		return end.get(GregorianCalendar.DAY_OF_MONTH)-1;
 	}
 	
@@ -96,11 +94,11 @@ public class ReservationData {
 	/**
 	 * @return the end
 	 */
-	public GregorianCalendar getEndDate() {
+	public GregorianCalendar getEndDateGreg() {
 		return end;
 	}
 	
-	public void setEndDate(GregorianCalendar end) {
+	public void setEndDateGreg(GregorianCalendar end) {
 		this.end = end;
 	}
 	
@@ -136,7 +134,7 @@ public class ReservationData {
 	/**
 	 * @param pickedUP the pickedUP to set
 	 */
-	public void setPickedUP(int pickedUp) {
+	public void setPickedUp(int pickedUp) {
 		if(pickedUp == 0)
 			this.pickedUp = false;
 		if(pickedUp == 1)
@@ -178,9 +176,7 @@ public class ReservationData {
 		return "start: "+ (start.getTimeInMillis()/(60*60*24)) + " end: "+ (end.getTimeInMillis()/(60*60*24)) + " beingServiced: " +beingServiced;
 	}
 
-	public int getID() {
-		return reservationID;
-	}
+	
 
 	/**
 	 * @return the vehicleClass
@@ -335,6 +331,16 @@ public class ReservationData {
 	public void setTotalPrice() {
 		int days = getDuration();
 		totalPrice = days * vehiclePricePerDay;
+	}
+
+	public void setPickedUp(boolean pickedUp2) {
+		this.pickedUp = pickedUp2;
+		
+	}
+
+	public void setReturned(boolean returned2) {
+		this.returned = returned2;
+		
 	}
 
 
