@@ -87,6 +87,7 @@ public class ReservationGUI extends JPanel {
 		this.start = start;
 		this.end = end;
 		this.carClass = carClass;
+		//this.price = sql command
 		init();
 	}
 	
@@ -124,7 +125,7 @@ public class ReservationGUI extends JPanel {
 			this.telephone = rData.getPhone();
 			this.email = rData.getEmail();
 			this.address = rData.getAdress();
-			this.price = rData.getTotalPrice();
+			this.price = rData.calculateTotalPrice();
 			this.cardType = rData.getCreditCardType();
 			this.cardNr = rData.getCreditCardNr();
 			
@@ -485,10 +486,14 @@ public class ReservationGUI extends JPanel {
 		newReservation.setAdress(addressText.getText());
 		// Combo cardType
 		newReservation.setCreditCardNr(cardNrText.getText());
-
-		resnr = resControl.saveReservation(newReservation);
-		if (resnr != null) resnrText.setText("" + resnr);
-		else resnrText.setText("save failed");
+		
+		priceText.setText("" + newReservation.calculateTotalPrice());
+		
+		//resnr = 
+		resControl.saveReservation(newReservation);
+		//if (resnr != null) resnrText.setText("" + resnr);
+		//else 
+			resnrText.setText("save failed");
 	}
 	
 	private void delete() {

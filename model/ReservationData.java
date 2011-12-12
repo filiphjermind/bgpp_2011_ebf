@@ -321,16 +321,11 @@ public class ReservationData {
 	/**
 	 * @return the totalPrice
 	 */
-	public int getTotalPrice() {
-		return totalPrice;
-	}
-
-	/**
-	 * @param totalPrice the totalPrice to set
-	 */
-	public void setTotalPrice() {
+	public int calculateTotalPrice() {
+		calculateDuration();
 		int days = getDuration();
-		totalPrice = days * vehiclePricePerDay;
+		int totalPrice = days * vehiclePricePerDay;
+		return totalPrice;
 	}
 
 	public void setPickedUp(boolean pickedUp2) {
