@@ -102,13 +102,13 @@ public class ReservationDB extends DBConnection {
 				reservationData.setReservationID(reservationResult.getInt("ID"));
 				reservationData.setPersonID(reservationResult.getInt("person"));
 				
-				// convert from sql.Date to gregorianCalender
+				// convert from sql.Date to GregorianCalender
 				Date sdate = reservationResult.getDate("startDate");
 				GregorianCalendar gCal1 = new GregorianCalendar();
 				gCal1.setTime(sdate);				
 				reservationData.setStartDateGreg(gCal1);
 				
-				// convert from sql.Date to gregorianCalender
+				// convert from sql.Date to GregorianCalender
 				Date edate = reservationResult.getDate("endDate");
 				GregorianCalendar gCal2 = new GregorianCalendar();
 				gCal2.setTime(edate);				

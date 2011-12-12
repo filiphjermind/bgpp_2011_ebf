@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -149,7 +152,6 @@ public class ReservationGUI extends JPanel {
 			makePersonPanel();
 			makePaymentPanel();
 	}
-
 	
 	/**
 	 * Makes a reservation panel and adds it to the reservation page
@@ -443,26 +445,35 @@ public class ReservationGUI extends JPanel {
 		});
 	}
 	
-	/*private void save() {
+	private void save() {
 
 		// make a new ReservationData object
 		ReservationData newReservation = new ReservationData();
 
-		// convert start date from String to GregorianCalendar
-		start.getText();
-		// parse
-		int syear
-		int smonth
-		int sdate
-		GregorianCalendar startDate = new GregorianCalendar(syear, smonth, sdate);
+		// convert start date from String to GregorianCalendar via Date
+		DateFormat formatter;
+		formatter = new SimpleDateFormat("dd-mm-yy");
+		Date sDate = null;
+		try {
+			sDate = (Date)formatter.parse(startText.getText());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		GregorianCalendar startDate = new GregorianCalendar();
+		startDate.setTime(sDate);
 		newReservation.setStartDateGreg(startDate);
 
-		// convert end date from String to GregorianCalendar
-		end.getText();
-		int eyear
-		int emonth
-		int edate
-		GregorianCalendar endDate = new GregorianCalendar(eyear, emonth, edate);
+		// convert end date from String to GregorianCalendar via Date
+		Date eDate = null;
+		try {
+			eDate = (Date)formatter.parse(endText.getText());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		GregorianCalendar endDate = new GregorianCalendar();
+		endDate.setTime(eDate);
 		newReservation.setEndDateGreg(endDate);
 
 		newReservation.setPickedUp(pickedUp);
@@ -477,7 +488,7 @@ public class ReservationGUI extends JPanel {
 
 		resControl.saveReservation(newReservation);
 	}
-	*/
+	
 	private void delete() {
 		resControl.deleteReservation(resnr);
 	}
