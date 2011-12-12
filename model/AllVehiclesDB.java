@@ -29,7 +29,7 @@ public class AllVehiclesDB extends DBConnection {
 		ArrayList<String> arrList = new ArrayList<String>();
 		try {
 			while (result.next()) {
-				arrList.add(result.getString("licensePlate "));
+				arrList.add(result.getString("licensePlate"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

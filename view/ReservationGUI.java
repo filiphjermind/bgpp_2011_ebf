@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -33,10 +34,10 @@ public class ReservationGUI extends JPanel {
 	private ReservationController resControl;
 	private ReservationData res;
 	
-	// input
+	// input variables
 	private int resnr;
-	private Date start;
-	private Date end;
+	private String start;
+	private String end;
 	private String carClass;
 	private String car;
 	private boolean pickedUp;
@@ -53,8 +54,8 @@ public class ReservationGUI extends JPanel {
 
 	// input fields
 	private JTextField resnrText;
-	private JFormattedTextField startText;
-	private JFormattedTextField endText;
+	private JTextField startText;
+	private JTextField endText;
 	private JComboBox classCombo;
 	private JComboBox vehiclesCombo;
 	private JCheckBox pickedUpBox;
@@ -67,8 +68,6 @@ public class ReservationGUI extends JPanel {
 	private JTextField addressText;
 	private JTextField priceText;
 	private JTextField cardNrText;	
-	
-	
 		
 	/**
 	 * Makes a reservation page with 3 panels: reservation, person
@@ -81,7 +80,7 @@ public class ReservationGUI extends JPanel {
 		init();
 	}
 	
-	public ReservationGUI(Date start, Date end, String carClass) {
+	public ReservationGUI(String start, String end, String carClass) {
 		this.start = start;
 		this.end = end;
 		this.carClass = carClass;
@@ -98,13 +97,19 @@ public class ReservationGUI extends JPanel {
 			// initialise all the fields
 			this.resnr = rData.getReservationID();
 			
-			// convert GregorianCalendar to Date
-			Date startDate = new Date(rData.getStartDateGreg().getTimeInMillis());
-			this.start = startDate;
-			
-			// convert GregorianCalendar to Date
-			Date endDate = new Date(rData.getEndDateGreg().getTimeInMillis());
-			this.end = endDate;
+			// convert GregorianCalendar to String
+			Calendar startDate = rData.getStartDateGreg();
+			int sday = startDate.get(Calendar.DAY_OF_MONTH);
+			int smonth = startDate.get(Calendar.MONTH);
+			int syear = startDate.get(Calendar.YEAR);
+			this.start = sday + "-" + smonth + "-" + syear;
+						
+			// convert GregorianCalendar to String
+			Calendar endDate = rData.getEndDateGreg();
+			int eday = endDate.get(Calendar.DAY_OF_MONTH);
+			int emonth = endDate.get(Calendar.MONTH);
+			int eyear = endDate.get(Calendar.YEAR);
+			this.end = eday + "-" + emonth + "-" + eyear;
 			
 			this.carClass = rData.getVehicleClass();
 			this.car = rData.getVehicle();
@@ -194,15 +199,17 @@ public class ReservationGUI extends JPanel {
 		if (resnr >= 0)
 			resnrText.setText("" + resnr);
 
-		startText = new JFormattedTextField(new Date());
+		startText = new JTextField();
 		reservationTextPanel.add(startText);
 		if (start != null)
 			startText.setText("" + start);
+		else startText.setText("ddmmyyyy");
 
-		endText = new JFormattedTextField(new Date());
+		endText = new JTextField();
 		reservationTextPanel.add(endText);
 		if (end != null)
 			endText.setText("" + end);
+		else endText.setText("ddmmyyyy");
 
 		VehicleClassController vcc = new VehicleClassController();
 		try {
@@ -421,7 +428,7 @@ public class ReservationGUI extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// pass ReservationData res to ReservationController to pass to
 				// ReservationDB to insert into DataBase
-				save();
+				//save();
 			}
 		});
 
@@ -436,21 +443,26 @@ public class ReservationGUI extends JPanel {
 		});
 	}
 	
-	private void save() {
+	/*private void save() {
 
 		// make a new ReservationData object
 		ReservationData newReservation = new ReservationData();
 
-		// convert start date from Date to GregorianCalendar
-		Date sDate = start;
-		GregorianCalendar startDate = new GregorianCalendar();
-		startDate.setTimeInMillis(sDate.getTime());
+		// convert start date from String to GregorianCalendar
+		start.getText();
+		// parse
+		int syear
+		int smonth
+		int sdate
+		GregorianCalendar startDate = new GregorianCalendar(syear, smonth, sdate);
 		newReservation.setStartDateGreg(startDate);
 
-		// convert end date from Date to GregorianCalendar
-		Date eDate = end;
-		GregorianCalendar endDate = new GregorianCalendar();
-		endDate.setTimeInMillis(eDate.getTime());
+		// convert end date from String to GregorianCalendar
+		end.getText();
+		int eyear
+		int emonth
+		int edate
+		GregorianCalendar endDate = new GregorianCalendar(eyear, emonth, edate);
 		newReservation.setEndDateGreg(endDate);
 
 		newReservation.setPickedUp(pickedUp);
@@ -465,7 +477,7 @@ public class ReservationGUI extends JPanel {
 
 		resControl.saveReservation(newReservation);
 	}
-	
+	*/
 	private void delete() {
 		resControl.deleteReservation(resnr);
 	}

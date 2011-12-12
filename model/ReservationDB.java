@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -101,16 +101,19 @@ public class ReservationDB extends DBConnection {
 			while(reservationResult.next()) {
 				reservationData.setReservationID(reservationResult.getInt("ID"));
 				reservationData.setPersonID(reservationResult.getInt("person"));
-				// convert to gregorianCalender
+				
+				// convert from sql.Date to gregorianCalender
 				Date sdate = reservationResult.getDate("startDate");
-				GregorianCalendar gCal1 = (GregorianCalendar) GregorianCalendar.getInstance();
+				GregorianCalendar gCal1 = new GregorianCalendar();
 				gCal1.setTime(sdate);				
 				reservationData.setStartDateGreg(gCal1);
-				// convert to gregorianCalender
+				
+				// convert from sql.Date to gregorianCalender
 				Date edate = reservationResult.getDate("endDate");
-				GregorianCalendar gCal2 = (GregorianCalendar) GregorianCalendar.getInstance();
+				GregorianCalendar gCal2 = new GregorianCalendar();
 				gCal2.setTime(edate);				
-				reservationData.setStartDateGreg(gCal2);				
+				reservationData.setEndDateGreg(gCal2);	
+				
 				reservationData.setVehicle(reservationResult.getString("vehicle")); 
 				reservationData.setPickedUp(reservationResult.getInt("pickedUp")); 
 				reservationData.setReturned(reservationResult.getInt("returned")); 

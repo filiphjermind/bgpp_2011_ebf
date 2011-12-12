@@ -288,7 +288,7 @@ public class FrameGUI {
 		makeNewTab("Reservation", new ReservationGUI());
 	}
 
-	public void openNewReservationTab(Date start, Date end, String carClass) {
+	public void openNewReservationTab(String start, String end, String carClass) {
 		ReservationGUI reservationGUI = new ReservationGUI(start, end, carClass);
 		makeNewTab("Reservation", reservationGUI);
 	}

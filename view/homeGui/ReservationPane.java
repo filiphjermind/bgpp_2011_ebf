@@ -65,8 +65,11 @@ public class ReservationPane extends JPanel {
 
 		startText = new JTextField();
 		newReservationTextPanel.add(startText);
+		startText.setText("dd-mm-yyyy");
+		
 		endText = new JTextField();
 		newReservationTextPanel.add(endText);
+		endText.setText("dd-mm-yyyy");
 
 		// make bottom panel of newReservationPanel
 		JPanel newReservationBottomPanel = new JPanel();
@@ -94,7 +97,7 @@ public class ReservationPane extends JPanel {
 	}
 
 	protected void book() {
-//		homeWindow.onBookTabClicked(startText.getText(),endText.getText(),typeCombo.getSelectedItem());
+		homeWindow.onBookTabClicked(startText.getText(),endText.getText(),typeCombo.getSelectedItem());
 
 	}
 
@@ -125,6 +128,7 @@ public class ReservationPane extends JPanel {
 
 		changeStartText = new JTextField();
 		changeReservationPanel.add(changeStartText);
+		changeStartText.setText("dd-mm-yyyy");
 
 		JButton searchButton = new JButton("Search");
 		changeReservationPanel.add(searchButton);
