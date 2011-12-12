@@ -430,7 +430,7 @@ public class ReservationGUI extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// pass ReservationData res to ReservationController to pass to
 				// ReservationDB to insert into DataBase
-				//save();
+				save();
 			}
 		});
 
@@ -486,7 +486,9 @@ public class ReservationGUI extends JPanel {
 		// Combo cardType
 		newReservation.setCreditCardNr(cardNrText.getText());
 
-		resControl.saveReservation(newReservation);
+		resnr = resControl.saveReservation(newReservation);
+		if (resnr != null) resnrText.setText("" + resnr);
+		else resnrText.setText("save failed");
 	}
 	
 	private void delete() {

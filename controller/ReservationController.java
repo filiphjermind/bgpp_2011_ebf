@@ -31,8 +31,9 @@ public class ReservationController {
 	public List<VehicleDATA> getReservations(List<String> vehicleClasses, GregorianCalendar currentMonth) throws SQLException {
 		return reservationDB.getReservations(vehicleClasses, currentMonth);
 	}
-	public void saveReservation(ReservationData newReservation) {
-		reservationDB.saveReservation(newReservation);		
+	public int saveReservation(ReservationData newReservation) {
+		int resNr = reservationDB.saveReservation(newReservation);	
+		return resNr;
 	}
 	public void deleteReservation(int resnr) {
 		reservationDB.deleteReservation(resnr);
