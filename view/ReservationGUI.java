@@ -489,11 +489,8 @@ public class ReservationGUI extends JPanel {
 		
 		priceText.setText("" + newReservation.calculateTotalPrice());
 		
-		//resnr = 
-		resControl.saveReservation(newReservation);
-		//if (resnr != null) resnrText.setText("" + resnr);
-		//else 
-			resnrText.setText("save failed");
+		resnr = resControl.saveReservation(newReservation);
+		resnrText.setText("" + resnr);
 	}
 	
 	private void delete() {
