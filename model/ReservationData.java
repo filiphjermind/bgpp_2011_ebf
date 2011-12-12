@@ -12,11 +12,20 @@ public class ReservationData {
 	private PersonDATA person;
 		
 	private final boolean beingServiced;
+	private int duration;
+	private final int reservationID;
 	
-	public ReservationData(GregorianCalendar start, GregorianCalendar end, boolean beingServiced) {
+	public ReservationData(GregorianCalendar start, GregorianCalendar end, boolean beingServiced, int reservationID) {
 		this.start = start;
 		this.end = end;
 		this.beingServiced = beingServiced;
+		this.reservationID = reservationID;
+		calculateDuration();
+	}
+
+	private void calculateDuration() {
+		duration = end.get(GregorianCalendar.DAY_OF_MONTH) - start.get(GregorianCalendar.DAY_OF_MONTH);
+		
 	}
 
 	/**
@@ -39,7 +48,15 @@ public class ReservationData {
 	public int getStartDay() {
 		return start.get(GregorianCalendar.DAY_OF_MONTH)-1;
 	}
+
+	public int getEndDay() {
+		return end.get(GregorianCalendar.DAY_OF_MONTH)-1;
+	}
 	
+	public GregorianCalendar getStart() {
+		return start;
+	}
+
 	/*public void setStart() {
 		this.start = ?;
 	}*/
@@ -59,8 +76,7 @@ public class ReservationData {
 	 * @return the duration in days of a reservation
 	 */
 	public int getDuration() {
-		return end.get(GregorianCalendar.DAY_OF_MONTH) - start.get(GregorianCalendar.DAY_OF_MONTH);
-		
+		return duration;
 	}
 	
 	
@@ -135,4 +151,9 @@ public class ReservationData {
 	public String toString() {
 		return "start: "+ (start.getTimeInMillis()/(60*60*24)) + " end: "+ (end.getTimeInMillis()/(60*60*24)) + " beingServiced: " +beingServiced;
 	}
+
+	public int getID() {
+		return reservationID;
+	}
+
 }
