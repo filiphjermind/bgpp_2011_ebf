@@ -3,16 +3,10 @@ package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-<<<<<<< HEAD
-=======
-import model.ReservationData;
-
->>>>>>> 884753dc312c8beeacb4bbdf8b015a279a49b277
 public class ReservationDB extends DBConnection {
 
 	/**
