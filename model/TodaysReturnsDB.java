@@ -1,12 +1,11 @@
 package model;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import controller.GetCurrentDateTime;
 
 
-public class TodaysReturnsData extends DBConnection
+public class TodaysReturnsDB extends DBConnection
 {
 	GetCurrentDateTime date = new GetCurrentDateTime();
 	String currentDate = date.getDate();
@@ -23,7 +22,7 @@ public class TodaysReturnsData extends DBConnection
 							"WHERE Reservation.person = Person.ID AND Reservation.vehicle = Vehicle.licensePlate " +
 							"AND Reservation.endDate = '" + currentDate + "'";
 	
-	public TodaysReturnsData() throws Exception
+	public TodaysReturnsDB() throws Exception
 	{
 		
 	}
@@ -35,19 +34,11 @@ public class TodaysReturnsData extends DBConnection
 	 */
 	public ResultSet selectReservations()
 	{
-		try {
-			// Create the query.
-			PreparedStatement statement = dbConnection.prepareStatement(query);
-			
-			// Execute the query.
-			ResultSet result = statement.executeQuery();
-			
-			// Return the ResultSet.
-			return result;
-		} catch(Exception e) {
-			System.out.println("Exception: " + e);
-		}
-		return null;
+		// get a resultset
+		ResultSet result = sendQuery(query);
+						
+		// return the resultset
+		return result;
 	}
 
 }

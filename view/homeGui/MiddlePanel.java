@@ -121,13 +121,13 @@ public class MiddlePanel extends JPanel {
 			for (int j = 0; j < reservations.size(); j++) {
 				ReservationData reservationData = reservations.get(j);
 				int x = 0;
-				if(isBeforeCurrentMonth(reservationData.getStart())){
+				if(isBeforeCurrentMonth(reservationData.getStartDateGreg())){
 					x = 0 + VEHICLE_LABEL_SPACE;
 				}else{
-					x = reservationData.getStartDay() * 25 + VEHICLE_LABEL_SPACE;
+					x = reservationData.getStartDayInt() * 25 + VEHICLE_LABEL_SPACE;
 				}
 				int width = 0;
-				if(isAfterCurrentMonth(reservationData.getEnd())){
+				if(isAfterCurrentMonth(reservationData.getEndDate())){
 					width = (viewDate.getActualMaximum(GregorianCalendar.DAY_OF_MONTH)-1) * 25+ VEHICLE_LABEL_SPACE -x;
 				}else{
 					width = reservationData.getEndDay()* 25 + VEHICLE_LABEL_SPACE - x;

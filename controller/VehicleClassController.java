@@ -26,7 +26,7 @@ public class VehicleClassController {
 	 * @return the list of vehicle classes
 	 * @throws SQLException
 	 */
-	public static Object[] getArray() throws SQLException {
+	public Object[] getArray() throws SQLException {
 		VehicleClassDB vcdb = new VehicleClassDB();
 		Object [] vehicleClassList = vcdb.getVehicleClassListAsArray();
 		return vehicleClassList;
@@ -36,7 +36,7 @@ public class VehicleClassController {
 	 * @return ArrayList<String>
 	 * @throws SQLException
 	 */
-	public static ArrayList<String> getArrayList() throws SQLException {
+	public ArrayList<String> getArrayList() throws SQLException {
 		VehicleClassDB vcdb = new VehicleClassDB();
 		ArrayList<String> vehicleClassList = vcdb.getVehicleClassListAsArrayList();
 		return vehicleClassList;

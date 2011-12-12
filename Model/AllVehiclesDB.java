@@ -19,4 +19,10 @@ public class AllVehiclesDB extends DBConnection {
 		// return the resultset
 		return result;
 	}
+
+	public Object[] getSelectedVehicles(String carClass) {
+	// get a resultset
+		ResultSet result = sendQuery("SELECT * FROM Vehicle WHERE vehicleClass = '" + carClass + "'");
+		return null;
+	}
 }

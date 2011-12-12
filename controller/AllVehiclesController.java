@@ -21,4 +21,10 @@ public class AllVehiclesController {
 		return result;
 	}
 
+
+	public Object[] getVehicles(String carClass) {
+		Object[] selectedVehicles = allVehicles.getSelectedVehicles(carClass);
+		return selectedVehicles;
+	}
+
 }

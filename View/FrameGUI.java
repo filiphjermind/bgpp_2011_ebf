@@ -17,10 +17,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 
 import model.DBConnection;
-
 import view.homeGUI.HomeWindow;
 
 /**
@@ -37,17 +35,26 @@ import view.homeGUI.HomeWindow;
  */
 
 public class FrameGUI {
+	//AllVehiclesGUI allVehiclesGUI = new AllVehiclesGUI();
 
 	private JTabbedPane tabbedPane;
 
 	/**
 	 * Creates the frame for the booking system
 	 */
+
+	/*public FrameGUI() throws Exception
 	public FrameGUI() throws Exception
 	{	
 		
 		AllVehiclesGUI allVehiclesGUI = new AllVehiclesGUI(this);
 		SVGUI svGui = new SVGUI("Something");
+	}*/
+
+	public FrameGUI() throws Exception {
+
+		SVGUI svGui = new SVGUI();
+
 		Test test = new Test();
 
 		// Create the frame, and tabbed pane for the skeleton.
@@ -61,7 +68,7 @@ public class FrameGUI {
 		makeMenuBar(frame);
 		addCloseListener(frame);
 
-		// Create the individual tabs, and add them to the tabbedpane.
+		// Create the individual tabs, and add them to the tabbed pane.
 		// Home tab.
 		List<String> carClasses = new ArrayList<String>();
 		carClasses.add("van");
@@ -73,6 +80,7 @@ public class FrameGUI {
 		tabbedPane.addTab("Home", homePanel);
 
 		// Vehicles tab.
+
 		JPanel allVehiclesPanel = new AllVehiclesGUI(this); 
 		tabbedPane.addTab("Vehicles", allVehiclesPanel);
 
@@ -174,11 +182,16 @@ public class FrameGUI {
 		});
 		fileMenu.add(newReservationItem);
 		
+
 		JMenuItem exampleVehicle = new JMenuItem("Example Vehicle");
 		exampleVehicle.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { exampleVehicle(); }
-			});
+			public void actionPerformed(ActionEvent e) {
+				//exampleVehicle();
+			}
+		});
 		fileMenu.add(exampleVehicle);
+
+
 		JMenuItem printItem = new JMenuItem("Print");
 		printItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -258,17 +271,26 @@ public class FrameGUI {
 		makeNewTab("Reservation", reservationGUI);
 	}
 
+	public void changeReservationTab(String resnr) {
+		//convert resnr from String to int
+		int resNumber = Integer.parseInt(resnr);		
+		ReservationGUI reservationGUI = new ReservationGUI(resNumber);
+		makeNewTab("Reservation", reservationGUI);
+	}
+	
 	public void makeNewTab(String title, JPanel panel) {
 		tabbedPane.addTab(title, panel);
 		tabbedPane.setSelectedComponent(panel);
 	}
+
 	
 	
-	public void makeNewSVGUI(String licensePlate)
+	public void makeNewSVGUI(String licensePlate) throws Exception
 	{
 		String tabTitle = licensePlate;
 		makeNewTab(tabTitle, new SVGUI(tabTitle));
 	}
+
 	/**
 	 * The new reservation method. Creates a new reservations.
 	 * 
@@ -277,12 +299,14 @@ public class FrameGUI {
 	private void newReservation() throws SQLException {
 		makeNewTab("Reservation", new ReservationGUI());
 	}
-		
+
 	// temporary
-	private void exampleVehicle()
+	private void exampleVehicle() throws Exception
 	{
 		makeNewTab("Vehicle DK 39 452", new SVGUI("DK 39 452"));
 	}
+
+
 	/**
 	 * Print method. Prints out the information on the screen.
 	 */
@@ -340,5 +364,4 @@ public class FrameGUI {
 		closeDBConnection();
 		System.exit(0);
 	}
-
 }
