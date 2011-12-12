@@ -58,8 +58,8 @@ public class ReservationDB extends DBConnection {
 
 			}
 		}
-		ResultSet resultSet = sendQuery("SELECT VehicleClass.vehicleClass, startDate, Reservation.id, endDate FROM Reservation, Vehicle, VehicleClass "
-				+ "WHERE Reservation.vehicle = Vehicle.licensePlate AND Vehicle.vehicleClass = VehicleClass.vehicleClass AND Reservation.endDate >= " + startMonth + " AND" + " Reservation.startDate <= " + endMonth + " AND "
+		ResultSet resultSet = sendQuery("SELECT VehicleClass.vehicleClass, startDate, Reservation.id, endDate, Service.startDate, Service.endDate FROM Reservation, Vehicle, VehicleClass, Service "
+				+ "WHERE Reservation.vehicle = Vehicle.licensePlate AND Vehicle.vehicleClass = VehicleClass.vehicleClass AND Vehicle.licensePlate = Service.vehicle AND Reservation.endDate >= " + startMonth + " AND" + " Reservation.startDate <= " + endMonth + " AND "
 				+ vehicleClassConditions);
 		//checks if the resultSet is empty
 		if(!resultSet.isBeforeFirst()) return null;
