@@ -5,20 +5,15 @@ package view.homeGUI;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-import controller.ReservationController;
-
-import view.FrameGUI;
-import model.ReservationData;
 import model.VehicleDATA;
+import view.FrameGUI;
+import controller.ReservationController;
 
 @SuppressWarnings("serial")
 public class HomeWindow extends JPanel{

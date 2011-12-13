@@ -80,10 +80,12 @@ public class ReservationGUI extends JPanel {
 	
 	public ReservationGUI()
 	{
+		resControl = new ReservationController();
 		init();
 	}
 	
 	public ReservationGUI(String start, String end, String carClass) {
+		resControl = new ReservationController();
 		this.start = start;
 		this.end = end;
 		this.carClass = carClass;
@@ -93,7 +95,7 @@ public class ReservationGUI extends JPanel {
 	
 	public ReservationGUI(int resNumber) {
 		resControl = new ReservationController();
-				
+		
 		if (resNumber > 0) {
 			// call db to request reservation with resnr as parameter
 			ReservationData rData = resControl.getReservationFromDB(resNumber);
@@ -454,6 +456,7 @@ public class ReservationGUI extends JPanel {
 		// convert start date from String to GregorianCalendar via Date
 		DateFormat formatter;
 		formatter = new SimpleDateFormat("dd-mm-yy");
+		
 		Date sDate = null;
 		try {
 			sDate = (Date)formatter.parse(startText.getText());
@@ -477,8 +480,10 @@ public class ReservationGUI extends JPanel {
 		endDate.setTime(eDate);
 		newReservation.setEndDateGreg(endDate);
 
+		newReservation.setVehicle((String)vehiclesCombo.getSelectedItem());
 		newReservation.setPickedUp(pickedUp);
 		newReservation.setReturned(returned);
+		newReservation.setBeingServiced(false);
 		newReservation.setFirstName(firstNameText.getText());
 		newReservation.setLastName(lastNameText.getText());
 		newReservation.setDriversLicence(drivingLicenceText.getText());
@@ -492,7 +497,7 @@ public class ReservationGUI extends JPanel {
 		resnr = resControl.saveReservation(newReservation);
 		resnrText.setText("" + resnr);
 	}
-	
+
 	private void delete() {
 		resControl.deleteReservation(resnr);
 	}

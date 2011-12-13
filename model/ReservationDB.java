@@ -10,7 +10,6 @@ import java.util.List;
 
 import model.ReservationData;
 
-
 public class ReservationDB extends DBConnection {
 
 	/**
@@ -249,19 +248,25 @@ public class ReservationDB extends DBConnection {
 		else returned = 0;
 		
 		// send person, startDate, endDate, vehicle, pickedUp, and returned to Reservation Table, get reservationNr returned
-		sendData("INSERT INTO Reservation(person, startDate, endDate, vehicle, pickedUp) VALUES('" + personId + "', '" + startDate + "', '" + endDate + "', '" + vehicle + "', '" + pickedUp + "', '" + returned + "')");
-		ResultSet result2 = sendQuery("SELECT ID FROM Reservation WHERE person = '" + personId + "' AND startDate = '" + startDate + "'");
+		sendData("INSERT INTO Reservation(person, startDate, endDate, vehicle, pickedUp, returned) VALUES('" + personId + "', '" + startDate + "', '" + endDate + "', '" + vehicle +"', '" + pickedUp + "', '" + returned + "')");
+	
+		ResultSet result2 = sendQuery("SELECT * FROM Reservation WHERE person = '" + personId + "' AND startDate = '" + startDate + "'");
 		int resId = -1;
 		try {
-			resId = result2.getInt("ID");
+			while(result2.next()) {
+				resId = result2.getInt("ID");
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resId;
 	}
+	
 
 	public void deleteReservation(int resnr) {
 		sendData("DELETE FROM Reservation WHERE ID ='" + resnr + "'");	
 	}
+
 }
+
