@@ -375,8 +375,8 @@ public class FrameGUI {
 			super(new FlowLayout(FlowLayout.LEFT, 0,0));
 			add(new JLabel(label));
 			
-			reg = new ImageIcon(getClass().getResource("../Close_regular.gif"));
-			over = new ImageIcon(getClass().getResource("../Close_rollover.gif"));
+			reg = new ImageIcon(getClass().getResource("../icons/close_standard.png"));
+			over = new ImageIcon(getClass().getResource("../icons/close_rollover.png"));
 			
 			setOpaque(false);
 			final TabButton self = this;
