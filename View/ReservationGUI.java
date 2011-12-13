@@ -3,12 +3,21 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -28,7 +37,7 @@ public class ReservationGUI extends JPanel {
 	private ReservationController resControl;
 	private ReservationData res;
 	
-	// input
+	// input variables
 	private int resnr;
 	private String start;
 	private String end;
@@ -45,11 +54,13 @@ public class ReservationGUI extends JPanel {
 	private int price;
 	private String cardType;
 	private String cardNr;
-	
+
 	// input fields
 	private JTextField resnrText;
 	private JTextField startText;
 	private JTextField endText;
+	private JComboBox classCombo;
+	private JComboBox vehiclesCombo;
 	private JCheckBox pickedUpBox;
 	private JCheckBox returnedBox;
 	private JTextField firstNameText;
@@ -59,10 +70,7 @@ public class ReservationGUI extends JPanel {
 	private JTextField emailText;
 	private JTextField addressText;
 	private JTextField priceText;
-	private JTextField cardNrText;
-	
-	
-	
+	private JTextField cardNrText;	
 		
 	/**
 	 * Makes a reservation page with 3 panels: reservation, person
@@ -79,20 +87,34 @@ public class ReservationGUI extends JPanel {
 		this.start = start;
 		this.end = end;
 		this.carClass = carClass;
+		//this.price = sql command
 		init();
 	}
 	
 	public ReservationGUI(int resNumber) {
 		resControl = new ReservationController();
 				
-		if(resNumber > 0) {
-			//call db to request reservation with resnr as parameter
-			ReservationData rData= resControl.getReservationFromDB(resNumber);
-			
+		if (resNumber > 0) {
+			// call db to request reservation with resnr as parameter
+			ReservationData rData = resControl.getReservationFromDB(resNumber);
+
 			// initialise all the fields
-			this.resnr = rData.getId();
-			this.start = "" + rData.getStartDateGreg();
-			this.end = "" + rData.getEndDate();
+			this.resnr = rData.getReservationID();
+			
+			// convert GregorianCalendar to String
+			Calendar startDate = rData.getStartDateGreg();
+			int sday = startDate.get(Calendar.DAY_OF_MONTH);
+			int smonth = startDate.get(Calendar.MONTH);
+			int syear = startDate.get(Calendar.YEAR);
+			this.start = sday + "-" + smonth + "-" + syear;
+						
+			// convert GregorianCalendar to String
+			Calendar endDate = rData.getEndDateGreg();
+			int eday = endDate.get(Calendar.DAY_OF_MONTH);
+			int emonth = endDate.get(Calendar.MONTH);
+			int eyear = endDate.get(Calendar.YEAR);
+			this.end = eday + "-" + emonth + "-" + eyear;
+			
 			this.carClass = rData.getVehicleClass();
 			this.car = rData.getVehicle();
 			this.pickedUp = rData.isPickedUp();
@@ -103,7 +125,7 @@ public class ReservationGUI extends JPanel {
 			this.telephone = rData.getPhone();
 			this.email = rData.getEmail();
 			this.address = rData.getAdress();
-			this.price = rData.getTotalPrice();
+			this.price = rData.calculateTotalPrice();
 			this.cardType = rData.getCreditCardType();
 			this.cardNr = rData.getCreditCardNr();
 			
@@ -131,7 +153,6 @@ public class ReservationGUI extends JPanel {
 			makePersonPanel();
 			makePaymentPanel();
 	}
-
 	
 	/**
 	 * Makes a reservation panel and adds it to the reservation page
@@ -141,86 +162,112 @@ public class ReservationGUI extends JPanel {
 	private void makeReservationPanel()
 	{
 		JPanel reservationPanel = new JPanel();
-		reservationPanel.setLayout(new BoxLayout(reservationPanel, BoxLayout.Y_AXIS));
+		reservationPanel.setLayout(new BoxLayout(reservationPanel,
+				BoxLayout.Y_AXIS));
 		reservationPanel.setBorder(emptyBorder);
 		add(reservationPanel);
-		
-			// make top panel for reservation panel
-			JPanel reservationTopPanel = new JPanel();
-			reservationTopPanel.setLayout(new GridLayout(1,2));
-			reservationPanel.add(reservationTopPanel);
-		
-				// make label panel for top panel
-				JPanel reservationLabelPanel = new JPanel();
-				reservationLabelPanel.setLayout(new GridLayout(0,1));
-				reservationTopPanel.add(reservationLabelPanel);
-				
-					JLabel resnrLabel = new JLabel("Reservation Nr");
-					reservationLabelPanel.add(resnrLabel);
-		        
-					JLabel startLabel = new JLabel("Start date");
-					reservationLabelPanel.add(startLabel);
-		        
-					JLabel endLabel = new JLabel("End date");
-					reservationLabelPanel.add(endLabel);
-		        
-					JLabel classLabel = new JLabel("Vehicle class");
-					reservationLabelPanel.add(classLabel);
-		        
-					JLabel vehicleLabel = new JLabel("Vehicle");
-					reservationLabelPanel.add(vehicleLabel);
-		
-				// make text panel for top panel
-		        JPanel reservationTextPanel = new JPanel();
-		        reservationTextPanel.setLayout(new GridLayout(0,1));
-		        reservationTopPanel.add(reservationTextPanel);
-		        
-		        	resnrText = new JTextField(10);
-		        	reservationTextPanel.add(resnrText);
-		        	if(resnr >= 0) resnrText.setText("" + resnr);
-		        	
-		        	startText = new JTextField(10);
-		        	reservationTextPanel.add(startText);
-		        	if(start!=null) startText.setText(start);
-		        			        
-		        	endText = new JTextField(10);
-		        	reservationTextPanel.add(endText);
-		        	if(end!=null) endText.setText(end);
-		        	
-		        	VehicleClassController vcc = new VehicleClassController();
-		        	try {
-		        		Object[] classes = vcc.getArray();
-		        		JComboBox classCombo = new JComboBox(classes);
-		        		if(carClass != null) classCombo.setSelectedItem(carClass);
-		        		reservationTextPanel.add(classCombo);
-						
-					} catch (Exception e) {
-						// TODO: if there is an error in db connection then show it in the gui
-					}
-		        	
-		        	AllVehiclesController avc = new AllVehiclesController();
-		        	try {
-		        		Object[] vehicles = avc.getVehicles(carClass);
-		        		JComboBox vehiclesCombo	= new JComboBox(vehicles);
-		        		if(car != null) vehiclesCombo.setSelectedItem(car);
-		        		reservationTextPanel.add(vehiclesCombo);
-		        		
-		        	} catch (Exception e) {
-						// TODO: if there is an error in db connection then show it in the gui
-					}
-		        			
-			// make bottom panel for reservation panel	
-			JPanel reservationBottomPanel = new JPanel();
-			reservationBottomPanel.setLayout(new GridLayout(0,1));
-			reservationPanel.add(reservationBottomPanel);
-				
-				pickedUpBox = new JCheckBox("Picked up");
-				reservationBottomPanel.add(pickedUpBox);
-				//if(pickedUp != false) pickedUpBox.setPressedIcon(pressedIcon);
-								
-				returnedBox = new JCheckBox("Returned");
-				reservationBottomPanel.add(returnedBox);
-				//if(returned != false) returnedBox.setPressedIcon(pressedIcon);
+
+		// make top panel for reservation panel
+		JPanel reservationTopPanel = new JPanel();
+		reservationTopPanel.setLayout(new GridLayout(1, 2));
+		reservationPanel.add(reservationTopPanel);
+
+		// make label panel for top panel
+		JPanel reservationLabelPanel = new JPanel();
+		reservationLabelPanel.setLayout(new GridLayout(0, 1));
+		reservationTopPanel.add(reservationLabelPanel);
+
+		JLabel resnrLabel = new JLabel("Reservation Nr");
+		reservationLabelPanel.add(resnrLabel);
+
+		JLabel startLabel = new JLabel("Start date");
+		reservationLabelPanel.add(startLabel);
+
+		JLabel endLabel = new JLabel("End date");
+		reservationLabelPanel.add(endLabel);
+
+		JLabel classLabel = new JLabel("Vehicle class");
+		reservationLabelPanel.add(classLabel);
+
+		JLabel vehicleLabel = new JLabel("Vehicle");
+		reservationLabelPanel.add(vehicleLabel);
+
+		// make text panel for top panel
+		JPanel reservationTextPanel = new JPanel();
+		reservationTextPanel.setLayout(new GridLayout(0, 1));
+		reservationTopPanel.add(reservationTextPanel);
+
+		resnrText = new JTextField(10);
+		reservationTextPanel.add(resnrText);
+		if (resnr >= 0)
+			resnrText.setText("" + resnr);
+
+		startText = new JTextField();
+		reservationTextPanel.add(startText);
+		if (start != null)
+			startText.setText("" + start);
+		else startText.setText("ddmmyyyy");
+
+		endText = new JTextField();
+		reservationTextPanel.add(endText);
+		if (end != null)
+			endText.setText("" + end);
+		else endText.setText("ddmmyyyy");
+
+		VehicleClassController vcc = new VehicleClassController();
+		try {
+			Object[] classes = vcc.getArray();
+			classCombo = new JComboBox(classes);
+			if (carClass != null)
+				classCombo.setSelectedItem(carClass);
+			reservationTextPanel.add(classCombo);
+
+		} catch (Exception e) {
+			// TODO: if there is an error in db connection then show it in the
+			// gui
+		}
+
+		AllVehiclesController avc = new AllVehiclesController();
+		try {
+			Object[] vehicles = avc.getVehicles(carClass);
+			vehiclesCombo = new JComboBox(vehicles);
+			if (car != null)
+				vehiclesCombo.setSelectedItem(car);
+			reservationTextPanel.add(vehiclesCombo);
+
+		} catch (Exception e) {
+			// TODO: if there is an error in db connection then show it in the
+			// gui
+		}
+
+		// make bottom panel for reservation panel
+		JPanel reservationBottomPanel = new JPanel();
+		reservationBottomPanel.setLayout(new GridLayout(0, 1));
+		reservationPanel.add(reservationBottomPanel);
+
+		pickedUpBox = new JCheckBox("Picked up");
+		reservationBottomPanel.add(pickedUpBox);
+		pickedUpBox.setSelected(pickedUp);
+		pickedUpBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.DESELECTED)
+					pickedUp = false;
+				if (e.getStateChange() == ItemEvent.SELECTED)
+					pickedUp = true;
+			}
+		});
+
+		returnedBox = new JCheckBox("Returned");
+		reservationBottomPanel.add(returnedBox);
+		returnedBox.setSelected(returned);
+		returnedBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.DESELECTED)
+					returned = false;
+				if (e.getStateChange() == ItemEvent.SELECTED)
+					returned = true;
+			}
+		});
 	}
 						
 	/**
@@ -321,76 +368,132 @@ public class ReservationGUI extends JPanel {
 		paymentPanel.setLayout(new BoxLayout(paymentPanel, BoxLayout.Y_AXIS));
 		paymentPanel.setBorder(emptyBorder);
 		add(paymentPanel);
+
+		// make top panel for payment panel
+		JPanel paymentTopPanel = new JPanel();
+		paymentTopPanel.setLayout(new GridLayout(1, 2));
+		paymentPanel.add(paymentTopPanel);
+
+		// make label panel for payment panel
+		JPanel paymentLabelPanel = new JPanel();
+		paymentLabelPanel.setLayout(new GridLayout(0, 1));
+		paymentTopPanel.add(paymentLabelPanel);
+
+		JLabel priceLabel = new JLabel("Price");
+		paymentLabelPanel.add(priceLabel);
+
+		JLabel cardTypeLabel = new JLabel("Credit card type");
+		paymentLabelPanel.add(cardTypeLabel);
+
+		JLabel cardNrLabel = new JLabel("Credit card nr");
+		paymentLabelPanel.add(cardNrLabel);
+
+		// make text panel for payment panel
+		JPanel paymentTextPanel = new JPanel();
+		paymentTextPanel.setLayout(new GridLayout(0, 1));
+		paymentTopPanel.add(paymentTextPanel);
+
+		priceText = new JTextField();
+		paymentTextPanel.add(priceText);
+		if (price >= 0)
+			priceText.setText("" + price);
+
+		Object[] cards = { "Visa", "MasterCard", "AmEx" };
+		JComboBox cardTypeCombo = new JComboBox(cards);
+		if (cardType != null)
+			cardTypeCombo.setSelectedItem(cardType);
+		paymentTextPanel.add(cardTypeCombo);
+
+		cardNrText = new JTextField();
+		paymentTextPanel.add(cardNrText);
+		if (cardNr != null)
+			cardNrText.setText(cardNr);
+
+		// make middle panel for payment panel
+		JPanel paymentMiddlePanel = new JPanel();
+		paymentMiddlePanel.setLayout(new GridLayout(0, 1));
+		paymentPanel.add(paymentMiddlePanel);
+
+		JLabel bAddressLabel = new JLabel("Billing address (if different)");
+		paymentMiddlePanel.add(bAddressLabel);
+
+		JTextField bAddressText = new JTextField();
+		paymentMiddlePanel.add(bAddressText);
+
+		// make bottom panel for payment panel
+		JPanel paymentBottomPanel = new JPanel();
+		paymentBottomPanel.setLayout(new FlowLayout());
+		paymentPanel.add(paymentBottomPanel);
+
+		JButton saveButton = new JButton("Save Reservation");
+		paymentBottomPanel.add(saveButton);
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// pass ReservationData res to ReservationController to pass to
+				// ReservationDB to insert into DataBase
+				save();
+			}
+		});
+
+		JButton deleteButton = new JButton("Delete Reservation");
+		paymentBottomPanel.add(deleteButton);
+		deleteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// pass resnr to ReservationController to pass to ReservationDB
+				// to delete post in DataBase
+				delete();
+			}
+		});
+	}
+	
+	private void save() {
+
+		// make a new ReservationData object
+		ReservationData newReservation = new ReservationData();
+
+		// convert start date from String to GregorianCalendar via Date
+		DateFormat formatter;
+		formatter = new SimpleDateFormat("dd-mm-yy");
+		Date sDate = null;
+		try {
+			sDate = (Date)formatter.parse(startText.getText());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		GregorianCalendar startDate = new GregorianCalendar();
+		startDate.setTime(sDate);
+		newReservation.setStartDateGreg(startDate);
+
+		// convert end date from String to GregorianCalendar via Date
+		Date eDate = null;
+		try {
+			eDate = (Date)formatter.parse(endText.getText());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		GregorianCalendar endDate = new GregorianCalendar();
+		endDate.setTime(eDate);
+		newReservation.setEndDateGreg(endDate);
+
+		newReservation.setPickedUp(pickedUp);
+		newReservation.setReturned(returned);
+		newReservation.setFirstName(firstNameText.getText());
+		newReservation.setLastName(lastNameText.getText());
+		newReservation.setDriversLicence(drivingLicenceText.getText());
+		newReservation.setPhone(telephoneText.getText());
+		newReservation.setAdress(addressText.getText());
+		// Combo cardType
+		newReservation.setCreditCardNr(cardNrText.getText());
 		
-			// make top panel for payment panel
-			JPanel paymentTopPanel = new JPanel();
-			paymentTopPanel.setLayout(new GridLayout(1,2));
-			paymentPanel.add(paymentTopPanel);
+		priceText.setText("" + newReservation.calculateTotalPrice());
 		
-				// make label panel for payment panel
-				JPanel paymentLabelPanel = new JPanel();
-				paymentLabelPanel.setLayout(new GridLayout(0,1));
-				paymentTopPanel.add(paymentLabelPanel);
-				
-				JLabel priceLabel = new JLabel("Price");
-			    paymentLabelPanel.add(priceLabel);
-			        
-			    JLabel cardTypeLabel = new JLabel("Credit card type");
-			    paymentLabelPanel.add(cardTypeLabel);
-			        
-			    JLabel cardNrLabel = new JLabel("Credit card nr");
-			    paymentLabelPanel.add(cardNrLabel);
-		
-				// make text panel for payment panel
-				JPanel paymentTextPanel = new JPanel();
-				paymentTextPanel.setLayout(new GridLayout(0,1));
-				paymentTopPanel.add(paymentTextPanel);
-				
-				priceText = new JTextField();
-		        paymentTextPanel.add(priceText);
-		        if(price >= 0) priceText.setText("" + price);
-		        
-		        Object[] cards = {"Visa", "MasterCard", "AmEx"};
-		        JComboBox cardTypeCombo = new JComboBox(cards);
-		        if(cardType != null) cardTypeCombo.setSelectedItem(cardType);
-		        paymentTextPanel.add(cardTypeCombo);
-		        		        
-		        cardNrText = new JTextField();
-		        paymentTextPanel.add(cardNrText);
-		        if(cardNr != null) cardNrText.setText(cardNr);
-		
-			// make middle panel for payment panel
-			JPanel paymentMiddlePanel = new JPanel();
-			paymentMiddlePanel.setLayout(new GridLayout(0,1));
-			paymentPanel.add(paymentMiddlePanel);
-			
-			JLabel bAddressLabel = new JLabel("Billing address (if different)");
-			paymentMiddlePanel.add(bAddressLabel);
-			
-			JTextField bAddressText = new JTextField();
-			paymentMiddlePanel.add(bAddressText);
-			
-			// make bottom panel for payment panel
-			JPanel paymentBottomPanel = new JPanel();
-			paymentBottomPanel.setLayout(new FlowLayout());
-			paymentPanel.add(paymentBottomPanel);
-			
-			JButton saveButton = new JButton("Save Reservation");
-			paymentBottomPanel.add(saveButton);
-			saveButton.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent e){
-					System.out.println("Save");
-					// pass ReservationData res to ReservationController to pass to ReservationDB to insert into DataBase
-				}
-			});
-			
-			JButton deleteButton = new JButton("Delete Reservation");
-			paymentBottomPanel.add(deleteButton);
-			deleteButton.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent e){
-					System.out.println("deleted");
-					// pass resnr to ReservationController to pass to ReservationDB to delete post in DataBase
-				}
-			});
+		resnr = resControl.saveReservation(newReservation);
+		resnrText.setText("" + resnr);
+	}
+	
+	private void delete() {
+		resControl.deleteReservation(resnr);
 	}
 }

@@ -10,10 +10,6 @@ import java.util.List;
 
 import model.ReservationData;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 41062353471d87b4b0ad1232fae26cbd8fdf2b2f
 public class ReservationDB extends DBConnection {
 
 	/**

@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -10,13 +11,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+
+
 
 import model.DBConnection;
 import view.homeGUI.HomeWindow;
@@ -39,6 +44,8 @@ public class FrameGUI {
 
 	private JTabbedPane tabbedPane;
 	private JFrame frame;
+	
+	private int tabIndex = 4;
 
 	/**
 	 * Creates the frame for the booking system
@@ -77,11 +84,12 @@ public class FrameGUI {
 		carClasses.add("car, 2 doors");
 		carClasses.add("car, 4 doors");
 		carClasses.add("segway");
+		
+		
 		JPanel homePanel = new HomeWindow(carClasses, this);
 		tabbedPane.addTab("Home", homePanel);
-
+		
 		// Vehicles tab.
-
 		JPanel allVehiclesPanel = new AllVehiclesGUI(this); 
 		tabbedPane.addTab("Vehicles", allVehiclesPanel);
 
@@ -268,8 +276,8 @@ public class FrameGUI {
 	}
 	
 	public void makeNewTab(String title, JPanel panel) {
-		tabbedPane.addTab(title, panel);
-		tabbedPane.setSelectedComponent(panel);
+		tabbedPane.add(panel, tabIndex);
+		tabbedPane.setTabComponentAt(tabIndex, new TabButton(title));
 	}
 
 	
@@ -355,5 +363,37 @@ public class FrameGUI {
 	private void quit() {
 		closeDBConnection();
 		System.exit(0);
+	}
+	
+	class TabButton extends JPanel implements ActionListener {
+		
+		ImageIcon reg = null;
+		ImageIcon over = null;
+		
+		public TabButton(String label)
+		{
+			super(new FlowLayout(FlowLayout.LEFT, 0,0));
+			add(new JLabel(label));
+			
+			reg = new ImageIcon(getClass().getResource("../Close_regular.gif"));
+			over = new ImageIcon(getClass().getResource("../Close_rollover.gif"));
+			
+			setOpaque(false);
+			final TabButton self = this;
+			final JButton button = new JButton(reg);
+			button.setOpaque(false);
+			button.setRolloverIcon(over);
+			button.setPressedIcon(over);
+			button.setBorderPainted(false);
+			button.setContentAreaFilled(false);
+			button.addActionListener(this);
+			add(button);
+		}
+		
+		public void actionPerformed(ActionEvent ae)
+		{
+			// Close the tab which was clicked.
+			tabbedPane.remove(tabbedPane.indexOfTabComponent(this));
+		}
 	}
 }
