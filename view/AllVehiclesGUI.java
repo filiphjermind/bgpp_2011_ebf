@@ -61,14 +61,19 @@ public class AllVehiclesGUI extends JPanel {
 		JLabel licenseLabel = new JLabel("License nr.");
 		searchPanel.add(licenseLabel);
 		
-		JTextField licenceText = new JTextField(20);
+		final JTextField licenceText = new JTextField(20);
 		searchPanel.add(licenceText);
 		
 		JButton searchButton = new JButton("Search");
 		searchPanel.add(searchButton);
 			searchButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
-					//new SVGUI("sadfsdf");
+					try {
+						frameGUI. makeNewSVGUI(licenceText.getText());
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 	}

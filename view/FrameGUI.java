@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -265,6 +266,27 @@ public class FrameGUI {
 		helpMenu.add(aboutItem);
 
 	}
+	
+	public void makeNewTab(String title, JPanel panel) {
+		tabbedPane.addTab(title, panel);
+		tabbedPane.setSelectedComponent(panel);
+	}
+
+	
+	public void makeNewSVGUI(String licensePlate) throws Exception
+	{
+		String tabTitle = licensePlate;
+		makeNewTab(tabTitle, new SVGUI(tabTitle));
+	}
+
+	/**
+	 * The new reservation method. Creates a new reservation.
+	 * 
+	 * @throws SQLException
+	 */
+	private void newReservation() throws SQLException {
+		makeNewTab("Reservation", new ReservationGUI());
+	}
 
 	public void openNewReservationTab(String start, String end, String carClass) {
 		ReservationGUI reservationGUI = new ReservationGUI(start, end, carClass);
@@ -278,35 +300,6 @@ public class FrameGUI {
 		makeNewTab("Reservation", reservationGUI);
 	}
 	
-	public void makeNewTab(String title, JPanel panel) {
-		tabbedPane.addTab(title, panel);
-		tabbedPane.setSelectedComponent(panel);
-	}
-
-	
-	
-	public void makeNewSVGUI(String licensePlate) throws Exception
-	{
-		String tabTitle = licensePlate;
-		makeNewTab(tabTitle, new SVGUI(tabTitle));
-	}
-
-	/**
-	 * The new reservation method. Creates a new reservations.
-	 * 
-	 * @throws SQLException
-	 */
-	private void newReservation() throws SQLException {
-		makeNewTab("Reservation", new ReservationGUI());
-	}
-
-	// temporary
-	private void exampleVehicle() throws Exception
-	{
-		makeNewTab("Vehicle DK 39 452", new SVGUI("DK 39 452"));
-	}
-
-
 	/**
 	 * Print method. Prints out the information on the screen.
 	 */

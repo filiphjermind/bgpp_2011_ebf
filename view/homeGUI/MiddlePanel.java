@@ -98,6 +98,10 @@ public class MiddlePanel extends JPanel {
 	public void updateTable(List<VehicleDATA> vehicles) {
 		tablePanel.removeAll();
 		if(vehicles == null){
+			JLabel introText = new JLabel("Please select a vehicle type in the left menu or go to another month");
+			introText.setHorizontalAlignment(JLabel.CENTER);
+			introText.setBounds(0, 0, PANEL_WIDTH, (int) (PANEL_HEIGHT*0.4));
+			tablePanel.add(introText);
 			tablePanel.repaint();
 			return;
 		}
@@ -127,10 +131,10 @@ public class MiddlePanel extends JPanel {
 					x = reservationData.getStartDayInt() * 25 + VEHICLE_LABEL_SPACE;
 				}
 				int width = 0;
-				if(isAfterCurrentMonth(reservationData.getEndDate())){
+				if(isAfterCurrentMonth(reservationData.getEndDateGreg())){
 					width = (viewDate.getActualMaximum(GregorianCalendar.DAY_OF_MONTH)-1) * 25+ VEHICLE_LABEL_SPACE -x;
 				}else{
-					width = reservationData.getEndDay()* 25 + VEHICLE_LABEL_SPACE - x;
+					width = reservationData.getEndDayInt()* 25 + VEHICLE_LABEL_SPACE - x;
 				}
 				//to make room between two adjacent reservations
 				width -=2;
@@ -163,7 +167,7 @@ public class MiddlePanel extends JPanel {
 	}
 
 	private void onReservationClicked(ReservationData reservationData) {
-		homeWindow.onClickedEntryInTable(reservationData.getID());
+		homeWindow.onClickedEntryInTable(reservationData.getReservationID());
 	}
 
 	public void onCheckBoxesUpdated(List<String> vehicleClasses) {

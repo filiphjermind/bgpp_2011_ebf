@@ -32,9 +32,6 @@ public class HomeWindow extends JPanel{
 		reservationController = new ReservationController();
 		makeStructure();
 		setVisible(true);
-		// TODO following line is only for testing. The method should be called
-		// from model
-		//updateVehiclesPane(null);
 	}
 
 	private void makeStructure() throws SQLException {
@@ -51,21 +48,6 @@ public class HomeWindow extends JPanel{
 
 	}
 
-	/*public static void main(String[] args) {
-		List<String> carClasses = new ArrayList<String>();
-		carClasses.add("van");
-		carClasses.add("sportscar");
-		carClasses.add("car, 2 doors");
-		carClasses.add("car, 4 doors");
-		carClasses.add("segway");
-//		HomeWindow homeWindow = new HomeWindow(carClasses,new FrameGUI());
-		JFrame frame = new JFrame();
-//		frame.add(homeWindow);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.pack();
-	}*/
-
 	public void onCheckBoxesUpdated(List<String> collectedVehicleClasses) {
 		middlePanel.onCheckBoxesUpdated(collectedVehicleClasses);
 	}
@@ -73,17 +55,11 @@ public class HomeWindow extends JPanel{
 	public List<VehicleDATA> getReservations(List<String> vehicleClasses, GregorianCalendar currentMonth) throws SQLException {
 		return reservationController.getReservations(vehicleClasses,currentMonth);
 	}
-/*
-	public void updateTable(List<VehicleData> vehicles) {
-		middlePanel.updateTable(vehicles, null);
+
+	public void updateTable(List<VehicleDATA> vehicles) {
+		middlePanel.updateTable(vehicles);
 	}
 
-	public void openNewReservationTab(String start, String end) {
-		frameGUI.openNewReservationTab(start,end);
-//		frameGUI.makeNewTab(title, panel)
-	}
-	}
-*/
 	public void onBookTabClicked(String start, String end, Object selectedItem) {
 		frameGUI.openNewReservationTab(start,end, (String) selectedItem);
 		

@@ -4,11 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import model.ReservationData;
+
 
 public class ReservationDB extends DBConnection {
 
@@ -112,22 +113,25 @@ public class ReservationDB extends DBConnection {
 		// retrieve it from the resultset and store it in a ReservationData
 		// object
 		try {
-			while (reservationResult.next()) {
-				reservationData.setId(reservationResult.getInt("ID"));
+			while(reservationResult.next()) {
+				reservationData.setReservationID(reservationResult.getInt("ID"));
 				reservationData.setPersonID(reservationResult.getInt("person"));
-				// convert to gregorianCalender
+				
+				// convert from sql.Date to GregorianCalender
 				Date sdate = reservationResult.getDate("startDate");
-				GregorianCalendar gCal1 = (GregorianCalendar) GregorianCalendar.getInstance();
-				gCal1.setTime(sdate);
+				GregorianCalendar gCal1 = new GregorianCalendar();
+				gCal1.setTime(sdate);				
 				reservationData.setStartDateGreg(gCal1);
-				// convert to gregorianCalender
+				
+				// convert from sql.Date to GregorianCalender
 				Date edate = reservationResult.getDate("endDate");
-				GregorianCalendar gCal2 = (GregorianCalendar) GregorianCalendar.getInstance();
-				gCal2.setTime(edate);
-				reservationData.setStartDateGreg(gCal2);
-				reservationData.setVehicle(reservationResult.getString("vehicle"));
-				reservationData.setPickedUP(reservationResult.getInt("pickedUp"));
-				reservationData.setReturned(reservationResult.getInt("returned"));
+				GregorianCalendar gCal2 = new GregorianCalendar();
+				gCal2.setTime(edate);				
+				reservationData.setEndDateGreg(gCal2);	
+				
+				reservationData.setVehicle(reservationResult.getString("vehicle")); 
+				reservationData.setPickedUp(reservationResult.getInt("pickedUp")); 
+				reservationData.setReturned(reservationResult.getInt("returned")); 
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -193,48 +197,71 @@ public class ReservationDB extends DBConnection {
 		}
 		return reservationData;
 	}
+	
+	/*public ReservationData getOneReservation(String name, String startdate) {}*/
+	
+	public int saveReservation(ReservationData newReservation) {
+		
+		// extract data for the Person Table
+		String firstName = newReservation.getFirstName();
+		String lastName = newReservation.getLastName();
+		String phone = newReservation.getPhone();
+		String email = newReservation.getEmail();
+		String adress = newReservation.getAdress();
+		String driversLicence = newReservation.getDriversLicence();
+		String creditCardType = newReservation.getCreditCardType();
+		String creditCardNr = newReservation.getCreditCardNr();
+		
+			
+		// send firstName, LastName, phone, email, adress, driversLicence, creditCardType, and creditCardNr to PersonTable, get ID returned
+		sendData("INSERT INTO Person(firstName, LastName, phone, email, adress, driversLicence, creditCardType, creditCardNr) VALUES ('" + firstName + "', '" + lastName + "','" + phone + "','" + email + "', '" + adress + "', '" + driversLicence + "', '" + creditCardType + "', '" + creditCardNr + "')");
+		ResultSet result1 = sendQuery("SELECT ID FROM Person WHERE driversLicence = '" + driversLicence + "'");
+		
+		int personId = -1;
+		try {
+			while(result1.next()) {
+					personId = result1.getInt("ID");
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// extract and convert data for the Reservation Table
+		int person;
+		if(personId > 0) person = personId;
+		else person = -1;
+		
+		// convert GregorianCalendar to sql.Date
+		Calendar sDate = newReservation.getStartDateGreg();
+		java.sql.Date startDate = new java.sql.Date(sDate.getTimeInMillis());
+		Calendar eDate = newReservation.getEndDateGreg();
+		java.sql.Date endDate = new java.sql.Date(eDate.getTimeInMillis());
+		
+		String vehicle = newReservation.getVehicle();
+		
+		// convert boolean to int
+		int pickedUp;
+		if(newReservation.isPickedUp() == true) pickedUp = 1;
+		else pickedUp = 0;
+		int returned;
+		if(newReservation.isReturned() == true) returned = 1;
+		else returned = 0;
+		
+		// send person, startDate, endDate, vehicle, pickedUp, and returned to Reservation Table, get reservationNr returned
+		sendData("INSERT INTO Reservation(person, startDate, endDate, vehicle, pickedUp) VALUES('" + personId + "', '" + startDate + "', '" + endDate + "', '" + vehicle + "', '" + pickedUp + "', '" + returned + "')");
+		ResultSet result2 = sendQuery("SELECT ID FROM Reservation WHERE person = '" + personId + "' AND startDate = '" + startDate + "'");
+		int resId = -1;
+		try {
+			resId = result2.getInt("ID");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resId;
+	}
 
-	/*
-	 * public ReservationData getOneReservation(String name, String startdate) {
-	 * // get person object first ResultSet resultP =
-	 * sendQuery("SELECT * FROM Person WHERE lastName = name");
-	 * 
-	 * //retrieve it from the resultset and store it in a PersonDATA object
-	 * PersonDATA personData = new PersonDATA(); try { while(resultP.next()) {
-	 * personData.setId(resultP.getInt("ID"));
-	 * personData.setFirstName(resultP.getString("firstName"));
-	 * personData.setLastName(resultP.getString("lastName"));
-	 * personData.setPhone(resultP.getString("phone"));
-	 * personData.setEmail(resultP.getString("email"));
-	 * personData.setAddress(resultP.getString("adress"));
-	 * personData.setDriversLicence(resultP.getString("driversLicence "));
-	 * personData.setCreditCardType(resultP.getString("creditCardType"));
-	 * personData.setCreditCardNr(resultP.getString("creditCardNr")); } } catch
-	 * (SQLException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); }
-	 * 
-	 * // use the personId to search for the reservation int personId =
-	 * personData.getId(); // get the details of the reservation ResultSet
-	 * result = sendQuery(
-	 * "SELECT * FROM Reservation WHERE person = personId AND startDate = startdate"
-	 * );
-	 * 
-	 * //retrieve it from the resultset and store it in a ReservationDATA object
-	 * ReservationData reservationData = new ReservationData(); try {
-	 * while(result.next()) { reservationData.setId(result.getInt("ID"));
-	 * //reservationData.setPerson(result.getString("person")); // need all the
-	 * info //reservationData.setStartDateGreg(result.getDate("startDate", new
-	 * GregorianCalendar()));
-	 * //reservationData.setEndDate(result.getDate("endDate"));
-	 * //reservationData.setVehicle(result.getString("vehicle")); // only need
-	 * the license plate
-	 * //reservationData.setPickedUp(result.getInt("pickedUp")); // if 0 true,
-	 * if 1 false or whatever
-	 * //reservationData.setReturned(result.getInt("returned")); // if 0 true,
-	 * if 1 false or whatever } } catch (SQLException e) { // TODO
-	 * Auto-generated catch block e.printStackTrace(); }
-	 * 
-	 * // how to store Person and Vehicle information? return reservationData; }
-	 */
-
+	public void deleteReservation(int resnr) {
+		sendData("DELETE FROM Reservation WHERE ID ='" + resnr + "'");	
+	}
 }

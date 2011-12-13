@@ -23,6 +23,7 @@ public class AllVehiclesController {
 
 
 	public Object[] getVehicles(String carClass) {
+		
 		Object[] selectedVehicles = allVehicles.getSelectedVehicles(carClass);
 		return selectedVehicles;
 	}
