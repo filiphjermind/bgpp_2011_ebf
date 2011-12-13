@@ -3,14 +3,13 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -38,6 +37,7 @@ public class FrameGUI {
 	//AllVehiclesGUI allVehiclesGUI = new AllVehiclesGUI();
 
 	private JTabbedPane tabbedPane;
+	private JFrame frame;
 
 	/**
 	 * Creates the frame for the booking system
@@ -59,7 +59,7 @@ public class FrameGUI {
 
 		// Create the frame, and tabbed pane for the skeleton.
 		tabbedPane = new JTabbedPane();
-		JFrame frame = new JFrame("EBF BookingSystem");
+		frame = new JFrame("EBF BookingSystem");
 
 		tabbedPane = new JTabbedPane();
 		tabbedPane.setTabPlacement(JTabbedPane.TOP);
@@ -354,7 +354,6 @@ public class FrameGUI {
 	 */
 
 	private void about() {
-
 	}
 
 	/**

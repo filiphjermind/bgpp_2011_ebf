@@ -7,11 +7,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-<<<<<<< HEAD
-=======
 import model.ReservationData;
 
->>>>>>> e3839771a834b8922a868bacc8f8b3d3907dcb10
 public class ReservationDB extends DBConnection {
 
 	/**

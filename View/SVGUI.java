@@ -33,10 +33,14 @@ import model.VehicleDATA;
  */
 public class SVGUI extends JPanel {
 	private String licensePlate;
+	
 	private JPanel westFlowPanel;
 	private JPanel centerPanel;
 	private JPanel centerFlowPanel;
 	
+	private DefaultTableModel model;
+	
+	// Used in the saveError() method
 	private final String noStartDate = "Please fill out the Start date.";
 	private final String noendDate = "Please fill out the end date.";
 	private final String noReason = "Please specify a reason.";
@@ -49,7 +53,7 @@ public class SVGUI extends JPanel {
 		add(makeCenterPanel(), BorderLayout.CENTER);
 	}
 	
-	public SVGUI(/*String licencePlate*/) throws Exception
+	public SVGUI() throws Exception
 	{
 		setLayout(new BorderLayout());
 		add(makeWestPanel(), BorderLayout.WEST);
@@ -202,12 +206,13 @@ public class SVGUI extends JPanel {
 		centerPanel.setLayout(new BorderLayout());
 
 		// Initialize the table.
-		DefaultTableModel model = new DefaultTableModel() {
+		/*DefaultTableModel */model = new DefaultTableModel() {
 			// Makes the table non-editable.
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
+		
 		model.addColumn("Vehicle");
 		model.addColumn("Start date");
 		model.addColumn("End date");
@@ -225,6 +230,7 @@ public class SVGUI extends JPanel {
 		// Create a SpecificVehicleDB object in order to assign the ResultSet to a variable.
 		SpecificVehicleDB svd = new SpecificVehicleDB();
 		ResultSet result = svd.vehicleService(licensePlate);
+		
 				
 		// Loops through the ResultSet.
 		// As long as the result set has a next value, add the value to a row in the table.
