@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.swing.JTextField;
+
 import model.ReservationDB;
 import model.ReservationData;
 import model.VehicleDATA;
@@ -39,4 +41,5 @@ public class ReservationController {
 		reservationDB.deleteReservation(resnr);
 		
 	}
+	
 }
