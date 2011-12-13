@@ -12,7 +12,6 @@ import model.ReservationData;
  *
  */
 public class VehicleDATA {
-	private String licenseplate;
 	private String vehicleClass;
 	private String annualCheck;
 	private String make;
@@ -22,6 +21,8 @@ public class VehicleDATA {
 	private String serviceStartDate;
 	private String serviceEndDate;
 	private String serviceReason;
+	private  List<ReservationData> reservations;
+	private String licensePlate;
 	
 	public String getServiceVehicle() {
 		return serviceVehicle;
@@ -63,10 +64,10 @@ public class VehicleDATA {
 		this.price = price;
 	}
 
-	private  List<ReservationData> reservations;
 
-	public VehicleDATA(String vehicleClass, List<ReservationData> reservations) {
+	public VehicleDATA(String vehicleClass, String licensePlate, List<ReservationData> reservations) {
 		this.vehicleClass = vehicleClass;
+		this.licensePlate = licensePlate;
 		this.reservations = reservations;
 		
 	}
@@ -78,7 +79,7 @@ public class VehicleDATA {
 	 * @return the licenseplate
 	 */
 	public String getLicenseplate() {
-		return licenseplate;
+		return licensePlate;
 	}
 
 
@@ -87,7 +88,7 @@ public class VehicleDATA {
 	 * @param licenceplate the licenseplate to set
 	 */
 	public void setLicenseplate(String licenseplate) {
-		this.licenseplate = licenseplate;
+		licensePlate = licenseplate;
 	}
 
 

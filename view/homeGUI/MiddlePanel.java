@@ -22,7 +22,7 @@ import model.VehicleDATA;
 public class MiddlePanel extends JPanel {
 	private static final int PANEL_WIDTH = 900;
 	private static final int PANEL_HEIGHT = 400;
-	private static final int VEHICLE_LABEL_SPACE = 100;
+	private static final int VEHICLE_LABEL_SPACE = 140;
 	private JLabel currentMonthLabel;
 	private GregorianCalendar viewDate;
 	private JPanel tablePanel;
@@ -98,6 +98,10 @@ public class MiddlePanel extends JPanel {
 	public void updateTable(List<VehicleDATA> vehicles) {
 		tablePanel.removeAll();
 		if(vehicles == null){
+			JLabel introText = new JLabel("Please select a vehicle type in the left menu or go to another month");
+			introText.setHorizontalAlignment(JLabel.CENTER);
+			introText.setBounds(0, 0, PANEL_WIDTH, (int) (PANEL_HEIGHT*0.4));
+			tablePanel.add(introText);
 			tablePanel.repaint();
 			return;
 		}
@@ -113,7 +117,7 @@ public class MiddlePanel extends JPanel {
 		//loop that takes care of displaying reservation rows
 		for (int i = 0; i < vehicles.size(); i++) {
 			VehicleDATA vehicleData = vehicles.get(i);
-			JLabel carLabel = new JLabel(vehicleData.getVehicleClass());
+			JLabel carLabel = new JLabel(vehicleData.getLicenseplate()+ ", "+vehicleData.getVehicleClass());
 			carLabel.setVerticalAlignment(JLabel.CENTER);
 			carLabel.setBounds(0, i * 20 + 34, VEHICLE_LABEL_SPACE, 15);
 			tablePanel.add(carLabel);
@@ -163,7 +167,7 @@ public class MiddlePanel extends JPanel {
 	}
 
 	private void onReservationClicked(ReservationData reservationData) {
-		System.out.println("VehiclesPane.onReservationClicked()"+reservationData.getReservationID());
+		homeWindow.onClickedEntryInTable(reservationData.getReservationID());
 	}
 
 	public void onCheckBoxesUpdated(List<String> vehicleClasses) {

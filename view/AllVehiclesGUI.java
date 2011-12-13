@@ -69,13 +69,8 @@ public class AllVehiclesGUI extends JPanel {
 			searchButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					try {
-						new SVGUI("sadfsdf");
-					} catch(Exception exn) {
-					
-					}
-					try {
 						frameGUI. makeNewSVGUI(licenceText.getText());
-					}catch (Exception e1) {
+					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}

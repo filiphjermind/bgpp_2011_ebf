@@ -33,19 +33,23 @@ public class ReservationDB extends DBConnection {
 	 * vehicleClasses and a specific month
 	 * 
 	 * @parameter vehicleClasses the vehicleClasses which should be fetched from
-	 * the database
+	 *            the database
 	 * 
 	 * @parameter currentMonth the month in which the reservations should be
 	 * 
 	 * @return the list of vehicles. Each vehicle contains a list of
-	 * reservations
+	 *         reservations
 	 */
-	public List<VehicleDATA> getReservations(List<String> vehicleClasses, GregorianCalendar currentMonth) throws SQLException {
-		if(vehicleClasses.size()==0)return null;
+	public List<VehicleDATA> getReservations(List<String> vehicleClasses,
+			GregorianCalendar currentMonth) throws SQLException {
+		if (vehicleClasses.size() == 0)
+			return null;
 		// converting date format from GregorianCalendar to sql
-		String startMonth = "'" + currentMonth.get(GregorianCalendar.YEAR) + "-" + (currentMonth.get(GregorianCalendar.MONTH) + 1) + "-1'";
-		String endMonth = "'" + currentMonth.get(GregorianCalendar.YEAR) + "-" + (currentMonth.get(GregorianCalendar.MONTH) + 1) + "-" + currentMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH)
-				+ "'";
+		String startMonth = "'" + currentMonth.get(GregorianCalendar.YEAR) + "-"
+				+ (currentMonth.get(GregorianCalendar.MONTH) + 1) + "-1'";
+		String endMonth = "'" + currentMonth.get(GregorianCalendar.YEAR) + "-"
+				+ (currentMonth.get(GregorianCalendar.MONTH) + 1) + "-"
+				+ currentMonth.getActualMaximum(GregorianCalendar.DAY_OF_MONTH) + "'";
 		// converting vehicleClass list to a sql statement that specifies which
 		// vehicles should be fetched
 		String vehicleClassConditions = "(";
@@ -58,19 +62,29 @@ public class ReservationDB extends DBConnection {
 
 			}
 		}
-		ResultSet resultSet = sendQuery("SELECT VehicleClass.vehicleClass, startDate, Reservation.id, endDate FROM Reservation, Vehicle, VehicleClass "
-				+ "WHERE Reservation.vehicle = Vehicle.licensePlate AND Vehicle.vehicleClass = VehicleClass.vehicleClass AND Reservation.endDate >= " + startMonth + " AND" + " Reservation.startDate <= " + endMonth + " AND "
-				+ vehicleClassConditions);
-		//checks if the resultSet is empty
-		if(!resultSet.isBeforeFirst()) return null;
+		ResultSet resultSet = sendQuery("SELECT Vehicle.licensePlate, VehicleClass.vehicleClass, Reservation.startDate, Reservation.endDate, Reservation.id "
+				+ "FROM Reservation, Vehicle, VehicleClass "
+				+ "WHERE Reservation.vehicle = Vehicle.licensePlate AND Vehicle.vehicleClass = VehicleClass.vehicleClass AND Reservation.endDate >= "
+				+ startMonth
+				+ " AND"
+				+ " Reservation.startDate <= "
+				+ endMonth
+				+ " AND "
+				+ vehicleClassConditions
+				+ "ORDER BY Vehicle.licensePlate");
+		// checks if the resultSet is empty
+		if (!resultSet.isBeforeFirst())
+			return null;
 		List<VehicleDATA> vehicles = new ArrayList<VehicleDATA>();
-		String description = "";
+		String vehicleClass = "";
+		String licensePlate = "";
 		List<ReservationData> reservationDatas = null;
 		while (resultSet.next()) {
-			if (!description.equals(resultSet.getString("vehicleClass"))) {
-				description = resultSet.getString("vehicleClass");
+			if (!licensePlate.equals(resultSet.getString("licensePlate"))) {
+				licensePlate = resultSet.getString("licensePlate");
 				reservationDatas = new ArrayList<ReservationData>();
-				VehicleDATA vehicleData = new VehicleDATA(description, reservationDatas);
+				vehicleClass = resultSet.getString("vehicleClass");
+				VehicleDATA vehicleData = new VehicleDATA(vehicleClass, licensePlate, reservationDatas);
 				vehicles.add(vehicleData);
 			}
 			Date startDate = resultSet.getDate("startDate", new GregorianCalendar());
@@ -80,22 +94,23 @@ public class ReservationDB extends DBConnection {
 			GregorianCalendar calendarEnd = new GregorianCalendar();
 			calendarEnd.setTime(endDate);
 			int reservationID = resultSet.getInt("id");
-			ReservationData reservationData = new ReservationData(calendarStart,calendarEnd, false,reservationID);
+			ReservationData reservationData = new ReservationData(calendarStart, calendarEnd,
+					false, reservationID);
 			reservationDatas.add(reservationData);
 		}
 		return vehicles;
 	}
-	
-	
-	
+
 	public ReservationData getOneReservation(int reservationNr) {
 		// create a ReservationData object to store all the information in
 		ReservationData reservationData = new ReservationData();
-		
+
 		// get the details of the reservation
-		ResultSet reservationResult = sendQuery("SELECT * FROM Reservation WHERE ID = '" + reservationNr + "'");
-				
-		//retrieve it from the resultset and store it in a ReservationData object
+		ResultSet reservationResult = sendQuery("SELECT * FROM Reservation WHERE ID = '"
+				+ reservationNr + "'");
+
+		// retrieve it from the resultset and store it in a ReservationData
+		// object
 		try {
 			while(reservationResult.next()) {
 				reservationData.setReservationID(reservationResult.getInt("ID"));
@@ -121,29 +136,34 @@ public class ReservationDB extends DBConnection {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		reservationData.setBeingServiced(false); // because it isn't a service reservation
-		
+
+		reservationData.setBeingServiced(false); // because it isn't a service
+													// reservation
+
 		// get vehicle class
 		String vehicle = reservationData.getVehicle();
-		ResultSet vehicleResult = sendQuery("SELECT vehicleClass FROM Vehicle WHERE licensePlate = '" + vehicle + "'");
-		
-		//retrieve it from the resultset and store it in a ReservationData object
+		ResultSet vehicleResult = sendQuery("SELECT vehicleClass FROM Vehicle WHERE licensePlate = '"
+				+ vehicle + "'");
+
+		// retrieve it from the resultset and store it in a ReservationData
+		// object
 		try {
-			while(vehicleResult.next()) {
+			while (vehicleResult.next()) {
 				reservationData.setVehicleClass(vehicleResult.getString("vehicleClass"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 		// get the price pr day
 		String vClass = reservationData.getVehicleClass();
-		ResultSet vehicleClassResult = sendQuery("SELECT price FROM VehicleClass WHERE vehicleClass = '" + vClass + "'");
-		
-		//retrieve it from the resultset and store it in a ReservationData object
+		ResultSet vehicleClassResult = sendQuery("SELECT price FROM VehicleClass WHERE vehicleClass = '"
+				+ vClass + "'");
+
+		// retrieve it from the resultset and store it in a ReservationData
+		// object
 		try {
-			while(vehicleClassResult.next()) {
+			while (vehicleClassResult.next()) {
 				// convert String to int
 				int ppd = Integer.parseInt(vehicleClassResult.getString("price"));
 				reservationData.setVehiclePricePerDay(ppd);
@@ -152,14 +172,15 @@ public class ReservationDB extends DBConnection {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-				
-		// get details about the person		
+
+		// get details about the person
 		int personId = reservationData.getPersonID();
 		ResultSet personResult = sendQuery("SELECT * FROM Person WHERE ID = '" + personId + "'");
-		
-		//retrieve it from the resultset and store it in a ReservationData object
+
+		// retrieve it from the resultset and store it in a ReservationData
+		// object
 		try {
-			while(personResult.next()) {
+			while (personResult.next()) {
 				reservationData.setFirstName(personResult.getString("firstName"));
 				reservationData.setLastName(personResult.getString("lastName"));
 				reservationData.setDriversLicence(personResult.getString("driversLicence"));
