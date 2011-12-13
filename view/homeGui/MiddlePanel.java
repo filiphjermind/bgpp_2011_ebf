@@ -127,10 +127,10 @@ public class MiddlePanel extends JPanel {
 					x = reservationData.getStartDayInt() * 25 + VEHICLE_LABEL_SPACE;
 				}
 				int width = 0;
-				if(isAfterCurrentMonth(reservationData.getEndDate())){
+				if(isAfterCurrentMonth(reservationData.getEndDateGreg())){
 					width = (viewDate.getActualMaximum(GregorianCalendar.DAY_OF_MONTH)-1) * 25+ VEHICLE_LABEL_SPACE -x;
 				}else{
-					width = reservationData.getEndDay()* 25 + VEHICLE_LABEL_SPACE - x;
+					width = reservationData.getEndDayInt()* 25 + VEHICLE_LABEL_SPACE - x;
 				}
 				//to make room between two adjacent reservations
 				width -=2;
@@ -163,7 +163,7 @@ public class MiddlePanel extends JPanel {
 	}
 
 	private void onReservationClicked(ReservationData reservationData) {
-		System.out.println("VehiclesPane.onReservationClicked()"+reservationData.getID());
+		System.out.println("VehiclesPane.onReservationClicked()"+reservationData.getReservationID());
 	}
 
 	public void onCheckBoxesUpdated(List<String> vehicleClasses) {

@@ -28,10 +28,10 @@ public class VehicleClassDB extends DBConnection {
         }
         
         // turn the arraylist into an array
-        Object [] vehicleList = arrList.toArray();
+        Object [] classList = arrList.toArray();
 		
         // return the array
-		return vehicleList;
+		return classList;
 	}
 	
 	/**
