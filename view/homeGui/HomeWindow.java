@@ -92,4 +92,8 @@ public class HomeWindow extends JPanel{
 	public void onSearchTabClicked(String resnr) {
 		frameGUI.changeReservationTab(resnr);
 	}
+
+	public void onClickedEntryInTable(int id) {
+		frameGUI.changeReservationTab(id+"");
+	}
 }

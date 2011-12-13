@@ -22,7 +22,7 @@ import model.VehicleDATA;
 public class MiddlePanel extends JPanel {
 	private static final int PANEL_WIDTH = 900;
 	private static final int PANEL_HEIGHT = 400;
-	private static final int VEHICLE_LABEL_SPACE = 100;
+	private static final int VEHICLE_LABEL_SPACE = 140;
 	private JLabel currentMonthLabel;
 	private GregorianCalendar viewDate;
 	private JPanel tablePanel;
@@ -113,7 +113,7 @@ public class MiddlePanel extends JPanel {
 		//loop that takes care of displaying reservation rows
 		for (int i = 0; i < vehicles.size(); i++) {
 			VehicleDATA vehicleData = vehicles.get(i);
-			JLabel carLabel = new JLabel(vehicleData.getVehicleClass());
+			JLabel carLabel = new JLabel(vehicleData.getLicenseplate()+ ", "+vehicleData.getVehicleClass());
 			carLabel.setVerticalAlignment(JLabel.CENTER);
 			carLabel.setBounds(0, i * 20 + 34, VEHICLE_LABEL_SPACE, 15);
 			tablePanel.add(carLabel);
@@ -163,7 +163,7 @@ public class MiddlePanel extends JPanel {
 	}
 
 	private void onReservationClicked(ReservationData reservationData) {
-		System.out.println("VehiclesPane.onReservationClicked()"+reservationData.getID());
+		homeWindow.onClickedEntryInTable(reservationData.getID());
 	}
 
 	public void onCheckBoxesUpdated(List<String> vehicleClasses) {
