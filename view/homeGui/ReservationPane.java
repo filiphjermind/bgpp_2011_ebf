@@ -1,6 +1,11 @@
 package view.homeGUI;
 
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -31,6 +36,7 @@ public class ReservationPane extends JPanel {
 	public ReservationPane(HomeWindow homeWindow) throws SQLException {
 		this.homeWindow = homeWindow;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//		setLayout(new FlowLayout());
 		makeNewReservation();
 		makeChangeReservationPanel();
 	}
@@ -39,6 +45,7 @@ public class ReservationPane extends JPanel {
 		// make newReservationPanel
 		JPanel newReservationPanel = new JPanel();
 		newReservationPanel.setLayout(new BoxLayout(newReservationPanel, BoxLayout.Y_AXIS));
+//		newReservationPanel.setLayout(new GridLayout(0,2));
 		newReservationPanel.setBorder(new TitledBorder("New Reservation"));
 		add(newReservationPanel);
 
@@ -105,8 +112,10 @@ public class ReservationPane extends JPanel {
 		// make changeReservationPanel
 		JPanel changeReservationPanel = new JPanel();
 		changeReservationPanel.setLayout(new BoxLayout(changeReservationPanel, BoxLayout.Y_AXIS));
+//		changeReservationPanel.setLayout(new GridLayout(0,2));
 		changeReservationPanel.setBorder(new TitledBorder("Change Reservation"));
 		add(changeReservationPanel);
+		
 
 		JLabel resnrLabel = new JLabel("Reservation nr.");
 		changeReservationPanel.add(resnrLabel);
