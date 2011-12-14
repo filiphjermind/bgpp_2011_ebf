@@ -4,6 +4,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
  
+/**
+ * This class displays the current date in various formats.
+ * 
+ * @author Bergar Simonsen - bsim@itu.dk
+ *
+ */
  
 public class GetCurrentDateTime {
   

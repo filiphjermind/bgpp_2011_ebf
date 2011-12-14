@@ -3,6 +3,15 @@ package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Handles all the communication to the database that is related
+ * to the specific vehicle window.
+ * 
+ * Extends DBConnection in order to access the connection to the database.
+ * 
+ * @author Bergar Simonsen - bsim@itu.dk
+ *
+ */
 public class SpecificVehicleDB extends DBConnection {
 	
 	private String licensePlate;
@@ -15,9 +24,19 @@ public class SpecificVehicleDB extends DBConnection {
 	public SpecificVehicleDB() {
 		getVehicle(licensePlate);
 	}
-
+	
+	/**
+	 * Retrieves information about a vehicle which has the
+	 * specific license plate.
+	 * 
+	 * @param licenseplate - Which vehicle information to retrieve.
+	 * 
+	 * @return VehicleDATA - VehicleDATA object with the information about the vehicle.
+	 */
 	public VehicleDATA getVehicle(String licenseplate) {
+		// The license plate of the vehicle we want the information of.
 		licensePlate = licenseplate;
+		
 		// The query to be executed.
 		String query = "SELECT Vehicle.licensePlate, Vehicle.vehicleClass, Vehicle.annualCheck, Vehicle.make, " +
 						"VehicleClass.price " +
@@ -31,13 +50,15 @@ public class SpecificVehicleDB extends DBConnection {
 		VehicleDATA vehicleData = new VehicleDATA();
 		try {
 			while(result.next()) {
+				/*
+				 *  Insert the values from the databse into the fields 
+				 * of the VehicleDATA object.
+				 */
 				vehicleData.setLicenseplate(result.getString("licensePlate"));
 				vehicleData.setVehicleClass(result.getString("vehicleClass"));
 				vehicleData.setAnnualCheck(result.getString("annualCheck"));
 				vehicleData.setMake(result.getString("make"));
 				vehicleData.setPrice(result.getString("price"));
-				//vehicleData.setModel(result.getString("model"));
-				// history of services table, array, map
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -45,20 +66,30 @@ public class SpecificVehicleDB extends DBConnection {
 		return vehicleData;
 	}
 	
+	/**
+	 * Retrieves the information about a specific vehicle.
+	 * NOTE: Without parameters.
+	 * 
+	 * @return vd - The information about the specific vehicle. 
+	 */
 	public VehicleDATA getVehicleData()
 	{
 		VehicleDATA vd = getVehicle(licensePlate);
 		return vd;
 	}
 	
+	/**
+	 * Retrieve all the service information which is related to a specific 
+	 * vehicle from the database.
+	 * @param licenseplate - Which vehicle we want the service information of.
+	 * 
+	 * @return ResultSet result - The service information of the specific vehicle.
+	 */
 	public ResultSet vehicleService(String licenseplate)
 	{
 		licensePlate = licenseplate;
 		
 		// The query to be executed.
-		/*String query = "SELECT Service.vehicle, Service.startDate, Service.endDate, Service.reason " +
-						"FROM Service WHERE Service.vehicle = '" + licensePlate + "'";*/
-		
 		String query = "SELECT * FROM Service WHERE vehicle = '" + licenseplate + "' ORDER BY startDate ASC";
 		
 		// Execute the query.
@@ -68,6 +99,12 @@ public class SpecificVehicleDB extends DBConnection {
 		return result;
 	}
 	
+	/**
+	 * Retrieves the service information about a specific vehicle.
+	 * NOTE: Without parameters.
+	 * 
+	 * @return ResultSet result - The service information of the specific vehicle.
+	 */
 	public ResultSet getVehicleService()
 	{
 		ResultSet result = vehicleService(licensePlate);
@@ -75,6 +112,14 @@ public class SpecificVehicleDB extends DBConnection {
 		return result;
 	}
 	
+	/**
+	 * Inserts service information of a vehicle into the database.
+	 * 
+	 * @param licensePlate - The vehicle which the service information belongs to.
+	 * @param startDate - The start date of the service.
+	 * @param endDate - The end date of the service.
+	 * @param reason - The reason of the service.
+	 */
 	public void addService(String licensePlate, String startDate, String endDate, String reason)
 	{
 		serviceLicensePlate = licensePlate;
@@ -82,26 +127,10 @@ public class SpecificVehicleDB extends DBConnection {
 		serviceEndDate = endDate;
 		serviceReason = reason;
 		
-		// Check to make sure the user has entered data into the fields.
-		if(licensePlate.isEmpty()) {
-			System.out.println("No license plate.");
-		} else if(startDate.isEmpty()) {
-			System.out.println("No start date");
-		} else if(endDate.isEmpty()) {
-			System.out.println("No end date");
-		} else if(reason.isEmpty()) {
-			System.out.println("No reason");
-		} else {
-		
-			// Query to be executed.
-			String query = "INSERT INTO Service (vehicle, startDate, endDate, reason) " +
-							"VALUES ('" + serviceLicensePlate + "', '" + serviceStartDate + "', '" + serviceEndDate + "', '" + serviceReason + "')";	
-			// Execute the query
-			ResultSet result = sendQuery(query);
-		}
-	}
-	
-	
-	
-
+		// Query to be executed.
+		String query = "INSERT INTO Service (vehicle, startDate, endDate, reason) " +
+						"VALUES ('" + serviceLicensePlate + "', '" + serviceStartDate + "', '" + serviceEndDate + "', '" + serviceReason + "')";	
+		// Execute the query
+		ResultSet result = sendQuery(query);
+	}	
 }
