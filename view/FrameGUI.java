@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -46,6 +47,11 @@ public class FrameGUI {
 	private JFrame frame;
 	
 	private int tabIndex = 4;
+	
+	private static final String VERSION = "1.0";
+	private static final String AUTHOR_BERGAR = "Bergar Simonsen";
+	private static final String AUTHOR_FILIP = "Filip Hjermind Jensen";
+	private static final String AUTHOR_ELLEN = "Ellen Engdahl";
 
 	/**
 	 * Creates the frame for the booking system
@@ -353,10 +359,14 @@ public class FrameGUI {
 	/**
 	 * About method. Shows information about the system.
 	 */
-
-	private void about() {
+	private void about() 
+	{
+		JOptionPane.showMessageDialog(frame, 
+                "EBF BookingSystem version: " + VERSION + "\nCreated by: " + AUTHOR_BERGAR + ", " + AUTHOR_FILIP + ", " + AUTHOR_ELLEN + ".\n\n2011",
+                "About EBF BookingSystem", 
+                JOptionPane.INFORMATION_MESSAGE);
 	}
-
+	
 	/**
 	 * The quit method. Quits the program.
 	 */
