@@ -82,6 +82,9 @@ public class DBConnection {
 		} // end of catch
 	}
 	
+	/**
+	 * Closes the connection to the database
+	 */
 	public static void close() {
 		try {
 			dbConnection.close();
@@ -89,5 +92,4 @@ public class DBConnection {
 			System.out.println(e.getStackTrace());
 		}
 	}
-
 }

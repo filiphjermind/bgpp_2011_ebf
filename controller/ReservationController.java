@@ -11,7 +11,7 @@ import model.ReservationData;
 import model.VehicleDATA;
 
 /**
- * Transfers data between the GUI and the database
+ * Transfers reservation data between the GUI and the database
  */
 public class ReservationController {
 

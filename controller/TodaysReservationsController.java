@@ -4,11 +4,17 @@ import java.sql.ResultSet;
 
 import model.TodaysReservationsDB;
 
+/**
+ * Transfers data between the GUI and the database, for use in the TodaysReservations tab
+ */
 public class TodaysReservationsController {
 	TodaysReservationsDB todaysReservations = new TodaysReservationsDB();
 	
-	public TodaysReservationsController() throws Exception
-	{
+	/**
+	 * TodaysReservationsController constructor
+	 * @throws Exception
+	 */
+	public TodaysReservationsController() throws Exception	{
 		
 	}
 	
@@ -23,5 +29,4 @@ public class TodaysReservationsController {
 		
 		return result;
 	}
-
 }
