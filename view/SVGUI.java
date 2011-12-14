@@ -45,6 +45,12 @@ public class SVGUI extends JPanel {
 	private final String noendDate = "Please fill out the end date.";
 	private final String noReason = "Please specify a reason.";
 	
+	/**
+	 * Constructor used for creating new tabs of SVGUI.
+	 * 
+	 * @param licensePlate
+	 * @throws Exception
+	 */
 	public SVGUI(String licensePlate) throws Exception
 	{
 		this.licensePlate = licensePlate;
@@ -53,6 +59,10 @@ public class SVGUI extends JPanel {
 		add(makeCenterPanel(), BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Constructor used for creating a new SVGUI window.
+	 * @throws Exception
+	 */
 	public SVGUI() throws Exception
 	{
 		setLayout(new BorderLayout());
@@ -75,8 +85,7 @@ public class SVGUI extends JPanel {
 		JLabel vehicleLabel = new JLabel("Vehicle");
 		westPanel.add(vehicleLabel);
 		
-		//SpecificVehicleController svc = new SpecificVehicleController();
-		
+		// Create textfields and labels for the gui.
 		JTextField vehicleTF = new JTextField(vd.getLicenseplate());
 		vehicleTF.setEditable(false);
 		westPanel.add(vehicleTF);
@@ -109,12 +118,14 @@ public class SVGUI extends JPanel {
 		nextCheckTF.setEditable(false);
 		westPanel.add(nextCheckTF);
 		
+		// Empty labels for the grid layout.
 		JLabel emptyLabel = new JLabel("");
 		westPanel.add(emptyLabel);
 		
 		JLabel emptyLabel2 = new JLabel("");
 		westPanel.add(emptyLabel2);
 		
+		// Separator line to separate the "vehicle information" from the "service" part.
 		JSeparator separator = new JSeparator();
 		westPanel.add(separator);
 		
@@ -164,6 +175,7 @@ public class SVGUI extends JPanel {
 				String reason = reasonTF.getText();
 				
 				// Check to make sure the text fields aren't empty.
+				// Pop-up window to display error if any field is empty.
 				if(startDate.isEmpty()) {
 					saveError(noStartDate);
 				} else if (endDate.isEmpty()) {
@@ -206,13 +218,14 @@ public class SVGUI extends JPanel {
 		centerPanel.setLayout(new BorderLayout());
 
 		// Initialize the table.
-		/*DefaultTableModel */model = new DefaultTableModel() {
+		model = new DefaultTableModel() {
 			// Makes the table non-editable.
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
 		
+		// Makes the column names for the table.
 		model.addColumn("Vehicle");
 		model.addColumn("Start date");
 		model.addColumn("End date");
@@ -271,7 +284,7 @@ public class SVGUI extends JPanel {
 	
 	/**
 	 * Pop-up window to say there was an error when saving the reservation.
-	 * @param status
+	 * @param status - the error to display.
 	 */
 	private void saveError(String status)
     {

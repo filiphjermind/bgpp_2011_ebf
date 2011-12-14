@@ -1,15 +1,9 @@
 package test;
 
-import static org.junit.Assert.*;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.AllVehiclesDB;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
 public class TestingAllVehiclesDB {
 	

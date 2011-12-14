@@ -22,13 +22,19 @@ import model.SpecificVehicleDB;
 import model.VehicleDATA;
 import controller.AllVehiclesController;
 
+/**
+ * Creates the window which contains the "all vehicles" information.
+ * 
+ * @author Bergar Simonsen - bsim@itu.dk
+ *
+ */
+
 public class AllVehiclesGUI extends JPanel {
-	
 	
 	private final FrameGUI frameGUI;
 
 	/**
-	 * Makes a page to get an overview over all the vehicles
+	 * Makes a window to get an overview over all the vehicles
 	 * @param frameGUI 
 	 */
 	public AllVehiclesGUI(FrameGUI frameGUI) throws Exception
@@ -46,7 +52,6 @@ public class AllVehiclesGUI extends JPanel {
 	/**
 	 * Makes a search panel and adds it the the allVehicles page
 	 */
-	
 	private void makeSearchPanel() 
 	{
 		JPanel searchPanel = new JPanel();
@@ -61,6 +66,7 @@ public class AllVehiclesGUI extends JPanel {
 		JLabel licenseLabel = new JLabel("License nr.");
 		searchPanel.add(licenseLabel);
 		
+		// Set the textfield final in order to access it from the inner class.
 		final JTextField licenceText = new JTextField(20);
 		searchPanel.add(licenceText);
 		
@@ -69,6 +75,7 @@ public class AllVehiclesGUI extends JPanel {
 			searchButton.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
 					try {
+						// Opens a new SVGUI tab with the specific license plate searched for.
 						frameGUI. makeNewSVGUI(licenceText.getText());
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -88,12 +95,14 @@ public class AllVehiclesGUI extends JPanel {
 		add(tablePanel, BorderLayout.CENTER);
 		tablePanel.setBorder(new TitledBorder("All vehicles"));
 		
+		// Initialize the table.
 		DefaultTableModel model = new DefaultTableModel() {
 			// Makes the table non-editable.
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
+		// Makes the column names for the table.
 		model.addColumn("License plate");
 		model.addColumn("Vehicle type");
 		model.addColumn("Annual check date");
@@ -105,18 +114,22 @@ public class AllVehiclesGUI extends JPanel {
 		final JTable table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				// Gets the selected row and column number.
 				int row = table.getSelectedRow();
 				int col = table.getSelectedColumn();
 				
+				// Retrieves data from column number 0 (licensePlate) from the selected row.
 				getData(table, row, 0);
 				
+				// Gets the license plate from the selected row, 
+				// and converts it into a string.
 				String title = getData(table, row, 0).toString();
 				
-				//frameGUI.makeNewTab(title, new SVGUI(title));
 				try {
+					// Creates a new SVGUI tab with the selected vehicle.
 					frameGUI.makeNewSVGUI(title);
 				} catch (Exception exn0) {
-					
+					System.out.println("Error: " + exn0);
 				}
 				SpecificVehicleDB svd = new SpecificVehicleDB();
 				try {
@@ -159,9 +172,7 @@ public class AllVehiclesGUI extends JPanel {
 	public Object getData(JTable table, int rowIndex, int colIndex)
 	{
 		Object data = table.getModel().getValueAt(rowIndex, colIndex);
-		
-		System.out.println("Data: " + data);
-		
+				
 		return data;
 	}
 }
