@@ -17,7 +17,10 @@ import javax.swing.table.DefaultTableModel;
 import controller.GetCurrentDateTime;
 import controller.TodaysReservationsController;
 
-
+/**
+ * This class is responsible of showing the reservations which starts today
+ *
+ */
 public class TodaysReservationsGUI extends JPanel{
 	GetCurrentDateTime currentDate = new GetCurrentDateTime();
 	
@@ -51,7 +54,7 @@ public class TodaysReservationsGUI extends JPanel{
 	}
 	
 	/**
-	 * Makes the panel.
+	 * Makes the main panel and the table for the days reservations.
 	 */
 	public JPanel makeMainPanel() throws Exception
 	{

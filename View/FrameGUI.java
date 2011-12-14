@@ -84,15 +84,8 @@ public class FrameGUI {
 
 		// Create the individual tabs, and add them to the tabbed pane.
 		// Home tab.
-		List<String> carClasses = new ArrayList<String>();
-		carClasses.add("van");
-		carClasses.add("sportscar");
-		carClasses.add("car, 2 doors");
-		carClasses.add("car, 4 doors");
-		carClasses.add("segway");
 		
-		
-		JPanel homePanel = new HomeWindow(carClasses, this);
+		JPanel homePanel = new HomeWindow(this);
 		tabbedPane.addTab("Home", homePanel);
 		
 		// Vehicles tab.

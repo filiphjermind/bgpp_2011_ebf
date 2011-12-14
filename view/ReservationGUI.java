@@ -200,6 +200,7 @@ public class ReservationGUI extends JPanel {
 		reservationTopPanel.add(reservationTextPanel);
 
 		resnrText = new JTextField(10);
+		resnrText.setEditable(false);
 		reservationTextPanel.add(resnrText);
 		if (resnr >= 0)
 			resnrText.setText("" + resnr);

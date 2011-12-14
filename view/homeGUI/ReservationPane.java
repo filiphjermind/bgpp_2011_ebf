@@ -15,6 +15,10 @@ import javax.swing.border.TitledBorder;
 
 import controller.VehicleClassController;
 
+/**
+ * This class is responsible of letting the user start a reservation and search for a reservation.
+ *
+ */
 public class ReservationPane extends JPanel {
 	private final HomeWindow homeWindow;
 	
@@ -28,13 +32,22 @@ public class ReservationPane extends JPanel {
 	private JTextField nameText;
 	private JTextField changeStartText;
 	
+	/**
+	 * This constructors is primarily responsible of initializing the GUI components
+	 * @param homeWindow the homeWindow object which instantiated this object
+	 * @throws SQLException
+	 */
 	public ReservationPane(HomeWindow homeWindow) throws SQLException {
 		this.homeWindow = homeWindow;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		makeNewReservation();
 		makeChangeReservationPanel();
 	}
-
+	
+	/**
+	 * This method is responsible for setting up the GUI for the make new reservation components 
+	 * @throws SQLException
+	 */
 	private void makeNewReservation() throws SQLException {
 		// make newReservationPanel
 		JPanel newReservationPanel = new JPanel();
@@ -95,18 +108,26 @@ public class ReservationPane extends JPanel {
 		});
 
 	}
-
+	/**
+	 * Should be called when a user clicks on the book button. The method sends information to
+	 * homewindow.
+	 */
 	protected void book() {
-		homeWindow.onBookTabClicked(startText.getText(),endText.getText(),typeCombo.getSelectedItem());
+		homeWindow.onBookButtonClicked(startText.getText(),endText.getText(),typeCombo.getSelectedItem());
 
 	}
 
+	/**
+	 * This method is responsible of making the change reservation GUI
+	 */
 	private void makeChangeReservationPanel() {
 		// make changeReservationPanel
 		JPanel changeReservationPanel = new JPanel();
 		changeReservationPanel.setLayout(new BoxLayout(changeReservationPanel, BoxLayout.Y_AXIS));
+//		changeReservationPanel.setLayout(new GridLayout(0,2));
 		changeReservationPanel.setBorder(new TitledBorder("Change Reservation"));
 		add(changeReservationPanel);
+		
 
 		JLabel resnrLabel = new JLabel("Reservation nr.");
 		changeReservationPanel.add(resnrLabel);
@@ -141,8 +162,12 @@ public class ReservationPane extends JPanel {
 
 	}
 
+	/*
+	 * Should be called when a user clicks the serach button. The method sends the reservation
+	 * number to the homeWindow
+	 */
 	protected void search() {
-		homeWindow.onSearchTabClicked(resnrText.getText());
+		homeWindow.onSearchButtonClicked(resnrText.getText());
 	}
 
 }

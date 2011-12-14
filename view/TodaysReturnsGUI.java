@@ -17,7 +17,10 @@ import javax.swing.table.DefaultTableModel;
 import controller.GetCurrentDateTime;
 import controller.TodaysReturnsController;
 
-
+/**
+ * This class is responsible of showing the returns which happens today
+ *
+ */
 public class TodaysReturnsGUI extends JPanel {
 	GetCurrentDateTime currentDate = new GetCurrentDateTime();
 	
@@ -51,7 +54,7 @@ public class TodaysReturnsGUI extends JPanel {
 	}
 	
 	/**
-	 * Makes the main overview panel.
+	 * Makes the main panel and the table for the returns
 	 */
 	public JPanel makeMainPanel() throws Exception
 	{
