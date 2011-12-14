@@ -64,7 +64,9 @@ public class ReservationDB extends DBConnection {
 		}
 		ResultSet resultSet = sendQuery("SELECT Vehicle.licensePlate, VehicleClass.vehicleClass, Reservation.startDate, Reservation.endDate, Reservation.id "
 				+ "FROM Reservation, Vehicle, VehicleClass "
-				+ "WHERE Reservation.vehicle = Vehicle.licensePlate AND Vehicle.vehicleClass = VehicleClass.vehicleClass AND Reservation.endDate >= "
+				+ "WHERE Reservation.vehicle = Vehicle.licensePlate "
+				+ "AND Vehicle.vehicleClass = VehicleClass.vehicleClass "
+				+ "AND Reservation.endDate >= "
 				+ startMonth
 				+ " AND"
 				+ " Reservation.startDate <= "
@@ -84,7 +86,8 @@ public class ReservationDB extends DBConnection {
 				licensePlate = resultSet.getString("licensePlate");
 				reservationDatas = new ArrayList<ReservationData>();
 				vehicleClass = resultSet.getString("vehicleClass");
-				VehicleDATA vehicleData = new VehicleDATA(vehicleClass, licensePlate, reservationDatas);
+				VehicleDATA vehicleData = new VehicleDATA(vehicleClass, licensePlate,
+						reservationDatas);
 				vehicles.add(vehicleData);
 			}
 			Date startDate = resultSet.getDate("startDate", new GregorianCalendar());
@@ -112,25 +115,25 @@ public class ReservationDB extends DBConnection {
 		// retrieve it from the resultset and store it in a ReservationData
 		// object
 		try {
-			while(reservationResult.next()) {
+			while (reservationResult.next()) {
 				reservationData.setReservationID(reservationResult.getInt("ID"));
 				reservationData.setPersonID(reservationResult.getInt("person"));
-				
+
 				// convert from sql.Date to GregorianCalender
 				Date sdate = reservationResult.getDate("startDate");
 				GregorianCalendar gCal1 = new GregorianCalendar();
-				gCal1.setTime(sdate);				
+				gCal1.setTime(sdate);
 				reservationData.setStartDateGreg(gCal1);
-				
+
 				// convert from sql.Date to GregorianCalender
 				Date edate = reservationResult.getDate("endDate");
 				GregorianCalendar gCal2 = new GregorianCalendar();
-				gCal2.setTime(edate);				
-				reservationData.setEndDateGreg(gCal2);	
-				
-				reservationData.setVehicle(reservationResult.getString("vehicle")); 
-				reservationData.setPickedUp(reservationResult.getInt("pickedUp")); 
-				reservationData.setReturned(reservationResult.getInt("returned")); 
+				gCal2.setTime(edate);
+				reservationData.setEndDateGreg(gCal2);
+
+				reservationData.setVehicle(reservationResult.getString("vehicle"));
+				reservationData.setPickedUp(reservationResult.getInt("pickedUp"));
+				reservationData.setReturned(reservationResult.getInt("returned"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -196,11 +199,14 @@ public class ReservationDB extends DBConnection {
 		}
 		return reservationData;
 	}
-	
-	/*public ReservationData getOneReservation(String name, String startdate) {}*/
-	
+
+	/*
+	 * public ReservationData getOneReservation(String name, String startdate)
+	 * {}
+	 */
+
 	public int saveReservation(ReservationData newReservation) {
-		
+
 		// extract data for the Person Table
 		String firstName = newReservation.getFirstName();
 		String lastName = newReservation.getLastName();
@@ -210,50 +216,78 @@ public class ReservationDB extends DBConnection {
 		String driversLicence = newReservation.getDriversLicence();
 		String creditCardType = newReservation.getCreditCardType();
 		String creditCardNr = newReservation.getCreditCardNr();
-		
-			
-		// send firstName, LastName, phone, email, adress, driversLicence, creditCardType, and creditCardNr to PersonTable, get ID returned
-		sendData("INSERT INTO Person(firstName, LastName, phone, email, adress, driversLicence, creditCardType, creditCardNr) VALUES ('" + firstName + "', '" + lastName + "','" + phone + "','" + email + "', '" + adress + "', '" + driversLicence + "', '" + creditCardType + "', '" + creditCardNr + "')");
-		ResultSet result1 = sendQuery("SELECT ID FROM Person WHERE driversLicence = '" + driversLicence + "'");
-		
+
+		// send firstName, LastName, phone, email, adress, driversLicence,
+		// creditCardType, and creditCardNr to PersonTable, get ID returned
+		sendData("INSERT INTO Person(firstName, LastName, phone, email, adress, driversLicence, creditCardType, creditCardNr) VALUES ('"
+				+ firstName
+				+ "', '"
+				+ lastName
+				+ "','"
+				+ phone
+				+ "','"
+				+ email
+				+ "', '"
+				+ adress
+				+ "', '" + driversLicence + "', '" + creditCardType + "', '" + creditCardNr + "')");
+		ResultSet result1 = sendQuery("SELECT ID FROM Person WHERE driversLicence = '"
+				+ driversLicence + "'");
+
 		int personId = -1;
 		try {
-			while(result1.next()) {
-					personId = result1.getInt("ID");
-				}
+			while (result1.next()) {
+				personId = result1.getInt("ID");
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		// extract and convert data for the Reservation Table
 		int person;
-		if(personId > 0) person = personId;
-		else person = -1;
-		
+		if (personId > 0)
+			person = personId;
+		else
+			person = -1;
+
 		// convert GregorianCalendar to sql.Date
 		Calendar sDate = newReservation.getStartDateGreg();
 		java.sql.Date startDate = new java.sql.Date(sDate.getTimeInMillis());
 		Calendar eDate = newReservation.getEndDateGreg();
 		java.sql.Date endDate = new java.sql.Date(eDate.getTimeInMillis());
-		
+
 		String vehicle = newReservation.getVehicle();
-		
+
 		// convert boolean to int
 		int pickedUp;
-		if(newReservation.isPickedUp() == true) pickedUp = 1;
-		else pickedUp = 0;
+		if (newReservation.isPickedUp() == true)
+			pickedUp = 1;
+		else
+			pickedUp = 0;
 		int returned;
-		if(newReservation.isReturned() == true) returned = 1;
-		else returned = 0;
-		
-		// send person, startDate, endDate, vehicle, pickedUp, and returned to Reservation Table, get reservationNr returned
-		sendData("INSERT INTO Reservation(person, startDate, endDate, vehicle, pickedUp, returned) VALUES('" + personId + "', '" + startDate + "', '" + endDate + "', '" + vehicle +"', '" + pickedUp + "', '" + returned + "')");
-	
-		ResultSet result2 = sendQuery("SELECT * FROM Reservation WHERE person = '" + personId + "' AND startDate = '" + startDate + "'");
+		if (newReservation.isReturned() == true)
+			returned = 1;
+		else
+			returned = 0;
+
+		// send person, startDate, endDate, vehicle, pickedUp, and returned to
+		// Reservation Table, get reservationNr returned
+		sendData("INSERT INTO Reservation(person, startDate, endDate, vehicle, pickedUp, returned) VALUES('"
+				+ personId
+				+ "', '"
+				+ startDate
+				+ "', '"
+				+ endDate
+				+ "', '"
+				+ vehicle
+				+ "', '"
+				+ pickedUp + "', '" + returned + "')");
+
+		ResultSet result2 = sendQuery("SELECT * FROM Reservation WHERE person = '" + personId
+				+ "' AND startDate = '" + startDate + "'");
 		int resId = -1;
 		try {
-			while(result2.next()) {
+			while (result2.next()) {
 				resId = result2.getInt("ID");
 			}
 		} catch (SQLException e) {
@@ -262,11 +296,9 @@ public class ReservationDB extends DBConnection {
 		}
 		return resId;
 	}
-	
 
 	public void deleteReservation(int resnr) {
-		sendData("DELETE FROM Reservation WHERE ID ='" + resnr + "'");	
+		sendData("DELETE FROM Reservation WHERE ID ='" + resnr + "'");
 	}
 
 }
-
