@@ -2,6 +2,10 @@ package model;
 
 import java.util.GregorianCalendar;
 
+/**
+ * ReservationData stores all the information about one reservation, to be passed back and forth
+ * in the system.
+ */
 public class ReservationData {
 	private int reservationID;
 	private int personID;
@@ -28,6 +32,13 @@ public class ReservationData {
 	
 	private int totalPrice;
 	
+	/**
+	 * ReservationData constructor.
+	 * @param start
+	 * @param end
+	 * @param beingServiced
+	 * @param reservationID
+	 */
 	public ReservationData(GregorianCalendar start, GregorianCalendar end, boolean beingServiced, int reservationID) {
 		this.start = start;
 		this.end = end;
@@ -36,13 +47,18 @@ public class ReservationData {
 		calculateDuration();
 	}
 
-	private void calculateDuration() {
-		duration = end.get(GregorianCalendar.DAY_OF_MONTH) - start.get(GregorianCalendar.DAY_OF_MONTH);
-		
-	}
-
+	/**
+	 * ReservationData constructor.
+	 */
 	public ReservationData() {
 		
+	}
+	
+	/**
+	 * Calculates the duration of the reservation
+	 */
+	private void calculateDuration() {
+		duration = end.get(GregorianCalendar.DAY_OF_MONTH) - start.get(GregorianCalendar.DAY_OF_MONTH);		
 	}
 	
 	/**
@@ -73,42 +89,54 @@ public class ReservationData {
 		this.personID = personID;
 	}
 	
-	/*
+	/**
 	 * @return int the start day of the reservation. Given as 0 indexed.
 	 */
 	public int getStartDayInt() {
 		return start.get(GregorianCalendar.DAY_OF_MONTH)-1;
 	}
 
+	/**
+	 * @return int the end day of the reservation
+	 */
 	public int getEndDayInt() {
 		return end.get(GregorianCalendar.DAY_OF_MONTH)-1;
 	}
 	
+	/**
+	 * @return the start date of the reservation as GregorianCalendar
+	 */
 	public GregorianCalendar getStartDateGreg() {
 		return start;
 	}
+	
+	/**
+	 * @param start Set the start date of the reservation
+	 */
 	public void setStartDateGreg(GregorianCalendar start) {
 		this.start = start;
 	}
 	
 	/**
-	 * @return the end
+	 * @return the end date of the reservation as GregorianCalendar
 	 */
 	public GregorianCalendar getEndDateGreg() {
 		return end;
 	}
 	
+	/**
+	 * @param end Set the end date of the reservation
+	 */
 	public void setEndDateGreg(GregorianCalendar end) {
 		this.end = end;
 	}
 	
-	/*
+	/**
 	 * @return the duration in days of a reservation
 	 */
 	public int getDuration() {
 		return duration;
 	}
-	
 	
 	/**
 	 * @return the vehicle
@@ -132,7 +160,7 @@ public class ReservationData {
 	}
 
 	/**
-	 * @param pickedUP the pickedUP to set
+	 * @param pickedUP the pickedUP to set, in int from database
 	 */
 	public void setPickedUp(int pickedUp) {
 		if(pickedUp == 0)
@@ -149,7 +177,7 @@ public class ReservationData {
 	}
 
 	/**
-	 * @param returned the returned to set
+	 * @param returned the returned to set, in int from database
 	 */
 	public void setReturned(int returned) {
 		if(returned == 0)
@@ -159,24 +187,38 @@ public class ReservationData {
 	}
 
 	/**
+	 * @param pickedUp2, in boolean, from gui
+	 */
+	public void setPickedUp(boolean pickedUp2) {
+		this.pickedUp = pickedUp2;
+		
+	}
+	
+	/**
+	 * @param returned2, in boolean, from gui
+	 */
+	public void setReturned(boolean returned2) {
+		this.returned = returned2;
+		
+	}
+	/**
 	 * @return true if it is being serviced
 	 */
 	public boolean getBeingServiced() {
 		return beingServiced;
 	}
 	
+	/**
+	 * @param beingServiced Set whether it is being serviced or not
+	 */
 	public void setBeingServiced(boolean beingServiced) {
 		this.beingServiced = beingServiced;
 	}
-	
-	
-	
+		
 	@Override
 	public String toString() {
 		return "start: "+ (start.getTimeInMillis()/(60*60*24)) + " end: "+ (end.getTimeInMillis()/(60*60*24)) + " beingServiced: " +beingServiced;
 	}
-
-	
 
 	/**
 	 * @return the vehicleClass
@@ -327,16 +369,4 @@ public class ReservationData {
 		int totalPrice = days * vehiclePricePerDay;
 		return totalPrice;
 	}
-
-	public void setPickedUp(boolean pickedUp2) {
-		this.pickedUp = pickedUp2;
-		
-	}
-
-	public void setReturned(boolean returned2) {
-		this.returned = returned2;
-		
-	}
-
-
 }

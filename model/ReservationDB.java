@@ -10,22 +10,16 @@ import java.util.List;
 
 import model.ReservationData;
 
+/**
+ * Class which handles calls to the datebase, which are about reservations.
+ */
 public class ReservationDB extends DBConnection {
 
 	/**
-	 * @param args
+	 * Creates a ReservationDB object, no arguments.
 	 */
 	public ReservationDB() {
-		// TODO only for testing
-		try {
-			GregorianCalendar calendar = new GregorianCalendar(2011, 11, 1);
-			List<String> vehicleClasses = new ArrayList<String>();
-			vehicleClasses.add("Sportscar");
-			vehicleClasses.add("Car 4-door");
-			List<VehicleDATA> vehicles = getReservations(vehicleClasses, calendar);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	/**
@@ -59,7 +53,6 @@ public class ReservationDB extends DBConnection {
 				vehicleClassConditions += " OR ";
 			} else {
 				vehicleClassConditions += ")";
-
 			}
 		}
 		ResultSet resultSet = sendQuery("SELECT Vehicle.licensePlate, VehicleClass.vehicleClass, Reservation.startDate, Reservation.endDate, Reservation.id "
@@ -101,6 +94,12 @@ public class ReservationDB extends DBConnection {
 		return vehicles;
 	}
 
+	/**
+	 * Makes a call to the database to get the information connected to 
+	 * the specified reservation number.
+	 * @param reservationNr
+	 * @return the reservationData object
+	 */
 	public ReservationData getOneReservation(int reservationNr) {
 		// create a ReservationData object to store all the information in
 		ReservationData reservationData = new ReservationData();
@@ -199,6 +198,11 @@ public class ReservationDB extends DBConnection {
 	
 	/*public ReservationData getOneReservation(String name, String startdate) {}*/
 	
+	/**
+	 * Makes a call to the database to save the information of a new reservation
+	 * @param newReservation
+	 * @return the reservation number
+	 */
 	public int saveReservation(ReservationData newReservation) {
 		
 		// extract data for the Person Table
@@ -248,7 +252,7 @@ public class ReservationDB extends DBConnection {
 		else returned = 0;
 		
 		// send person, startDate, endDate, vehicle, pickedUp, and returned to Reservation Table, get reservationNr returned
-		sendData("INSERT INTO Reservation(person, startDate, endDate, vehicle, pickedUp, returned) VALUES('" + personId + "', '" + startDate + "', '" + endDate + "', '" + vehicle +"', '" + pickedUp + "', '" + returned + "')");
+		sendData("INSERT INTO Reservation(person, startDate, endDate, vehicle, pickedUp, returned) VALUES('" + person + "', '" + startDate + "', '" + endDate + "', '" + vehicle +"', '" + pickedUp + "', '" + returned + "')");
 	
 		ResultSet result2 = sendQuery("SELECT * FROM Reservation WHERE person = '" + personId + "' AND startDate = '" + startDate + "'");
 		int resId = -1;
@@ -263,7 +267,10 @@ public class ReservationDB extends DBConnection {
 		return resId;
 	}
 	
-
+	/**
+	 *  Makes a call to the database to delete a reservation.
+	 * @param resnr
+	 */
 	public void deleteReservation(int resnr) {
 		sendData("DELETE FROM Reservation WHERE ID ='" + resnr + "'");	
 	}

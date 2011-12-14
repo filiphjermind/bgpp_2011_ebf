@@ -67,10 +67,6 @@ public class FrameGUI {
 
 	public FrameGUI() throws Exception {
 
-		SVGUI svGui = new SVGUI();
-
-		Test test = new Test();
-
 		// Create the frame, and tabbed pane for the skeleton.
 		tabbedPane = new JTabbedPane();
 		frame = new JFrame("EBF BookingSystem");
