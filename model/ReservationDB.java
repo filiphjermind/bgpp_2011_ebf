@@ -297,6 +297,8 @@ public class ReservationDB extends DBConnection {
 		return resId;
 	}
 
+
+
 	public void deleteReservation(int resnr) {
 		sendData("DELETE FROM Reservation WHERE ID ='" + resnr + "'");
 	}

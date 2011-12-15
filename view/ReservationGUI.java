@@ -456,7 +456,7 @@ public class ReservationGUI extends JPanel {
 
 		// convert start date from String to GregorianCalendar via Date
 		DateFormat formatter;
-		formatter = new SimpleDateFormat("dd-mm-yy");
+		formatter = new SimpleDateFormat("dd-MM-yyyy");
 		
 		Date sDate = null;
 		try {
