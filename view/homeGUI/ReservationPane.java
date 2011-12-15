@@ -40,7 +40,6 @@ public class ReservationPane extends JPanel {
 	public ReservationPane(HomeWindow homeWindow) throws SQLException {
 		this.homeWindow = homeWindow;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-//		setLayout(new FlowLayout());
 		makeNewReservation();
 		makeChangeReservationPanel();
 	}
@@ -124,7 +123,6 @@ public class ReservationPane extends JPanel {
 		// make changeReservationPanel
 		JPanel changeReservationPanel = new JPanel();
 		changeReservationPanel.setLayout(new BoxLayout(changeReservationPanel, BoxLayout.Y_AXIS));
-		changeReservationPanel.setMaximumSize(changeReservationPanel.getPreferredSize());
 		changeReservationPanel.setBorder(new TitledBorder("Change Reservation"));
 		add(changeReservationPanel);
 

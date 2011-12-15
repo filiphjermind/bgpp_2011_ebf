@@ -38,19 +38,6 @@ public class ReservationController {
 	}
 	
 	/**
-	 * Makes a call to ReservationDB, to get information about a reservation 
-	 * out of the database.
-	 * @param vehicleClasses
-	 * @param currentMonth
-	 * @return the reservationData object with the reservation info
-	 * @throws SQLException
-	 */
-	/*public ReservationData getReservationFromDB(String name, String startdate) {
-		ReservationData reservationData = reservationDB.getOneReservation(name, startdate);
-		return reservationData;
-	}*/
-	
-	/**
 	 * Makes a call to ReservationDB, to get reservations for a specific month 
 	 * from the database
 	 */
