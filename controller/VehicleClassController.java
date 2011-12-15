@@ -45,17 +45,4 @@ public class VehicleClassController {
 		ArrayList<String> vehicleClassList = vcdb.getVehicleClassListAsArrayList();
 		return vehicleClassList;
 	}
-	
-	/**
-	 * Get the user selected vehicle classes from the GUI and pass it to 
-	 * the database
-	 */
-	public ArrayList<String> getSelectedClasses() {
-	FilterPanel filter = new FilterPanel();
-	checkBox.addActionListener(new ActionListener) {
-		public void actionPerformed(ActionEvent e) {
-			collectAllSelectedCheckboxes();
-		}
-	});
-	}
 }
