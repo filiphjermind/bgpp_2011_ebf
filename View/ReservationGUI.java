@@ -30,10 +30,16 @@ import controller.AllVehiclesController;
 import controller.ReservationController;
 import controller.VehicleClassController;
 
+/**
+ * ReservationGUI creates the layout for the tab which has all the details 
+ * of an individual reservation. It also has functionality for the buttons 
+ * on the page, which communicate with the the ReservationController class.
+ */
 public class ReservationGUI extends JPanel {
 	
 	Border emptyBorder = new EmptyBorder(5,5,5,5);
 	
+	// other classes used
 	private ReservationController resControl;
 	private ReservationData res;
 	
@@ -73,31 +79,40 @@ public class ReservationGUI extends JPanel {
 	private JTextField cardNrText;	
 		
 	/**
-	 * Makes a reservation page with 3 panels: reservation, person
-	 * and payment.
-	 * @throws SQLException 
+	 * Creates a Reservation panel with no arguments.
 	 */
-	
 	public ReservationGUI()
 	{
 		resControl = new ReservationController();
 		init();
 	}
 	
+	/**
+	 * Creates a Reservation panel, and fills in 3 fields on the form
+	 * start date, end date, and vehicle class.
+	 * @param start the start date
+	 * @param end the end date
+	 * @param carClass the class of vehicle
+	 */
 	public ReservationGUI(String start, String end, String carClass) {
 		resControl = new ReservationController();
 		this.start = start;
 		this.end = end;
 		this.carClass = carClass;
-		//this.price = sql command
+		//this.price = get from database
 		init();
 	}
 	
+	/**
+	 * Creates a Reservation panel, and fills in all the fields on 
+	 * the form, using information stored in a ReservationData object.
+	 * @param resNumber the reservation number
+	 */
 	public ReservationGUI(int resNumber) {
 		resControl = new ReservationController();
 		
 		if (resNumber > 0) {
-			// call db to request reservation with resnr as parameter
+			// call db to request reservation with resNumber as parameter
 			ReservationData rData = resControl.getReservationFromDB(resNumber);
 
 			// initialise all the fields
@@ -143,7 +158,11 @@ public class ReservationGUI extends JPanel {
 		}*/
 		
 	}
-		
+	
+	/**
+	 * Sets the layout for the reservation panel and inserts the 3 panels
+	 * with reservation details, person details, and payment details.
+	 */
 	private void init() {
 			// set layout for the reservation page
 			FlowLayout overallLayout = new FlowLayout();
@@ -157,8 +176,7 @@ public class ReservationGUI extends JPanel {
 	}
 	
 	/**
-	 * Makes a reservation panel and adds it to the reservation page
-	 * @throws SQLException 
+	 * Makes a reservation panel and adds it to the main panel 
 	 */
 	
 	private void makeReservationPanel()
@@ -274,9 +292,8 @@ public class ReservationGUI extends JPanel {
 	}
 						
 	/**
-	 * Makes a person panel and adds it to the reservation page
+	 * Makes a person panel and adds it to the main panel.
 	 */
-	
 	private void makePersonPanel()
 	{
 		JPanel personPanel = new JPanel();
@@ -362,9 +379,8 @@ public class ReservationGUI extends JPanel {
 	}
 		
 	/**
-	 * Makes a payment panel and adds it to the reservation page
-	 */
-	
+	 * Makes a payment panel and adds it to the main panel.
+	 */	
 	private void makePaymentPanel()
 	{
 		JPanel paymentPanel = new JPanel();
@@ -449,6 +465,10 @@ public class ReservationGUI extends JPanel {
 		});
 	}
 	
+	/**
+	 * Implements functionality for the save button, sending data to the 
+	 * database.
+	 */
 	private void save() {
 
 		// make a new ReservationData object
@@ -499,7 +519,11 @@ public class ReservationGUI extends JPanel {
 		resnrText.setText("" + resnr);
 	}
 
+	/**
+	 * Implements functionality for the delete button, deleting a reservation 
+	 * from the database.
+	 */
 	private void delete() {
 		resControl.deleteReservation(resnr);
-	}
+	}	
 }

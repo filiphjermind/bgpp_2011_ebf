@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * PersonDATA stores all the information about one person, to be passed back and forth
+ * in the system.
+ */
 public class PersonDATA {
 	private int id;
 	private String firstName;
@@ -11,6 +15,9 @@ public class PersonDATA {
 	private String creditCardType;
 	private String creditCardNr;
 	
+	/**
+	 * Constructor for PersonDATA
+	 */
 	public PersonDATA() {
 		
 	}
@@ -139,7 +146,5 @@ public class PersonDATA {
 	 */
 	public void setCreditCardNr(String creditCardNr) {
 		this.creditCardNr = creditCardNr;
-	}
-
-	
+	}	
 }

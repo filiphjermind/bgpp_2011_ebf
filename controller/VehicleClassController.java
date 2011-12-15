@@ -17,6 +17,9 @@ import view.homeGUI.FilterPanel;
  */
 public class VehicleClassController {
 
+	/**
+	 * VehicleClassController constructor
+	 */
 	public VehicleClassController() {
 		
 	}
@@ -31,6 +34,7 @@ public class VehicleClassController {
 		Object [] vehicleClassList = vcdb.getVehicleClassListAsArray();
 		return vehicleClassList;
 	}
+	
 	/**
 	 * Get the list of vehicle classes from the database as an arrayList
 	 * @return ArrayList<String>
@@ -46,12 +50,12 @@ public class VehicleClassController {
 	 * Get the user selected vehicle classes from the GUI and pass it to 
 	 * the database
 	 */
-	/*public ArrayList<String> getSelectedClasses() {
+	public ArrayList<String> getSelectedClasses() {
 	FilterPanel filter = new FilterPanel();
 	checkBox.addActionListener(new ActionListener) {
 		public void actionPerformed(ActionEvent e) {
 			collectAllSelectedCheckboxes();
 		}
 	});
-	}*/
+	}
 }

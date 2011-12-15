@@ -1,5 +1,6 @@
 package view.homeGUI;
 
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +18,6 @@ import controller.VehicleClassController;
 
 /**
  * This class is responsible of letting the user start a reservation and search for a reservation.
- *
  */
 public class ReservationPane extends JPanel {
 	private final HomeWindow homeWindow;
@@ -40,6 +40,7 @@ public class ReservationPane extends JPanel {
 	public ReservationPane(HomeWindow homeWindow) throws SQLException {
 		this.homeWindow = homeWindow;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//		setLayout(new FlowLayout());
 		makeNewReservation();
 		makeChangeReservationPanel();
 	}
@@ -106,15 +107,14 @@ public class ReservationPane extends JPanel {
 				book();
 			}
 		});
-
 	}
+	
 	/**
 	 * Should be called when a user clicks on the book button. The method sends information to
 	 * homewindow.
 	 */
 	protected void book() {
 		homeWindow.onBookButtonClicked(startText.getText(),endText.getText(),typeCombo.getSelectedItem());
-
 	}
 
 	/**
@@ -124,10 +124,9 @@ public class ReservationPane extends JPanel {
 		// make changeReservationPanel
 		JPanel changeReservationPanel = new JPanel();
 		changeReservationPanel.setLayout(new BoxLayout(changeReservationPanel, BoxLayout.Y_AXIS));
-//		changeReservationPanel.setLayout(new GridLayout(0,2));
+		changeReservationPanel.setMaximumSize(changeReservationPanel.getPreferredSize());
 		changeReservationPanel.setBorder(new TitledBorder("Change Reservation"));
 		add(changeReservationPanel);
-		
 
 		JLabel resnrLabel = new JLabel("Reservation nr.");
 		changeReservationPanel.add(resnrLabel);
@@ -159,15 +158,13 @@ public class ReservationPane extends JPanel {
 				search();
 			}
 		});
-
 	}
 
-	/*
-	 * Should be called when a user clicks the serach button. The method sends the reservation
+	/**
+	 * Should be called when a user clicks the search button. The method sends the reservation
 	 * number to the homeWindow
 	 */
 	protected void search() {
 		homeWindow.onSearchButtonClicked(resnrText.getText());
 	}
-
 }
