@@ -227,13 +227,13 @@ public class ReservationGUI extends JPanel {
 		reservationTextPanel.add(startText);
 		if (start != null)
 			startText.setText("" + start);
-		else startText.setText("dd-mm-yyyy");
+		else startText.setText("ddmmyyyy");
 
 		endText = new JTextField();
 		reservationTextPanel.add(endText);
 		if (end != null)
 			endText.setText("" + end);
-		else endText.setText("dd-mm-yyyy");
+		else endText.setText("ddmmyyyy");
 
 		VehicleClassController vcc = new VehicleClassController();
 		try {

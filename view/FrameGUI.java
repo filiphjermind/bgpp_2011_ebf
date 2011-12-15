@@ -56,6 +56,15 @@ public class FrameGUI {
 	/**
 	 * Creates the frame for the booking system
 	 */
+
+	/*public FrameGUI() throws Exception
+	public FrameGUI() throws Exception
+	{	
+		
+		AllVehiclesGUI allVehiclesGUI = new AllVehiclesGUI(this);
+		SVGUI svGui = new SVGUI("Something");
+	}*/
+
 	public FrameGUI() throws Exception {
 
 		// Create the frame, and tabbed pane for the skeleton.
@@ -164,6 +173,16 @@ public class FrameGUI {
 		});
 		fileMenu.add(newReservationItem);
 		
+
+		JMenuItem exampleVehicle = new JMenuItem("Example Vehicle");
+		exampleVehicle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//exampleVehicle();
+			}
+		});
+		fileMenu.add(exampleVehicle);
+
+
 		JMenuItem printItem = new JMenuItem("Print");
 		printItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
