@@ -18,8 +18,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import sun.org.mozilla.javascript.internal.Undefined;
-
 public class TestingReservationDB {
 
 	private static ReservationDB reservationDB;
