@@ -1,8 +1,10 @@
 package test.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
 
-import java.awt.SystemTray;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -12,13 +14,9 @@ import model.ReservationDB;
 import model.ReservationData;
 import model.VehicleDATA;
 
-import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import sun.org.mozilla.javascript.internal.Undefined;
 
 public class TestingReservationDB {
 
