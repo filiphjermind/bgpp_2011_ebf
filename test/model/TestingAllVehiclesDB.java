@@ -52,11 +52,7 @@ public class TestingAllVehiclesDB {
 	private void testGetSelectedVehicles() {
 		try {
 			Object[] licenseNumbers = allVehiclesDB.getSelectedVehicles("Van");
-			int i=0;
-			for (Object object : licenseNumbers) {
-				i++;
-			}
-			assertEquals(2, i);
+			assertEquals(2,licenseNumbers.length);
 		} catch (Exception e) {
 		}
 	}

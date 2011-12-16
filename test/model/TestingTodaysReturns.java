@@ -1,13 +1,12 @@
 package test.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.ResultSet;
 import java.util.GregorianCalendar;
 
 import model.ReservationDB;
 import model.ReservationData;
-import model.TodaysReservationsDB;
 import model.TodaysReturnsDB;
 
 import org.junit.After;
